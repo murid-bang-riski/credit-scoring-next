@@ -4,15 +4,15 @@ import Link from 'next/link';
 
 export const Button: FC<IButtonProps> = ({
   children,
-  loading,
+  // loading,
   href,
-  disabled,
+  // disabled,
   ...props
 }): ReactElement => {
-  if (href && !disabled) {
+  if (href) {
     <Link href={href}>
-      <button {...props}>{loading ? loading : children}</button>
+      <button {...props}>{children}</button>
     </Link>;
   }
-  return <button {...props}>{loading ? loading : children}</button>;
+  return <button {...props}>{children}</button>;
 };
