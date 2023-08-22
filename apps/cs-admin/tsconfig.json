@@ -3,7 +3,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@cs-admin/components": ["components/index.ts"]
+      "@components": ["components/index.ts"],
+      "@utils": ["utils/index.ts"]
     },
     "jsx": "preserve",
     "allowJs": true,
