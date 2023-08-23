@@ -13,7 +13,7 @@ const Sidebar: FC = (): ReactElement => {
   const DataSidebar = [
     {
       title: 'Permintaan Kuota',
-      path: '/admin/quota-request',
+      path: '/admin',
       icon: <IconQuotaAdmin />,
     },
     {

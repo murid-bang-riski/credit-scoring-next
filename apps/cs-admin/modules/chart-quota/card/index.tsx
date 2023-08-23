@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 
-import { Button } from "components/button";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { FC, ReactElement } from "react";
 import { TCardProps } from "./type";

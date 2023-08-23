@@ -1,9 +1,20 @@
-import React, { FC } from 'react';
+import { FC, ReactElement } from "react";
+import { IButtonProps } from "./types";
+import Link from "next/link";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
-}
-
-export const Button: FC<ButtonProps> = ({ children, ...props }) => {
-  return <button {...props}>{children} </button>;
+export const Button: FC<IButtonProps> = ({
+  children,
+  loading,
+  href,
+  disabled,
+  ...props
+}): ReactElement => {
+  if (href && !disabled) {
+    return (
+      <Link href={href}>
+        <button {...props}>{loading ? loading : children}</button>
+      </Link>
+    );
+  }
+  return <button {...props}>{loading ? loading : children}</button>;
 };

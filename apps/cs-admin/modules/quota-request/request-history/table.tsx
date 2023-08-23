@@ -8,10 +8,10 @@ import {
   IconClock,
   IconClose,
   IconWarning,
-} from 'apps/cs-admin/components';
+} from '@components';
 import DataTable, { TableColumn } from 'react-data-table-component';
 import { TQuotaItem } from '../types';
-import { formatDate } from 'apps/cs-admin/utils';
+import { formatDate } from '@utils';
 import { Dialog, Transition } from '@headlessui/react';
 
 const Table: FC = (): ReactElement => {

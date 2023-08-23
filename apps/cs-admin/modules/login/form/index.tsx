@@ -27,7 +27,7 @@ const FormLogin: FC = (): ReactElement => {
     },
     {
       id: 2,
-      email: "zulham@gmail.com",
+      email: "fatih@gmail.com",
       password: "123456",
     },
   ];
@@ -108,7 +108,7 @@ const FormLogin: FC = (): ReactElement => {
         showConfirmButton: false,
         timer: 1500,
       }).then(() => {
-        router.push("/admin/chart-quota");
+        router.push("/admin");
       });
     }
   });

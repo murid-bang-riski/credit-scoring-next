@@ -1,26 +1,12 @@
-import {
-  FC,
-  Fragment,
-  ReactElement,
-  useState,
-  Suspense,
-  useEffect,
-} from 'react';
-import { Dialog, Disclosure, Tab, Transition } from '@headlessui/react';
-import { useQueryParams } from '../common/hooks';
-import {
-  Button,
-  IconArrow,
-  IconClose,
-  IconFilter,
-} from 'apps/cs-admin/components/ui';
-import { CardCS, Search } from 'apps/cs-admin/components';
-import RequestQuotaTab from './request-quota';
-import RequestHistoryTab from './request-history';
-import { useRouter } from 'next/navigation';
+import { Button, CardCS, IconArrow, IconClose, IconFilter, Search } from "@components";
+import { Dialog, Disclosure, Tab, Transition } from "@headlessui/react";
+import { useRouter } from "next/navigation";
+import { FC, Fragment, ReactElement, Suspense, useState } from "react";
+import RequestHistoryTab from "./request-history";
+import RequestQuotaTab from "./request-quota";
 
 const RequestQuota: FC = (): ReactElement => {
-  const [active, setActive] = useState('permintaan');
+  const [active, setActive] = useState("permintaan");
   // const query = useQueryParams();
   // console.log(query.get('tab'));
   const router = useRouter();
@@ -60,14 +46,12 @@ const RequestQuota: FC = (): ReactElement => {
                     <button>
                       <div
                         className={`inline-block p-2 ${
-                          active === 'permintaan'
-                            ? 'text-neutral-800 bg-white rounded-lg'
-                            : ''
+                          active === "permintaan" ? "text-neutral-800 bg-white rounded-lg" : ""
                         }       text-neutral-400 text-xs md:text-base px-4 py-2`}
                         aria-current="page"
                         onClick={() => {
-                          router.push('/admin/quota-request?tab=permintaan');
-                          setActive('permintaan');
+                          router.push("/admin/quota-request?tab=permintaan");
+                          setActive("permintaan");
                         }}
                       >
                         Permintaan Kuota
@@ -78,14 +62,12 @@ const RequestQuota: FC = (): ReactElement => {
                     <button>
                       <div
                         className={`inline-block p-2 ${
-                          active === 'riwayat'
-                            ? 'text-neutral-800 bg-white rounded-lg'
-                            : ''
+                          active === "riwayat" ? "text-neutral-800 bg-white rounded-lg" : ""
                         }       text-neutral-400 text-xs md:text-base px-4 py-2`}
                         aria-current="page"
                         onClick={() => {
-                          router.push('/admin/quota-request?tab=riwayat');
-                          setActive('riwayat');
+                          router.push("/admin/quota-request?tab=riwayat");
+                          setActive("riwayat");
                         }}
                       >
                         Riwayat Permintaan Kuota
@@ -113,10 +95,10 @@ const RequestQuota: FC = (): ReactElement => {
               {/* content */}
               <Tab.Panels>
                 <Suspense fallback="loading ...">
-                  {active === 'permintaan' && <RequestQuotaTab />}
+                  {active === "permintaan" && <RequestQuotaTab />}
                 </Suspense>
                 <Suspense fallback="loading ...">
-                  {active === 'riwayat' && <RequestHistoryTab />}
+                  {active === "riwayat" && <RequestHistoryTab />}
                 </Suspense>
               </Tab.Panels>
             </div>
@@ -150,17 +132,12 @@ const RequestQuota: FC = (): ReactElement => {
                       <Dialog.Panel className="space-y-[9px] w-full max-w-[312px] transform overflow-hidden rounded-[4px] bg-white py-3 text-left align-middle shadow-xl transition-all">
                         <Dialog.Title className=" border-neutral-400 flex flex-col items-center">
                           <div className="flex w-full justify-end px-3">
-                            <div
-                              onClick={closeModal}
-                              className="hover:cursor-pointer "
-                            >
+                            <div onClick={closeModal} className="hover:cursor-pointer ">
                               <IconClose />
                             </div>
                           </div>
                           <div className="flex flex-row w-full justify-between pt-3 px-9">
-                            <div className="font-bold text-base text-black">
-                              Filters
-                            </div>
+                            <div className="font-bold text-base text-black">Filters</div>
                             <div className="text-secondary-blue-400 font-semibold text-sm">
                               Clear All
                             </div>
@@ -173,7 +150,7 @@ const RequestQuota: FC = (): ReactElement => {
                                 <span>Jenis Produk</span>
                                 <div
                                   className={`${
-                                    open ? 'rotate-180 transform' : ''
+                                    open ? "rotate-180 transform" : ""
                                   } h-5 w-5 flex items-center p-1`}
                                 >
                                   <IconArrow />
@@ -188,9 +165,7 @@ const RequestQuota: FC = (): ReactElement => {
                                         value=""
                                         className="w-6 h-6  text-primary-400 border-1 bg-primary-400 border-primary-400 "
                                       />
-                                      <label className="w-full">
-                                        AI Identitiy Scoring
-                                      </label>
+                                      <label className="w-full">AI Identitiy Scoring</label>
                                     </div>
                                   </li>
                                   <li>
@@ -200,9 +175,7 @@ const RequestQuota: FC = (): ReactElement => {
                                         value=""
                                         className="w-6 h-6  text-primary-400 border-1 bg-primary-400 border-primary-400 "
                                       />
-                                      <label className="w-full">
-                                        AI Identitiy Scoring
-                                      </label>
+                                      <label className="w-full">AI Identitiy Scoring</label>
                                     </div>
                                   </li>
                                   <li>
@@ -212,9 +185,7 @@ const RequestQuota: FC = (): ReactElement => {
                                         value=""
                                         className="w-6 h-6  text-primary-400 border-1 bg-primary-400 border-primary-400 "
                                       />
-                                      <label className="w-full">
-                                        AI Identitiy Scoring
-                                      </label>
+                                      <label className="w-full">AI Identitiy Scoring</label>
                                     </div>
                                   </li>
                                 </ul>
@@ -229,7 +200,7 @@ const RequestQuota: FC = (): ReactElement => {
                                 <span>Status Pembayaran</span>
                                 <div
                                   className={`${
-                                    open ? 'rotate-180 transform' : ''
+                                    open ? "rotate-180 transform" : ""
                                   } h-5 w-5 flex items-center p-1`}
                                 >
                                   <IconArrow />
@@ -269,7 +240,7 @@ const RequestQuota: FC = (): ReactElement => {
                                 <span>Jumlah Kuota</span>
                                 <div
                                   className={`${
-                                    open ? 'rotate-180 transform' : ''
+                                    open ? "rotate-180 transform" : ""
                                   } h-5 w-5 flex items-center p-1`}
                                 >
                                   <IconArrow />
