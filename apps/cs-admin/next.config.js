@@ -13,6 +13,10 @@ const nextConfig = {
     svgr: false,
   },
   
+  reactStrictMode: false,
+  compiler: {
+    styledComponents: true,
+  },
 };
 
 const plugins = [

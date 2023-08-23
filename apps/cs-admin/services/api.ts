@@ -3,7 +3,7 @@ import type { AxiosRequestConfig } from "axios";
 import TokenService from "./token";
 
 const config: AxiosRequestConfig = {
-  baseURL: `import.meta.env.VITE_API_URL`,
+  baseURL: "import.meta.env.VITE_API_URL",
 };
 
 const api = axios.create(config);
