@@ -7,14 +7,9 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@nx/next": "16.7.0",
-    "@radix-ui/react-slot": "^1.0.2",
     "@types/react-date-range": "^1.4.4",
-    "add": "^2.0.6",
     "axios": "^1.4.0",
-    "button": "^1.1.1",
-    "class-variance-authority": "^0.7.0",
     "date-fns": "^2.30.0",
-    "init": "^0.1.2",
     "next": "13.4.1",
     "react": "18.2.0",
     "react-data-table-component": "^7.5.3",
@@ -22,9 +17,7 @@
     "react-dom": "18.2.0",
     "react-router-dom": "^6.15.0",
     "recoil": "^0.7.7",
-    "shadcn-ui": "^0.3.0",
     "styled-components": "^6.0.7",
-    "tailwind-merge": "^1.14.0",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
