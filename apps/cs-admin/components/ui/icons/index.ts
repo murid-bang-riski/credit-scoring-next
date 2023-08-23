@@ -28,3 +28,5 @@ export * from "./ic-filter";
 export * from "./ic-clock";
 export * from "./ic-close";
 export * from "./ic-arrow";
+export * from "./ic-eye-close";
+export * from "./ic-eye-open"
