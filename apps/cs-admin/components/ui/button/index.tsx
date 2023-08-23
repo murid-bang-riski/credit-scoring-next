@@ -4,8 +4,6 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
 
-const Button: FC<ButtonProps> = ({ children, ...props }) => {
+export const Button: FC<ButtonProps> = ({ children, ...props }) => {
   return <button {...props}>{children} </button>;
 };
-
-export default Button;

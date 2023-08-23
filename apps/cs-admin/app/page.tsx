@@ -1,4 +1,3 @@
-import Button from './components/button';
 
 export default async function Index() {
   /*
@@ -7,9 +6,8 @@ export default async function Index() {
    * Note: The corresponding styles are in the ./index.css file.
    */
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-red-500">
-      <h1>Hello World</h1>
-      <Button className="border-2 mt-2 rounded-lg p-2">Click me</Button>
+    <div className="min-h-screen flex flex-col justify-center items-center bg-sky-600 text-white">
+      <h1 className="text-4xl font-bold font-mono">Credit Scoring</h1>
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import { RecoilRoot } from 'recoil';
 import './global.css';
 
 export const metadata = {
