@@ -4,7 +4,8 @@
     "baseUrl": ".",
     "paths": {
       "@components": ["components/index.ts"],
-      "@utils": ["utils/index.ts"]
+      "@utils": ["utils/index.ts"],
+      "@/*": ["./*"]
     },
     "jsx": "preserve",
     "allowJs": true,
@@ -21,10 +22,7 @@
         "name": "next"
       }
     ],
-    "types": ["jest", "node"],
-    "paths": {
-      "@/*": ["./*"]
-    }
+    "types": ["jest", "node"]
   },
   "include": [
     "**/*.ts",
