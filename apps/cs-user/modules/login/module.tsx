@@ -21,8 +21,8 @@ export const LoginModule = () => {
       <Image
         src={'./assets/auth/asset3.svg'}
         alt="variasi"
-        width={400}
-        height={400}
+        width={700}
+        height={700}
         className="items-end absolute bottom-0 lg:mx-40 "
       />
 

@@ -1,16 +1,14 @@
 'use client';
 import Link from 'next/link';
-import { Button } from '../../../components/Button';
-import { TextField } from '../../../components/Input/text';
-import { Checkbox } from '../../../components/Input/checkbox';
+import { Button, TextField, Checkbox } from '@cs-user/components';
 import { FC, ReactElement, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
 export const LoginForm: FC = (): ReactElement => {
-  //   const router = useRouter();
+  const router = useRouter();
   const validationSchema = z.object({
     email: z
       .string()
@@ -41,13 +39,14 @@ export const LoginForm: FC = (): ReactElement => {
     }, 3000);
   }, [getError]);
 
-  // const onSubmit = handleSubmit((data) => {
-  //     mutate
-  // })
+  const onSubmit = handleSubmit((data) => {
+    console.log('submit');
+    router.push('/dashboard/home');
+  });
 
   return (
     <form
-      // onSubmit={onSubmit}
+      onSubmit={onSubmit}
       className="bg-white items-center justify-center px-8 py-12 shadow-gray-300 shadow-lg lg:w-[512px] w-[400px] h-auto rounded-sm overflow-hidden"
     >
       <div className="space-y-5">
