@@ -4,6 +4,9 @@ import { HistoryCardCarousel } from './history-card-carousel';
 import { ChartCard } from './chart-card';
 import { RequestChart } from './request-chart';
 import { ScoreChart } from './score-chart';
+import { LocationMapChart } from './location-chart';
+import { AgeChart } from './age-chart';
+import { SalaryChart } from './salary-chart';
 
 export const HomeModule = () => {
   return (
@@ -12,6 +15,9 @@ export const HomeModule = () => {
       <div className="grid lg:grid-cols-2 gap-4">
         <ChartCard title="RIWAYAT PERMINTAAN" chart={<RequestChart />} />
         <ChartCard title="RIWAYAT NILAI SKOR" chart={<ScoreChart />} />
+        <ChartCard title="TRACK USIA" chart={<AgeChart />} />
+        <ChartCard title="TRACK LOKASI" chart={<LocationMapChart />} />
+        <ChartCard title="TRACK PENDAPATAN" chart={<SalaryChart />} />
       </div>
     </>
   );

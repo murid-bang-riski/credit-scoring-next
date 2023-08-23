@@ -32,7 +32,36 @@ export const ScoreChart: FC = (): ReactElement => {
   const options = {
     cutout: '70%',
     radius: '90%',
+    responsive: true,
   };
 
-  return <Doughnut data={data} options={options} />;
+  return (
+    <div className="grid grid-cols-2 items-center">
+      <div className="">
+        <Doughnut data={data} options={options} />
+      </div>
+      <div className="w-full py-14">
+        <div className="flex gap-3 my-2">
+          <div className="bg-[#13837B] rounded-full w-5 h-5"></div>y
+          <p className="text-xs">A (Sangat Baik)</p>
+        </div>
+        <div className="flex gap-3 my-2">
+          <div className="bg-primary-base rounded-full w-5 h-5"></div>
+          <p className="text-xs">B (Baik)</p>
+        </div>
+        <div className="flex gap-3 my-2">
+          <div className="bg-[#FDE68A] rounded-full w-5 h-5"></div>
+          <p className="text-xs">C (Cukup Baik)</p>
+        </div>
+        <div className="flex gap-3 my-2">
+          <div className="bg-[#E7AF52] rounded-full w-5 h-5"></div>
+          <p className="text-xs">D (Buruk)</p>
+        </div>
+        <div className="flex gap-3 my-2">
+          <div className="bg-[#897CC0] rounded-full w-5 h-5"></div>
+          <p className="text-xs">E (Sangat Buruk)</p>
+        </div>
+      </div>
+    </div>
+  );
 };
