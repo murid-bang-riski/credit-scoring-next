@@ -42,7 +42,7 @@ export const ScoreChart: FC = (): ReactElement => {
       </div>
       <div className="w-full py-14">
         <div className="flex gap-3 my-2">
-          <div className="bg-[#13837B] rounded-full w-5 h-5"></div>y
+          <div className="bg-[#13837B] rounded-full w-5 h-5"></div>
           <p className="text-xs">A (Sangat Baik)</p>
         </div>
         <div className="flex gap-3 my-2">
