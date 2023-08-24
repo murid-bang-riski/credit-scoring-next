@@ -5,12 +5,12 @@ import { usePathname } from 'next/navigation';
 import { SidebarProps } from './types';
 import { TbLogout } from 'react-icons/tb';
 import Link from 'next/link'; // For handling internal links
+import Image from 'next/image';
 
 const Sidebar: FC<SidebarProps> = ({ name, avatar }): ReactElement => {
   const router = usePathname();
   const [hoveredIndex, setHoveredIndex] = useState(-1);
   const [hoveredSvg, setHoveredSvg] = useState(false);
-  console.log(router);
   const DataSidebar = [
     {
       title: 'Dashboard',
@@ -69,11 +69,10 @@ const Sidebar: FC<SidebarProps> = ({ name, avatar }): ReactElement => {
       >
         <div className="h-full px-3 py-4 text-black bg-white flex justify-between flex-col">
           <div>
-            <img
-              src={'/assets/auth/logo.svg'}
-              alt="logo"
-              className="w-[200px] h-auto p-6"
-            />
+            <div className="w-[200px] p-6 top-0">
+              <Image src={'/assets/auth/logo.svg'} alt="logo" fill />
+            </div>
+
             <div className="pt-4 font-medium w-full border-[#F5F5F5] ">
               <div className="flex border-b-2 rounded-md cursor-pointer gap-2 px-2 pt-6 pb-6 items-center">
                 <div className=" rounded-full border-primary-base border-2 items-center flex">
@@ -89,7 +88,7 @@ const Sidebar: FC<SidebarProps> = ({ name, avatar }): ReactElement => {
               </div>
 
               {DataSidebar.map((x, i) => {
-                const isActive = router === x.path; // Check if the link is active   const isActive = router === x.path;
+                const isActive = router === x.path;
                 const isHovered = hoveredIndex === i;
                 return (
                   <div key={i} className="my-4">
@@ -100,7 +99,7 @@ const Sidebar: FC<SidebarProps> = ({ name, avatar }): ReactElement => {
                         onMouseLeave={() => setHoveredIndex(-1)}
                       >
                         <span className="p-1">
-                          <img
+                          <Image
                             style={{
                               filter:
                                 isActive || isHovered
