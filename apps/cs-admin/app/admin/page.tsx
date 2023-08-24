@@ -1,5 +1,4 @@
 "use client";
-
 import RequestQuota from "@/modules/quota-request";
 import { Suspense } from "react";
 import { RecoilRoot } from "recoil";

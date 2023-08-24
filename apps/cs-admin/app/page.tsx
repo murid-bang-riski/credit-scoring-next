@@ -1,11 +1,9 @@
 "use client";
-import LoginModule from "../modules/login";
+import LoginModule from "@/modules/login";
 import { FC, ReactElement } from "react";
 
 const LoginPage: FC = (): ReactElement => {
-
-  return <LoginModule />
-
+  return <LoginModule />;
 };
 
 export default LoginPage;

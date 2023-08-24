@@ -30,3 +30,4 @@ export * from "./ic-close";
 export * from "./ic-arrow";
 export * from "./ic-eye-close";
 export * from "./ic-eye-open"
+export * from "./ic-warehouse"
