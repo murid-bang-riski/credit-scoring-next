@@ -1,10 +1,10 @@
 'use client';
 import { FC, ReactElement, Fragment, useState } from 'react';
-// import Avatar from "react-avatar";
+import Avatar from 'react-avatar';
 import { usePathname } from 'next/navigation';
 import { SidebarProps } from './types';
 import { TbLogout } from 'react-icons/tb';
-import Link from 'next/link'; // For handling internal links
+import Link from 'next/link';
 import Image from 'next/image';
 
 const Sidebar: FC<SidebarProps> = ({ name, avatar }): ReactElement => {
@@ -69,18 +69,18 @@ const Sidebar: FC<SidebarProps> = ({ name, avatar }): ReactElement => {
       >
         <div className="h-full px-3 py-4 text-black bg-white flex justify-between flex-col">
           <div>
-            <div className="w-[200px] p-6 top-0">
+            <div className="w-[200px] h-fit p-6 top-0 relative">
               <Image src={'/assets/auth/logo.svg'} alt="logo" fill />
             </div>
 
             <div className="pt-4 font-medium w-full border-[#F5F5F5] ">
               <div className="flex border-b-2 rounded-md cursor-pointer gap-2 px-2 pt-6 pb-6 items-center">
                 <div className=" rounded-full border-primary-base border-2 items-center flex">
-                  {/* <Avatar
-                  name={avatar}
-                  className="rounded-full w-[36px] h-[36px]"
-                  size="36"
-                /> */}
+                  <Avatar
+                    name={avatar}
+                    className="rounded-full w-[36px] h-[36px]"
+                    size="36"
+                  />
                 </div>
                 <div className="font-semibold text-sm text-neutral-500">
                   {name}

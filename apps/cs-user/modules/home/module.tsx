@@ -4,9 +4,14 @@ import { HistoryCardCarousel } from './history-card-carousel';
 import { ChartCard } from './chart-card';
 import { RequestChart } from './request-chart';
 import { ScoreChart } from './score-chart';
-import { LocationMapChart } from './location-chart';
+// import { LocationMapChart } from './location-chart';
 import { AgeChart } from './age-chart';
 import { SalaryChart } from './salary-chart';
+import dynamic from 'next/dynamic';
+
+const LocationMapChart = dynamic(() => import('./location-chart'), {
+  ssr: false,
+});
 
 export const HomeModule = () => {
   return (
