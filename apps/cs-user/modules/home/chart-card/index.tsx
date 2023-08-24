@@ -10,7 +10,7 @@ export const ChartCard: FC<TChartCard> = ({ title, chart }): ReactElement => {
         <ChartFilter />
         <DropDownDashboard />
       </div>
-      {chart}
+      <div className="px-4">{chart}</div>
     </section>
   );
 };

@@ -3,6 +3,5 @@ import { NextPage } from 'next';
 // import '../app/api/';
 
 export default async function Index() {
-  // return <LoginModule />;
   return <LoginModule />;
 }

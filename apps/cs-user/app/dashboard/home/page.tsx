@@ -3,7 +3,7 @@ import { HomeModule } from '../../../modules';
 import { NextPage } from 'next';
 import { RecoilRoot } from 'recoil';
 
-const LoginPages: NextPage = () => {
+const HomePages: NextPage = () => {
   return (
     <RecoilRoot>
       <HomeModule />
@@ -11,4 +11,4 @@ const LoginPages: NextPage = () => {
   );
 };
 
-export default LoginPages;
+export default HomePages;
