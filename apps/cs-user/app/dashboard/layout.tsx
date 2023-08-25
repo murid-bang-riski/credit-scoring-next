@@ -17,7 +17,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <Sidebar name="adoakdo" avatar="awodao" />
           </Suspense>
         </div>
-        <div className="overflow-y-scroll px-5">
+        <div className="w-full overflow-y-scroll px-5">
           <Suspense fallback="loading">{children}</Suspense>
         </div>
       </div>
