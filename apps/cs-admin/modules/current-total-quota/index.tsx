@@ -1,22 +1,19 @@
 "use client";
-import { IconArrow, IconWarehouse } from "@components";
-import Link from "next/link";
+import { Button, IconBack, IconWarehouse } from "@components";
 import { FC, ReactElement } from "react";
 import TabComponent from "./tab";
 
 const CurrentTotalQuotaModule: FC = (): ReactElement => {
   return (
     <>
-      <Link
+      <Button
+        type="button"
         href="/admin/chart-quota"
         className="flex flex-row items-center gap-[10px]"
-        as="/admin/chart-quota"
       >
-        <span className="rotate">
-          <IconArrow color="#A3A3A3" />
-        </span>
+        <IconBack />
         <p className="text-primary-400 font-bold">Kembali</p>
-      </Link>
+      </Button>
       <section className="mt-[26px] ml-9">
         <span className="flex items-center gap-3 text-2xl font-semibold">
           <IconWarehouse />

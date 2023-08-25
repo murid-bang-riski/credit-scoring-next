@@ -6,13 +6,14 @@ import Image from "next/image";
 
 const ChartQuotaModules: FC = (): ReactElement => {
   return (
-    <section className="grid grid-cols-3 gap-8 mx-4">
+    <section className="grid grid-cols-3 gap-8 mx-4 pt-5">
       {dummy.map((item) => (
         <CardCS
           key={item.id}
           hasButton={true}
           buttonText="Lihat Semua"
           buttonHref={item.link}
+          as={item.link}
           buttonClassName={`flex mb-2 py-2 justify-center rounded-md font-bold  items-end my-2 ${item.classButton} w-full shadow-lg `}
           className="w-full m-3 min-h-[171px] absolute shadow-md px-4"
         >

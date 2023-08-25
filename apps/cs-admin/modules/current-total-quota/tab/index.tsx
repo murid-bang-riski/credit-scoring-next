@@ -1,3 +1,4 @@
+"use client";
 import { Tab } from "@headlessui/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FC, Suspense, useEffect, useState } from "react";
@@ -9,15 +10,16 @@ const TabComponent: FC = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const tab = query.get("tab");
-    if (tab) {
-      setActive(tab);
+    if (query.get("tab") === "jumlah-kuota") {
+      setActive("jumlah-kuota");
+    } else if (query.get("tab") === "pemakaian-kuota") {
+      setActive("pemakaian-kuota");
     }
   }, [query]);
 
   return (
     <Tab.Group>
-      <Tab.List className="mt-2 flex flex-row w-fit h-fit gap lg:gap-x-3 md:gap-x-2 text-base font-semibold rounded-lg bg-neutral-100 px-4 py-2">
+      <Tab.List className="mt-4 flex flex-row w-fit h-fit gap lg:gap-x-3 md:gap-x-2 text-base font-semibold rounded-lg bg-neutral-100 px-4 py-2">
         <Tab
           className={`inline-block p-2 ${
             active === "jumlah-kuota" ? "text-neutral-800 bg-white rounded-lg" : null
@@ -43,7 +45,7 @@ const TabComponent: FC = () => {
           Detail Pemakaian Kuota Cabang
         </Tab>
       </Tab.List>
-      <Tab.Panels>
+      <Tab.Panels className="mt-6">
         <Tab.Panel>
           <Suspense fallback={"loading..."}>
             {active === "jumlah-kuota" && <JumlahKuota />}
