@@ -21,7 +21,7 @@ export default function DashboardLayout({
           <Sidebar name="adoakdo" avatar="awodao" />
         </Suspense>
       </div>
-      <div className="overflow-y-scroll px-5 min-w-full">
+      <div className="overflow-y-scroll px-5 w-full">
         <Suspense fallback="loading">{children}</Suspense>
       </div>
     </div>
