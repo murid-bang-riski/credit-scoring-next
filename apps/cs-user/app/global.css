@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.alice-carousel__stage-item * {
+    line-height: initial;
+    width: 100% !important; /* atau jika menggunakan Tailwind CSS: w-full; */
+}
+
+.w-corousel{
+    width: 70px !important;
+}
+
+.css-162r5ic {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    border-bottom: 0px !important;
+    border-color: none !important;
+  }
+
+
+  .css-1ujnqem-MuiTabs-root {
+    box-shadow: 20px 20px 200px rgba(0, 0, 0, 0.1);
+   }
+   
+  .css-ahj2mt-MuiTypography-root{
+    height: auto!important;
+  }
+  
+  .css-1aquho2-MuiTabs-indicator{
+    background-color: #4AC1A2!important;
+   
+}
+
+.css-1a4cg4j-MuiButtonBase-root-MuiTab-root.Mui-selected {
+  color:#4AC1A2!important;
+}

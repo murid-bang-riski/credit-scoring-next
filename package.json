@@ -5,8 +5,11 @@
   "scripts": {},
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.17",
     "@hookform/resolvers": "^3.2.0",
+    "@mui/material": "^5.14.6",
     "@nx/next": "16.7.0",
     "@tanstack/react-query": "^4.33.0",
     "@types/leaflet": "^1.9.3",
