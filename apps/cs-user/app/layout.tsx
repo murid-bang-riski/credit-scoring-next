@@ -1,4 +1,6 @@
+'use client';
 import './global.css';
+import { RecoilRoot } from 'recoil';
 
 export const metadata = {
   title: 'Welcome to cs-user',
@@ -11,10 +13,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-
-        
     <html lang="en">
-      <body>{children}</body>
+      <RecoilRoot>
+        <body>{children}</body>
+      </RecoilRoot>
     </html>
   );
 }
