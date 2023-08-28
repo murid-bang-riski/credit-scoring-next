@@ -19,11 +19,11 @@ const TabComponent: FC = () => {
 
   return (
     <Tab.Group>
-      <Tab.List className="mt-4 flex flex-row w-fit h-fit gap lg:gap-x-3 md:gap-x-2 text-base font-semibold rounded-lg bg-neutral-100 px-4 py-2">
+      <Tab.List className="mt-4 flex flex-row w-fit h-fit gap lg:gap-x-3 md:gap-x-2 text-base font-semibold rounded-lg bg-neutral-100 px-3 py-2">
         <Tab
           className={`inline-block p-2 ${
             active === "jumlah-kuota" ? "text-neutral-800 bg-white rounded-lg" : null
-          } text-neutral-400 text-xs md:text-base px-4 py-2`}
+          } text-neutral-400 text-xs md:text-base`}
           aria-current="page"
           onClick={() => {
             setActive("jumlah-kuota");
@@ -35,7 +35,7 @@ const TabComponent: FC = () => {
         <Tab
           className={`inline-block p-2 ${
             active === "pemakaian-kuota" ? "text-neutral-800 bg-white rounded-lg" : null
-          } text-neutral-400 text-xs md:text-base px-4 py-2`}
+          } text-neutral-400 text-xs md:text-base`}
           aria-current="page"
           onClick={() => {
             setActive("pemakaian-kuota");

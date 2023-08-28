@@ -26,9 +26,11 @@ export const CardCS: FC<TCardProps> = ({
         className={`${className} relative flex auto flex-col cursor-default rounded bg-white`}
         onClick={onClick}
       >
-        <div className={titleStyle}>
-          <h1>{title}</h1>
-        </div>
+        {title && (
+          <div className={titleStyle}>
+            <h1>{title}</h1>
+          </div>
+        )}
         <div className="flex flex-col w-full h-full">
           <div className="flex w-full ">{children}</div>
           <div className={bodyClassName}>
