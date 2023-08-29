@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const JumlahKuota: FC = () => {
   return (
-    <div className=" w-5/6 h-fit flex min-h-max border-2">
+    <div className=" w-full xl:w-5/6 h-fit flex min-h-max border-2">
       <section className="w-3/6 border-r-2">
         <span className="flex p-5 justify-between border-b-2">
           <p className="text-warning-base font-bold">AI Identity Scoring </p>

@@ -3,6 +3,7 @@ import { Tab } from "@headlessui/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FC, Suspense, useEffect, useState } from "react";
 import JumlahKuota from "./jumlah-kuota";
+import PemakaianKuota from "./pemakaian-kuota";
 
 const TabComponent: FC = () => {
   const [active, setActive] = useState("jumlah-kuota");
@@ -53,7 +54,7 @@ const TabComponent: FC = () => {
         </Tab.Panel>
         <Tab.Panel>
           <Suspense fallback={"loading..."}>
-            {active === "pemakaian-kuota" && <p>pemakaian kuota</p>}
+            {active === "pemakaian-kuota" && <PemakaianKuota />}
           </Suspense>
         </Tab.Panel>
       </Tab.Panels>
