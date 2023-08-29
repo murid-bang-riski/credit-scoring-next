@@ -7,6 +7,7 @@ export const Button: FC<IButtonProps> = ({
   loading,
   href,
   disabled,
+  onClick,
   ...props
 }): ReactElement => {
   if (href && !disabled) {
@@ -16,5 +17,10 @@ export const Button: FC<IButtonProps> = ({
       </Link>
     );
   }
-  return <button {...props}>{loading ? loading : children}</button>;
+  
+  return (
+    <button {...props} onClick={onClick} disabled={disabled}>
+      {loading ? loading : children}
+    </button>
+  );
 };

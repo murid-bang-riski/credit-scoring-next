@@ -1,17 +1,19 @@
+"use client";
+
 import { Button, CardCS, IconArrow, IconClose, IconFilter, Search } from "@components";
 import { Dialog, Disclosure, Tab, Transition } from "@headlessui/react";
-import { useRouter } from "next/navigation";
-import { FC, Fragment, ReactElement, Suspense, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { FC, Fragment, ReactElement, Suspense, useState, useEffect } from "react";
 import RequestHistoryTab from "./request-history";
 import RequestQuotaTab from "./request-quota";
+import { DateRangePickerComponent } from "@components";
 
 const RequestQuota: FC = (): ReactElement => {
-  const [active, setActive] = useState("permintaan");
-  // const query = useQueryParams();
-  // console.log(query.get('tab'));
+  const query = useSearchParams();
   const router = useRouter();
-  // const [isOption, setOption] = useState("");
+
   const [isFilterOpen, setFilterOpen] = useState(false);
+  const [active, setActive] = useState("permintaan");
 
   function closeModal() {
     setFilterOpen(false);
@@ -21,19 +23,17 @@ const RequestQuota: FC = (): ReactElement => {
     setFilterOpen(true);
   }
 
-  // useEffect(() => {
-  //   if (query.get('tab') === 'permintaan') {
-  //     setActive('permintaan');
-  //   }
-  //   if (query.get('tab') === 'riwayat') {
-  //     setActive('riwayat');
-  //   }
-  // }, []);
-  // const handleRangeChange = (data: any) => {
-  //   const startDate = new Date(data.startDate).toISOString();
-  //   const endDate = new Date(data.endDate).toISOString();
-  //   setOption((prev) => ({ ...prev, date_from: startDate, date_to: endDate }));
-  // };
+  useEffect(() => {
+    if (query.get("tab") === "permintaan") {
+      setActive("permintaan");
+    }
+    if (query.get("tab") === "riwayat") {
+      setActive("riwayat");
+    }
+  }, []);
+
+  const [search, setSearch] = useState("");
+
   return (
     <Suspense>
       <Tab.Group>
@@ -46,11 +46,13 @@ const RequestQuota: FC = (): ReactElement => {
                     <button>
                       <div
                         className={`inline-block p-2 ${
-                          active === "permintaan" ? "text-neutral-800 bg-white rounded-lg" : ""
+                          active === "permintaan"
+                            ? "text-neutral-800 bg-white rounded-lg active:border-none active:outline-none"
+                            : ""
                         }       text-neutral-400 text-xs md:text-base px-4 py-2`}
                         aria-current="page"
                         onClick={() => {
-                          router.push("/admin/quota-request?tab=permintaan");
+                          router.push("/admin?tab=permintaan");
                           setActive("permintaan");
                         }}
                       >
@@ -66,7 +68,7 @@ const RequestQuota: FC = (): ReactElement => {
                         }       text-neutral-400 text-xs md:text-base px-4 py-2`}
                         aria-current="page"
                         onClick={() => {
-                          router.push("/admin/quota-request?tab=riwayat");
+                          router.push("/admin?tab=riwayat");
                           setActive("riwayat");
                         }}
                       >
@@ -76,10 +78,10 @@ const RequestQuota: FC = (): ReactElement => {
                   </Tab>
                 </Tab.List>
                 <div className="flex flex-row items-center gap-x-3">
-                  {/* <DateRangePickerComponent
+                  <DateRangePickerComponent
                     onRangeChange={() => <>belum bang</>}
                     width="xl:w-[205px] w-[200px]"
-                  /> */}
+                  />
                   <div
                     onClick={openModal}
                     className="cursor-pointer flex items-center flex-row gap-x-3 border-2 border-neutral-300 rounded-md px-4 py-2 text-neutral-800 "
@@ -88,7 +90,11 @@ const RequestQuota: FC = (): ReactElement => {
                     <span className="font-semibold text-sm">Filter</span>
                   </div>
                   <div className="xl:w-[200px] w-full">
-                    <Search value="" placeholder="Search NIK & Nama" />
+                    <Search
+                      value={search}
+                      placeholder="Search NIK & Nama"
+                      onChange={(e) => setSearch(e.target.value)}
+                    />
                   </div>
                 </div>
               </div>

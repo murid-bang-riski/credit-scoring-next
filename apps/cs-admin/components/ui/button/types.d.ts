@@ -5,5 +5,6 @@ export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string;
   children: ReactNode;
   disabled?: boolean;
+  onClick?: () => void;
   type: "button" | "submit" | "reset";
 }

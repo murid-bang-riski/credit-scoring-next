@@ -8,6 +8,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-openSans)"],
+      },
       colors: {
         primary: {
           base: "#4AC1A2",
