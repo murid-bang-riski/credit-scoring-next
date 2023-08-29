@@ -1,40 +1,38 @@
-'use client';
+"use client";
 
-import { FC, ReactElement, Fragment, useState } from 'react';
-import {
-  IconGrafic,
-  IconLogout,
-  IconQuotaAdmin,
-  IconToggle,
-} from '../ui/icons';
-import Link from 'next/link';
+import { FC, ReactElement, Fragment, useState } from "react";
+import { IconGrafic, IconLogout, IconQuotaAdmin, IconToggle } from "../ui/icons";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Sidebar: FC = (): ReactElement => {
   const DataSidebar = [
     {
-      title: 'Permintaan Kuota',
-      path: '/admin',
+      title: "Permintaan Kuota",
+      path: "/admin",
       icon: <IconQuotaAdmin />,
     },
     {
-      title: 'Grafik Kuota',
-      path: '/admin/chart-quota',
+      title: "Grafik Kuota",
+      path: "/admin/chart-quota",
       icon: <IconGrafic />,
     },
     {
-      title: 'Keluar',
-      path: '/',
+      title: "Keluar",
+      path: "/",
       icon: <IconLogout />,
     },
   ];
   const activeLink =
-    'flex rounded-md cursor-pointer gap-2 p-2 items-center bg-white text-primary-600 shadow-md';
+    "flex rounded-md cursor-pointer gap-2 p-2 items-center bg-white text-primary-600 shadow-md";
   const normalLink =
-    'flex rounded-md cursor-pointer gap-2 p-2 items-center bg-add2 text-[#9E9E9E] hover:bg-neutral-300 hover:text-white';
+    "flex rounded-md cursor-pointer gap-2 p-2 items-center bg-add2 text-[#9E9E9E] hover:bg-neutral-300 hover:text-white";
   const [open, setOpen] = useState(true);
   const toggleSidebar = (): void => {
     setOpen(!open);
   };
+
+  const pathname = usePathname();
   return (
     <Fragment>
       <button
@@ -48,31 +46,20 @@ const Sidebar: FC = (): ReactElement => {
       <aside
         id="separator-sidebar"
         className={` ${
-          open ? '  -translate-x-full' : ' sm:translate-x-0 '
+          open ? "  -translate-x-full" : " sm:translate-x-0 "
         } absolute lg:relative top-0 left-0 z-50 lg:sm:translate-x-0 w-64 h-full transition-transform bg-add2 `}
         aria-label="Sidebar"
       >
         <div className="h-screen px-3 py-4  bg-add2 border-b">
           <div>
-            <img
-              src={'/logo.svg'}
-              alt="logo anjing"
-              className="w-[300px] h-auto p-6"
-            />
+            <img src={"/logo.svg"} alt="M-Knows Logo" className="w-[300px] h-auto p-6" />
           </div>
 
           <div className="pt-4 font-medium w-full border-neutral-100 ">
             {DataSidebar.map((x, i) => {
               return (
                 <div key={i} className="my-4">
-                  <Link
-                    href={x.path}
-                    className={
-                      x.path === '/admin/quota-request'
-                        ? activeLink
-                        : normalLink
-                    }
-                  >
+                  <Link href={x.path} className={x.path === pathname ? activeLink : normalLink}>
                     <span className="p-1">{x.icon}</span>
                     <span>{x.title}</span>
                   </Link>

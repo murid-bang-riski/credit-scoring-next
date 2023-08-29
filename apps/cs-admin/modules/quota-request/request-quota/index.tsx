@@ -1,11 +1,13 @@
-import { FC, ReactElement } from 'react';
-import Table from './table';
+import { FC, ReactElement, Suspense } from "react";
+import Table from "./table";
 
 const RequestQuotaTab: FC = (): ReactElement => {
   return (
-    <section className="py-10">
-      <Table />
-    </section>
+    <Suspense fallback="Loading...">
+      <section className="py-10">
+        <Table />
+      </section>
+    </Suspense>
   );
 };
 
