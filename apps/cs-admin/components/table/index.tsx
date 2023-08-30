@@ -11,9 +11,18 @@ import { useRouter, useSearchParams } from "next/navigation";
 interface ITableProps {
   data?: any;
   columns?: any;
+  pagination?: boolean;
+  thColor?: string;
+  tbColor?: string;
 }
 
-export const Table: FC<ITableProps> = ({ data, columns }): ReactElement => {
+export const TableComponent: FC<ITableProps> = ({
+  data,
+  columns,
+  pagination = true,
+  tbColor = "bg-gray-100",
+  thColor = "bg-primary-100",
+}): ReactElement => {
   const router = useRouter();
   const query = useSearchParams();
 
@@ -38,7 +47,7 @@ export const Table: FC<ITableProps> = ({ data, columns }): ReactElement => {
   return (
     <div className="p-2 text-xs">
       <table className="overflow-x-scroll text-center text-xs w-full">
-        <thead className="bg-primary-100">
+        <thead className={`${thColor}`}>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
@@ -56,7 +65,7 @@ export const Table: FC<ITableProps> = ({ data, columns }): ReactElement => {
             <tr
               key={row.id}
               className={`
-              ${i % 2 === 0 ? "bg-gray-100" : "bg-white"}
+              ${i % 2 !== 0 ? `${tbColor}` : "bg-white"}
             `}
             >
               {row.getVisibleCells().map((cell) => (
@@ -68,45 +77,49 @@ export const Table: FC<ITableProps> = ({ data, columns }): ReactElement => {
           ))}
         </tbody>
       </table>
-      <span className="flex items-center gap-1">
-        <p className="text-gray-400 font-bold">
-          Menampilkan {table.getRowModel().rows.length} dari {data.length} hasil
-        </p>
-      </span>
-      <div className="flex items-center gap-2 font-bold mt-4 justify-center">
-        <Button
-          className="border rounded px-3.5 py-3.5 text-primary-400 mr-9"
-          onClick={() => setPageTable(table.getState().pagination.pageIndex - 1)}
-          disabled={!table.getCanPreviousPage()}
-          type="button"
-        >
-          <IconBack disabled={!table.getCanPreviousPage()} />
-        </Button>
-        {table.getPageOptions().map((pageIndex) => (
-          <Button
-            key={pageIndex + 1}
-            className={`border rounded px-4 py-3 cursor-pointer 
+      {!!pagination && (
+        <>
+          <span className="flex items-center gap-1">
+            <p className="text-gray-400 font-bold">
+              Menampilkan {table.getRowModel().rows.length} dari {data.length} hasil
+            </p>
+          </span>
+          <div className="flex items-center gap-2 font-bold mt-4 justify-center">
+            <Button
+              className="border rounded px-3.5 py-3.5 text-primary-400 mr-9"
+              onClick={() => setPageTable(table.getState().pagination.pageIndex - 1)}
+              disabled={!table.getCanPreviousPage()}
+              type="button"
+            >
+              <IconBack disabled={!table.getCanPreviousPage()} />
+            </Button>
+            {table.getPageOptions().map((pageIndex) => (
+              <Button
+                key={pageIndex + 1}
+                className={`border rounded px-4 py-3 cursor-pointer 
             ${
               table.getState().pagination.pageIndex === pageIndex
                 ? "bg-primary-400 text-white shadow-lg"
                 : "text-gray-400 "
             }
               `}
-            onClick={() => setPageTable(pageIndex)}
-            type="button"
-          >
-            {pageIndex + 1}
-          </Button>
-        ))}
-        <Button
-          className="border rounded px-3.5 py-3.5 ml-9 group"
-          onClick={() => setPageTable(table.getState().pagination.pageIndex + 1)}
-          disabled={!table.getCanNextPage()}
-          type="button"
-        >
-          <IconNext disabled={!table.getCanNextPage()} />
-        </Button>
-      </div>
+                onClick={() => setPageTable(pageIndex)}
+                type="button"
+              >
+                {pageIndex + 1}
+              </Button>
+            ))}
+            <Button
+              className="border rounded px-3.5 py-3.5 ml-9 group"
+              onClick={() => setPageTable(table.getState().pagination.pageIndex + 1)}
+              disabled={!table.getCanNextPage()}
+              type="button"
+            >
+              <IconNext disabled={!table.getCanNextPage()} />
+            </Button>
+          </div>
+        </>
+      )}
     </div>
   );
 };
