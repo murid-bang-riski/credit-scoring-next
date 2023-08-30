@@ -6,6 +6,7 @@ import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
 import Tab from '@mui/material/Tab';
 import { Result } from './hasil';
+import {Process} from './process';
 
 interface StyleObject {
     [key: string]: string | number;
@@ -58,7 +59,6 @@ interface TabPanelProps {
         <Box sx={{ width: '100%', backgroundColor: 'white', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',height:'auto',marginTop:'20px'}}>
           <Box sx={{ boxShadow: '0px 20px 200px rgba(0, 0, 0, 0.1)',overflow: 'hidden' }}>
             <Tabs textColor="secondary"  value={value} onChange={handleChange} sx={{paddingX:'50px'}} aria-label="basic tabs example">
-
               <Tab label="Permintaan" {...a11yProps(0)} />
               <Tab label="Proses" {...a11yProps(1)} />
               <Tab label="Hasil" {...a11yProps(2)} />
@@ -72,11 +72,12 @@ interface TabPanelProps {
             </button>
           </div>
           </CustomTabPanel>
-          <CustomTabPanel styleName={{ display: 'flex', flexDirection: 'column',paddingX:'10px' , }} value={value} index={1}>
-            <Result/>
+          <CustomTabPanel styleName={{ display: 'flex', flexDirection: 'column',paddingX:'50px' , }} value={value} index={1}>
+          <Process/>
+            
           </CustomTabPanel>
           <CustomTabPanel styleName={{ display: 'flex', flexDirection: 'column',paddingX:'10px' , }} value={value} index={2}>
-            Item Three
+          <Result/>
           </CustomTabPanel>
 
           
