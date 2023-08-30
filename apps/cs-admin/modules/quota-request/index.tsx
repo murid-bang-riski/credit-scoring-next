@@ -24,13 +24,17 @@ const RequestQuota: FC = (): ReactElement => {
   }
 
   useEffect(() => {
+    if (!query.get("tab")) {
+      router.push("/admin?page=1&tab=permintaan");
+    }
+
     if (query.get("tab") === "permintaan") {
       setActive("permintaan");
     }
     if (query.get("tab") === "riwayat") {
       setActive("riwayat");
     }
-  }, []);
+  }, [query, router, active]);
 
   const [search, setSearch] = useState("");
 

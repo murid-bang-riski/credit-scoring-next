@@ -1,4 +1,4 @@
-import { FC, ReactElement, useEffect } from "react";
+import { FC, ReactElement, useCallback, useEffect } from "react";
 import { Button, IconBack, IconNext } from "@components";
 import {
   useReactTable,
@@ -6,7 +6,8 @@ import {
   flexRender,
   getPaginationRowModel,
 } from "@tanstack/react-table";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import queryString from "query-string";
 
 interface ITableProps {
   data?: any;
@@ -16,6 +17,7 @@ interface ITableProps {
 export const Table: FC<ITableProps> = ({ data, columns }): ReactElement => {
   const router = useRouter();
   const query = useSearchParams();
+  const pathname = usePathname();
 
   const table = useReactTable({
     data,
@@ -25,15 +27,58 @@ export const Table: FC<ITableProps> = ({ data, columns }): ReactElement => {
     debugTable: true,
   });
 
-  const setPageTable = (page: number) => {
-    table.setPageIndex(page);
-    router.push("/admin?page=" + Number(page + 1));
-  };
+  let currentQuery = {};
+
+  if (query) {
+    currentQuery = queryString.parse(query.toString());
+  }
+
+  const setPageTable = useCallback(
+    (page: number) => {
+      const updatedQuery: any = {
+        ...currentQuery,
+        page: Number(page) + 1,
+      };
+
+      const url = queryString.stringifyUrl(
+        {
+          url: pathname,
+          query: updatedQuery,
+        },
+        { skipNull: true },
+      );
+
+      router.push(url);
+
+      table.setPageIndex(page);
+    },
+    [table, query, pathname, currentQuery, router],
+  );
+
+  const resetPage = useCallback(() => {
+    table.setPageIndex(0);
+
+    const updatedQuery: any = {
+      ...currentQuery,
+      page: 1,
+    };
+
+    const url = queryString.stringifyUrl(
+      {
+        url: pathname,
+        query: updatedQuery,
+      },
+      { skipNull: true },
+    );
+
+    router.push(url);
+  }, [table, query, pathname, currentQuery, router]);
 
   useEffect(() => {
-    Number(query.get("page")) > table.getPageCount() && router.push("/admin?page=1");
+    table.getPageCount() < Number(query.get("page")) && resetPage();
+
     query.get("page") && table.setPageIndex(Number(query.get("page")) - 1);
-  }, [query, table]);
+  }, [table, query]);
 
   return (
     <div className="p-2 text-xs">
