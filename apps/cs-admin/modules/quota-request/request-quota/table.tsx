@@ -1,5 +1,5 @@
-import { FC, Fragment, ReactElement, useState } from 'react';
-import { useQuotaData } from '../hooks';
+import { FC, Fragment, ReactElement, use, useEffect, useMemo, useState } from "react";
+import { useQuotaData } from "../hooks";
 import {
   Button,
   IconCheck,
@@ -8,289 +8,176 @@ import {
   IconClock,
   IconClose,
   IconWarning,
-} from '@components';
-import DataTable, { TableColumn } from 'react-data-table-component';
-import { TQuotaItem } from '../types';
-import { formatDate } from '@utils';
-import { Dialog, Transition } from '@headlessui/react';
+  IconArrow,
+  IconBack,
+  IconNext,
+} from "@components";
+import { TQuotaItem } from "../types";
+import { formatDate } from "@utils";
+import { Dialog, Transition } from "@headlessui/react";
+import {
+  useReactTable,
+  createColumnHelper,
+  getCoreRowModel,
+  flexRender,
+  getPaginationRowModel,
+} from "@tanstack/react-table";
+import { set } from "date-fns";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const Table: FC = (): ReactElement => {
-  const [isOpen, setisOpen] = useState(false);
-  const { getQuotaData } = useQuotaData();
-  const sortIcon = (
-    <div className="m-2">
-      <IconDropdown />
-    </div>
-  );
-  function closeModal() {
-    setisOpen(false);
-  }
-  function openModal() {
-    setisOpen(true);
-  }
+  const router = useRouter();
+  const query = useSearchParams();
 
-  const columns: TableColumn<TQuotaItem>[] = [
+  const { getQuotaData } = useQuotaData();
+
+  const [data, setData] = useState<TQuotaItem[]>([...getQuotaData]);
+
+  const columnHelper = createColumnHelper<TQuotaItem>();
+
+  const columns = [
     {
-      name: 'No',
-      width: '5%',
-      cell: (row, rowIndex) => <div className="">{rowIndex + 1}</div>,
+      id: "No",
+      header: "No .",
+      cell: (info: any) => <span>{info.row.index + 1}</span>,
     },
-    {
-      name: 'No. Permintaan',
-      width: '12.8%',
-      cell: (row) => <div className="pl-6">{row.request_number}</div>,
-      sortable: true,
-    },
-    {
-      name: 'Tanggal Request',
-      width: '20%',
-      cell: (row) =>
-        formatDate({
-          date: new Date(row.created_at),
-        }),
-      sortable: true,
-    },
-    {
-      name: 'Tanggal Selesai',
-      width: '20%',
-      cell: (row) =>
-        formatDate({
-          date: new Date(row.updated_at),
-        }),
-      sortable: true,
-    },
-    {
-      name: 'Nama Perusahaan',
-      width: '22%',
-      selector: (row) => row.company,
-      sortable: true,
-    },
-    {
-      name: 'Jenis Produk',
-      width: '16%',
-      selector: (row) => row.feature,
-      sortable: true,
-    },
-    {
-      name: 'Jumlah Kuota',
-      width: '12%',
-      cell: (row) => <span className="pl-6">{row.quantity}</span>,
-      sortable: true,
-    },
-    {
-      name: 'Status Pembayaran',
-      width: '15%',
-      cell: (row) => (
-        <div className="flex flex-row gap-x-1">
-          <div className="pt-1">
-            {row.payment_status === 'MENUNGGU' ? <IconClock /> : <IconCheck />}
-          </div>
-          {row.payment_status === 'MENUNGGU' ? (
-            <span className="capitalize">{row.payment_status}</span>
-          ) : (
-            <span className="underline capitalize">{row.payment_status}</span>
-          )}
-        </div>
+    columnHelper.accessor("request_number", {
+      header: "No.Permintaan",
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor("created_at", {
+      header: "Tanggal Request",
+      cell: (info) => (
+        <span className="text-gray-500">
+          {formatDate({
+            date: new Date(info.getValue()),
+          })}
+        </span>
       ),
-      sortable: true,
+    }),
+    columnHelper.accessor("company", {
+      header: "Nama Cabang",
+      cell: (info) => info.getValue(),
+    }),
+    {
+      id: "department",
+      header: "Nama Departemen",
+      cell: () => <span>Tech Departement</span>,
     },
     {
-      name: 'Action',
-      cell: (row) => (
+      id: "jumlah_produk",
+      header: "Jumlah Produk",
+      cell: (info: any) => <span className="font-bold">{info.row.index + 1}</span>,
+    },
+    columnHelper.accessor("quantity", {
+      header: "Total Kuota",
+      cell: (info) => <span className="text-gray-500">{info.getValue()}</span>,
+    }),
+    {
+      id: "Action",
+      header: "Action",
+      cell: () => (
         <Button
-          onClick={openModal}
+          onClick={() => {}}
           type="submit"
           className="bg-primary-400 text-white px-3 py-1 text-sm w-full rounded-md"
         >
           Lihat
         </Button>
       ),
-      width: '10%',
     },
   ];
-  const paginationComponentOptions = {
-    rowsPerPageText: 'Menampilkan hasil',
-    rangeSeparatorText: 'dari',
-    selectAllRowsItem: true,
-    selectAllRowsItemText: 'Page',
-  };
-  const customStyles = {
-    rows: {
-      style: {
-        minHeight: '45px',
-      },
-    },
 
-    headCells: {
-      style: {
-        backgroundColor: '#D0F9E3',
-        textColor: '#A3A3A3',
-      },
-    },
-    cells: {
-      style: {
-        paddingLeft: '16px',
-        paddingRight: '16px',
-      },
-    },
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    debugTable: true,
+  });
+
+  const setPageTable = (page: number) => {
+    table.setPageIndex(page);
+    router.push("/admin?page=" + Number(page + 1));
   };
+
+  useEffect(() => {
+    Number(query.get("page")) > table.getPageCount() && router.push("/admin?page=1");
+    query.get("page") && table.setPageIndex(Number(query.get("page")) - 1);
+  }, [query, table]);
+
   return (
-    <div>
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
+    <div className="p-2 text-xs">
+      <table className="overflow-x-scroll text-center text-xs w-full">
+        <thead className="bg-primary-100">
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <th className="p-3" key={header.id}>
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(header.column.columnDef.header, header.getContext())}
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map((row, i) => (
+            <tr
+              key={row.id}
+              className={`
+              ${i % 2 === 0 ? "bg-gray-100" : "bg-white"}
+            `}
+            >
+              {row.getVisibleCells().map((cell) => (
+                <td key={cell.id} className="p-3">
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <span className="flex items-center gap-1">
+        <p className="text-gray-400 font-bold">
+          Menampilkan {table.getRowModel().rows.length} dari {data.length} hasil
+        </p>
+      </span>
+      <div className="flex items-center gap-2 font-bold mt-4 justify-center">
+        <Button
+          className="border rounded px-3.5 py-3.5 text-primary-400 mr-9"
+          onClick={() => setPageTable(table.getState().pagination.pageIndex - 1)}
+          disabled={!table.getCanPreviousPage()}
+          type="button"
+        >
+          <IconBack disabled={!table.getCanPreviousPage()} />
+        </Button>
+        {table.getPageOptions().map((pageIndex) => (
+          <Button
+            key={pageIndex + 1}
+            className={`border rounded px-4 py-3 cursor-pointer 
+            ${
+              table.getState().pagination.pageIndex === pageIndex
+                ? "bg-primary-400 text-white shadow-lg"
+                : "text-gray-400 "
+            }
+              `}
+            onClick={() => setPageTable(pageIndex)}
+            type="button"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
-          </Transition.Child>
-
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="space-y-[9px] w-full max-w-[484px] transform overflow-hidden rounded-[4px] bg-white py-7 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title className="pb-5 border-b-[1px] border-neutral-400 font-bold text-lg flex flex-row items-center justify-between px-9">
-                    <span>PT Menara Indonesia</span>
-                    <div onClick={closeModal} className="hover:cursor-pointer">
-                      <IconClose />
-                    </div>
-                  </Dialog.Title>
-                  <div className="px-9">
-                    <div className="flex flex-row justify-between py-4">
-                      <div className="w-full flex flex-col space-y-2">
-                        <span className=" text-xs text-neutral-500 font-semibold">
-                          Tanggal Request:
-                        </span>
-                        <span className="text-xs font-semibold">
-                          02 Agustus 2022, 09:23:30
-                        </span>
-                      </div>
-                      <div className="w-full flex flex-col space-y-2">
-                        <span className="text-xs text-neutral-500 font-semibold">
-                          Kode Perusahaan:
-                        </span>
-                        <span className="text-xs font-semibold">44679</span>
-                      </div>
-                    </div>
-                    <div className="flex flex-col py-7">
-                      <span className="font-bold text-neutral-800 text-sm">
-                        Detail Informasi
-                      </span>
-                      <div className="pt-3 flex flex-col w-full text-xs font-semibold">
-                        <div className="flex flex-row">
-                          <div className="w-[60%] bg-add2 rounded-tl-lg px-4 py-2 border-neutral-200 border-[1px]">
-                            No. Permintaan :
-                          </div>
-                          <div className="w-full rounded-tr-lg px-4 py-2 border-[1px] border-neutral-200">
-                            0007821
-                          </div>
-                        </div>
-                        <div className="flex flex-row">
-                          <div className="w-[60%] bg-add2  px-4 py-2 border-neutral-200 border-[1px]">
-                            Nama Cabang :
-                          </div>
-                          <div className="w-full  px-4 py-2 border-[1px] border-neutral-200">
-                            M-Knows Consulting Cirendeu
-                          </div>
-                        </div>
-                        <div className="flex flex-row">
-                          <div className="w-[60%] bg-add2  px-4 py-2 border-neutral-200 border-[1px]">
-                            Nama Departemen :
-                          </div>
-                          <div className="w-full  px-4 py-2 border-[1px] border-neutral-200">
-                            Pengelolaan Moneter
-                          </div>
-                        </div>
-                        <div className="flex flex-row">
-                          <div className="w-[60%] bg-add2  px-4 py-2 border-neutral-200 border-[1px]">
-                            Jenis Produk :
-                          </div>
-                          <div className="w-full  px-4 py-2 border-[1px] border-neutral-200">
-                            AI Identity Scoring
-                          </div>
-                        </div>
-                        <div className="flex flex-row">
-                          <div className="w-[60%] bg-add2  px-4 py-2 border-neutral-200 border-[1px]">
-                            Total Kuota :
-                          </div>
-                          <div className="w-full  px-4 py-2 border-[1px] border-neutral-200">
-                            1000
-                          </div>
-                        </div>
-                        <div className="flex flex-row">
-                          <div className="w-[60%] bg-add2 rounded-bl-lg px-4 py-2 border-neutral-200 border-[1px]">
-                            Status Pembayaran :
-                          </div>
-                          <div className="w-full flex flex-row gap-x-1 items-center rounded-br-lg px-4 py-2 border-[1px] border-neutral-200">
-                            <IconCheck />
-                            <span>Selesai</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="mt-16 flex text-warning-500 font-semibold flex-row w-full rounded-md bg-warning-100 gap-x-2 p-2">
-                        <div className="flex items-center">
-                          <IconWarning />
-                        </div>
-                        <span className="text-xs">
-                          Harap membaca detail informasi dengan teliti dan tekan
-                          Accept untuk menyetujui permintaan kuota
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-row justify-end gap-x-3 pt-5 px-9 border-t-[1px] border-neutral-400">
-                    <Button
-                      type="submit"
-                      onClick={closeModal}
-                      className="text-primary-400 border-primary-400 border-2 rounded-md py-[7px] px-8 font-semibold text-sm"
-                    >
-                      Close
-                    </Button>
-                    <Button
-                      type="submit"
-                      onClick={closeModal}
-                      className="text-white bg-primary-400 rounded-md py-[7px] px-8 font-semibold text-sm"
-                    >
-                      Accept
-                    </Button>
-                  </div>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition>
-      <DataTable
-        columns={columns}
-        data={getQuotaData}
-        fixedHeader={true}
-        customStyles={customStyles}
-        sortIcon={sortIcon}
-        noDataComponent={
-          <div className="flex flex-col w-full h-screen justify-center items-center">
-            <IconEmptyState />
-            <h1 className="font-bold my-2">Data Tidak Tersedia</h1>
-            <p>
-              Table akan ditampilkan apabila sudah tersedia data yang diperlukan
-            </p>
-          </div>
-        }
-        pagination
-        paginationComponentOptions={paginationComponentOptions}
-      />
+            {pageIndex + 1}
+          </Button>
+        ))}
+        <Button
+          className="border rounded px-3.5 py-3.5 ml-9 group"
+          onClick={() => setPageTable(table.getState().pagination.pageIndex + 1)}
+          disabled={!table.getCanNextPage()}
+          type="button"
+        >
+          <IconNext disabled={!table.getCanNextPage()} />
+        </Button>
+      </div>
     </div>
   );
 };

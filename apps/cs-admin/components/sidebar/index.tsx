@@ -37,6 +37,8 @@ const Sidebar: FC = (): ReactElement => {
   const toggleSidebar = (): void => {
     setOpen(!open);
   };
+
+  const pathname = usePathname();
   return (
     <Fragment>
       <button
@@ -65,7 +67,6 @@ const Sidebar: FC = (): ReactElement => {
               priority={true}
             />
           </Link>
-
           <div className="pt-4 font-medium w-full border-neutral-100">
             {DataSidebar.map((item) => (
               <div key={item.id} className="my-4">
