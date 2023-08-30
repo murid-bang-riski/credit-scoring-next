@@ -1,4 +1,4 @@
-import ChartQuotaModules from "modules/chart-quota";
+import ChartQuotaModules from "@/modules/chart-quota";
 import { FC } from "react";
 
 const Page: FC = () => {
