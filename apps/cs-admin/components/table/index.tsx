@@ -12,16 +12,22 @@ interface ITableProps {
   data?: any;
   columns?: any;
   pagination?: boolean;
+  center?: boolean;
   thColor?: string;
   tbColor?: string;
+  thClassName?: string;
+  tbClassName?: string;
 }
 
 export const TableComponent: FC<ITableProps> = ({
   data,
   columns,
   pagination = true,
+  center = true,
   tbColor = "bg-gray-100",
   thColor = "bg-primary-100",
+  thClassName = "p-4",
+  tbClassName = "p-4",
 }): ReactElement => {
   const router = useRouter();
   const query = useSearchParams();
@@ -46,12 +52,12 @@ export const TableComponent: FC<ITableProps> = ({
 
   return (
     <div className="p-2 text-xs">
-      <table className="overflow-x-scroll text-center text-xs w-full">
+      <table className={`overflow-x-scroll text-xs w-full ${center ? "text-center" : "text-left"}`}>
         <thead className={`${thColor}`}>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th className="p-3" key={header.id}>
+                <th className={`${thClassName}`} key={header.id}>
                   {header.isPlaceholder
                     ? null
                     : flexRender(header.column.columnDef.header, header.getContext())}
@@ -69,7 +75,7 @@ export const TableComponent: FC<ITableProps> = ({
             `}
             >
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className="p-3">
+                <td key={cell.id} className={`${tbClassName}`}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
@@ -79,7 +85,7 @@ export const TableComponent: FC<ITableProps> = ({
       </table>
       {!!pagination && (
         <>
-          <span className="flex items-center gap-1">
+          <span className="flex items-center gap-1 mt-4">
             <p className="text-gray-400 font-bold">
               Menampilkan {table.getRowModel().rows.length} dari {data.length} hasil
             </p>

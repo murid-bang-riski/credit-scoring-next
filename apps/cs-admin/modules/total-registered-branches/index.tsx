@@ -1,9 +1,35 @@
 "use client";
-import { Button, IconBack, IconBuilding } from "@components";
-import React, { FC } from "react";
-import Table from "./table";
+import { Button, IconBack, IconBuilding, TableComponent } from "@components";
+import { createColumnHelper } from "@tanstack/react-table";
+import { FC, useState } from "react";
+import { useKantorData } from "./hooks";
+import { TKantorItem } from "./types";
 
 const TotalRegisteredBranchesModule: FC = () => {
+  const { getKantorData } = useKantorData();
+  const [data, setData] = useState<TKantorItem[]>([...getKantorData]);
+
+  const columnHelper = createColumnHelper<TKantorItem>();
+
+  const columns = [
+    columnHelper.accessor("kode_cabang", {
+      header: "Kode Cabang",
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor("nama_cabang", {
+      header: "Nama Cabang",
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor("alamat_cabang", {
+      header: "Alamat Cabang",
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor("no_telpon", {
+      header: "No Telpon",
+      cell: (info) => info.getValue(),
+    }),
+  ];
+
   return (
     <>
       <Button type="button" href="/admin/chart-quota" className="flex flex-row items-center gap-3">
@@ -18,8 +44,16 @@ const TotalRegisteredBranchesModule: FC = () => {
           </span>
           <span>INI SEARCHBAR</span>
         </section>
-        <section className="overflow-x-auto mt-5 pl-2">
-          <Table />
+        <section className="overflow-x-auto mt-5">
+          <TableComponent
+            data={data}
+            columns={columns}
+            thColor="bg-white"
+            tbColor="bg-add3"
+            center={false}
+            thClassName="text-gray-400 p-4 border-b-2 font-semibold"
+            tbClassName="font-semibold p-4 border-b-2"
+          />
         </section>
       </div>
     </>
