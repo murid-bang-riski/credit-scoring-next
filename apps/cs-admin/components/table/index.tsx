@@ -1,92 +1,21 @@
-import { FC, Fragment, ReactElement, use, useEffect, useMemo, useState } from "react";
-import { useQuotaData } from "../hooks";
-import {
-  Button,
-  IconCheck,
-  IconDropdown,
-  IconEmptyState,
-  IconClock,
-  IconClose,
-  IconWarning,
-  IconArrow,
-  IconBack,
-  IconNext,
-} from "@components";
-import { TQuotaItem } from "../types";
-import { formatDate } from "@utils";
-import { Dialog, Transition } from "@headlessui/react";
+import { FC, ReactElement, useEffect } from "react";
+import { Button, IconBack, IconNext } from "@components";
 import {
   useReactTable,
-  createColumnHelper,
   getCoreRowModel,
   flexRender,
   getPaginationRowModel,
 } from "@tanstack/react-table";
-import { set } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
 
-const Table: FC = (): ReactElement => {
+interface ITableProps {
+  data?: any;
+  columns?: any;
+}
+
+export const Table: FC<ITableProps> = ({ data, columns }): ReactElement => {
   const router = useRouter();
   const query = useSearchParams();
-
-  const { getQuotaData } = useQuotaData();
-
-  const [data, setData] = useState<TQuotaItem[]>([...getQuotaData]);
-
-  const columnHelper = createColumnHelper<TQuotaItem>();
-
-  const columns = [
-    {
-      id: "No",
-      header: "No .",
-      cell: (info: any) => <span>{info.row.index + 1}</span>,
-    },
-    columnHelper.accessor("request_number", {
-      header: "No.Permintaan",
-      cell: (info) => info.getValue(),
-    }),
-    columnHelper.accessor("created_at", {
-      header: "Tanggal Request",
-      cell: (info) => (
-        <span className="text-gray-500">
-          {formatDate({
-            date: new Date(info.getValue()),
-          })}
-        </span>
-      ),
-    }),
-    columnHelper.accessor("company", {
-      header: "Nama Cabang",
-      cell: (info) => info.getValue(),
-    }),
-    {
-      id: "department",
-      header: "Nama Departemen",
-      cell: () => <span>Tech Departement</span>,
-    },
-    {
-      id: "jumlah_produk",
-      header: "Jumlah Produk",
-      cell: (info: any) => <span className="font-bold">{info.row.index + 1}</span>,
-    },
-    columnHelper.accessor("quantity", {
-      header: "Total Kuota",
-      cell: (info) => <span className="text-gray-500">{info.getValue()}</span>,
-    }),
-    {
-      id: "Action",
-      header: "Action",
-      cell: () => (
-        <Button
-          onClick={() => {}}
-          type="submit"
-          className="bg-primary-400 text-white px-3 py-1 text-sm w-full rounded-md"
-        >
-          Lihat
-        </Button>
-      ),
-    },
-  ];
 
   const table = useReactTable({
     data,
@@ -181,5 +110,3 @@ const Table: FC = (): ReactElement => {
     </div>
   );
 };
-
-export default Table;
