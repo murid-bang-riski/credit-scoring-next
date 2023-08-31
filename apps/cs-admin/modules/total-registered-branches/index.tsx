@@ -48,11 +48,12 @@ const TotalRegisteredBranchesModule: FC = () => {
           <TableComponent
             data={data}
             columns={columns}
-            thColor="bg-white"
-            tbColor="bg-add3"
+            thColor="bg-secondary-100"
             center={false}
-            thClassName="text-gray-400 p-4 border-b-2 font-semibold"
+            thClassName=" p-4 border-b-2 font-bold"
             tbClassName="font-semibold p-4 border-b-2"
+            paginationColor="bg-secondary-400"
+            paginationIconColor="#6FB2D8"
           />
         </section>
       </div>
