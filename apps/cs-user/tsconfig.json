@@ -16,7 +16,12 @@
         "name": "next"
       }
     ],
-    "types": ["jest", "node"]
+    "types": ["jest", "node"],
+    "baseUrl": ".",
+    "paths": {
+      "@cs-user/components": ["components/index.ts"],
+      "@cs-user/utils": ["utils/index.ts"]
+    }
   },
   "include": [
     "**/*.ts",
