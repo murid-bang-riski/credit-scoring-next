@@ -1,6 +1,6 @@
 import { FC, ReactElement, Suspense, useState } from "react";
 
-import { Button, Modal, Table } from "@components";
+import { Button, Modal, TableComponent } from "@components";
 import { formatDate } from "@utils";
 
 import { TQuotaItem } from "../types";
@@ -78,7 +78,7 @@ const RequestQuotaTab: FC = (): ReactElement => {
     <Suspense fallback="Loading...">
       <section className="py-10">
         <Modal isOpen={isOpen} toggleModal={toggleModal} />
-        <Table data={data} columns={columns} />
+        <TableComponent data={data} columns={columns} />
       </section>
     </Suspense>
   );
