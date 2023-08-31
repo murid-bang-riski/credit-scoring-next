@@ -40,3 +40,9 @@ Thumbs.db
 
 # Next.js
 .next
+
+#yarn
+yarn.lock
+
+#npm
+package-lock.json
