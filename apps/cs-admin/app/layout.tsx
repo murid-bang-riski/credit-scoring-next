@@ -1,4 +1,5 @@
-import Providers from "@/utils/providers";
+import ReactQueryProvider from "@/utils/providers/react-query";
+import RecoilProvider from "@/utils/providers/recoil";
 import { Open_Sans } from "next/font/google";
 import "./global.css";
 
@@ -20,7 +21,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={openSans.className}>
-        <Providers>{children}</Providers>
+        <ReactQueryProvider>
+          <RecoilProvider>{children}</RecoilProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );
