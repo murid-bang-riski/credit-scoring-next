@@ -1,5 +1,5 @@
 "use client";
-import { Button, IconBack, IconBuilding, TableComponent } from "@components";
+import { Button, IconBack, IconBuilding, TableComponent, Search} from "@components";
 import { createColumnHelper } from "@tanstack/react-table";
 import { FC, useState } from "react";
 import { useKantorData } from "./hooks";
@@ -42,7 +42,9 @@ const TotalRegisteredBranchesModule: FC = () => {
             <IconBuilding />
             <p className="text-2xl font-semibold">Daftar Kantor Cabang</p>
           </span>
-          <span>INI SEARCHBAR</span>
+          <span className="w-1/5">
+            <Search placeholder="Search"/>
+          </span>
         </section>
         <section className="overflow-x-auto mt-5">
           <TableComponent
@@ -50,7 +52,7 @@ const TotalRegisteredBranchesModule: FC = () => {
             columns={columns}
             thColor="bg-secondary-100"
             center={false}
-            thClassName=" p-4 border-b-2 font-bold"
+            thClassName="p-4 border-b-2 font-bold"
             tbClassName="font-semibold p-4 border-b-2"
             paginationColor="bg-secondary-400"
             paginationIconColor="#6FB2D8"

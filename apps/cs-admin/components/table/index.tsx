@@ -44,7 +44,6 @@ export const TableComponent: FC<ITableProps> = ({
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    debugTable: true,
   });
 
   let currentQuery = {};
