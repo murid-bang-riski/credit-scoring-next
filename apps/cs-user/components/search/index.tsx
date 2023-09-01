@@ -1,10 +1,15 @@
-import { FC, ReactElement } from "react";
-import { SearchProps } from "./types";
-import { IconSearch } from "../icons";
+import { FC, ReactElement } from 'react';
+import { SearchProps } from './types';
+import { IconSearch } from '../icons';
 
-export const Search: FC<SearchProps> = ({ onChange, value, placeholder }): ReactElement => {
+export const Search: FC<SearchProps> = ({
+  onChange,
+  value,
+  placeholder,
+  className,
+}): ReactElement => {
   return (
-    <div className="lg:px-1 items-center w-full">
+    <div className={`${className} lg:px-1 items-center w-full`}>
       <label htmlFor="simple-search" className="sr-only">
         Search
       </label>

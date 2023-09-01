@@ -46,7 +46,7 @@ export const DatePickerRange: FC<DateRangePickerProps> = ({
   return (
     <div>
       <div
-        className={`flex bg-white justify-center text-xs items-center rounded-md text-gray-400 border border-gray-200 p-2  gap-x-2 ${
+        className={`flex bg-white justify-center text-xs items-center rounded-md text-gray-400 border border-gray-200 p-4 gap-x-2 ${
           props.width ? props.width : 'w-auto'
         }`}
         onClick={() => setOpen((open) => !open)}
