@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Tab from '@mui/material/Tab';
 import { Result } from './hasil';
 import {Process} from './process';
+import {People} from '@cs-user/components';
 
 interface StyleObject {
     [key: string]: string | number;
