@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "cs-user": "nx serve cs-user"
+    "cs-admin": "nx serve cs-admin"
   },
   "private": true,
   "dependencies": {
@@ -15,6 +16,7 @@
     "@nx/next": "16.7.0",
     "@tanstack/react-query": "^4.33.0",
     "@types/leaflet": "^1.9.3",
+    "@tanstack/react-table": "^8.9.3",
     "@types/react-date-range": "^1.4.4",
     "axios": "^1.4.0",
     "chart.js": "^4.3.3",
@@ -22,7 +24,9 @@
     "core-js-pure": "^3.32.1",
     "date-fns": "^2.30.0",
     "leaflet": "^1.9.4",
+    "init": "^0.1.2",
     "next": "13.4.1",
+    "query-string": "^8.1.0",
     "react": "18.2.0",
     "react-alice-carousel": "^2.7.1",
     "react-avatar": "^5.0.3",
@@ -32,7 +36,10 @@
     "react-hook-form": "^7.45.4",
     "react-icons": "^4.10.1",
     "react-leaflet": "^4.2.1",
+    "react-router-dom": "^6.15.0",
     "recoil": "^0.7.7",
+    "styled-components": "^6.0.7",
+    "sweetalert2": "^11.7.27",
     "tslib": "^2.3.0",
     "zod": "^3.22.1"
   },
@@ -49,9 +56,10 @@
     "@types/node": "18.14.2",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
+    "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
-    "autoprefixer": "10.4.13",
+    "autoprefixer": "^10.4.15",
     "babel-jest": "^29.4.1",
     "cypress": "^12.16.0",
     "eslint": "~8.46.0",
@@ -66,7 +74,7 @@
     "jest-environment-jsdom": "^29.4.1",
     "nx": "16.7.0",
     "nx-cloud": "latest",
-    "postcss": "8.4.21",
+    "postcss": "^8.4.28",
     "prettier": "^2.6.2",
     "tailwindcss": "3.2.7",
     "ts-jest": "^29.1.0",
