@@ -9,3 +9,6 @@ export * from './icon-Plus';
 export * from './icon-Information';
 export * from './icon-DownArrow';
 export * from './icon-Close';
+export * from './icon-Upload';
+export * from './icon-Back';
+export * from './icon-Warning';

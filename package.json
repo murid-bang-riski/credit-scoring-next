@@ -2,7 +2,9 @@
   "name": "@credit-scoring/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "cs-user": "nx serve cs-user"
+  },
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",
