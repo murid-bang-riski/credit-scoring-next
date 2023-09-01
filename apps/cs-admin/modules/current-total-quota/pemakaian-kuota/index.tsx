@@ -1,13 +1,14 @@
+import { useCuurenTotalQuota } from "@/hooks";
+import { TCurrentTotalQuotaItem } from "@/types";
 import { TableComponent } from "@components";
 import { createColumnHelper } from "@tanstack/react-table";
-import { FC, useMemo } from "react";
-import dataDumy from "./MOCK_DATA.json";
-import { TQuotaItem } from "./types";
+import { FC, useState } from "react";
 
 const PemakaianKuota: FC = () => {
-  const data = useMemo<TQuotaItem[]>(() => dataDumy, []);
+  const { getCurrentTotalQuotaData } = useCuurenTotalQuota();
+  const [data, setData] = useState<TCurrentTotalQuotaItem[]>([...getCurrentTotalQuotaData])
 
-  const columnHelper = createColumnHelper<TQuotaItem>();
+  const columnHelper = createColumnHelper<TCurrentTotalQuotaItem>();
 
   const columns = [
     columnHelper.accessor("id", {

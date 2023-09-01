@@ -1,15 +1,15 @@
 "use client";
-import { Button, IconBack, IconBuilding, TableComponent, Search} from "@components";
+import { useTotalRegisteredBranches } from "@/hooks";
+import { TTotalRegisteredBranchesItem } from "@/types";
+import { Button, IconBack, IconBuilding, Search, TableComponent } from "@components";
 import { createColumnHelper } from "@tanstack/react-table";
 import { FC, useState } from "react";
-import { useKantorData } from "./hooks";
-import { TKantorItem } from "./types";
 
 const TotalRegisteredBranchesModule: FC = () => {
-  const { getKantorData } = useKantorData();
-  const [data, setData] = useState<TKantorItem[]>([...getKantorData]);
+  const {getTotalRegisteredBranchesData}= useTotalRegisteredBranches();
+  const [data, setData] = useState<TTotalRegisteredBranchesItem[]>([...getTotalRegisteredBranchesData])
 
-  const columnHelper = createColumnHelper<TKantorItem>();
+  const columnHelper = createColumnHelper<TTotalRegisteredBranchesItem>();
 
   const columns = [
     columnHelper.accessor("kode_cabang", {

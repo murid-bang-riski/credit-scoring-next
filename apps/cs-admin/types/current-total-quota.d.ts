@@ -1,6 +1,8 @@
-export type TQuotaResponse = { getQuotaData: TQuotaItem[] };
+export type TCurrentTotalQuotaResponse = {
+  getCurrentTotalQuotaData: TCurrentTotalQuotaItem[];
+};
 
-export interface TQuotaItem {
+export type TCurrentTotalQuotaItem = {
   id: number;
   tanggal_pembelian: string;
   nama_cabang: string;
