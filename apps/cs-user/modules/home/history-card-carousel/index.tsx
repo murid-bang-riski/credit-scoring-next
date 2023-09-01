@@ -15,16 +15,21 @@ export const HistoryCardCarousel: FC = (): ReactElement => {
       <div key={i} className="flex max-w-screen">
         <Card
           hasButton={true}
-          
           buttonText="Lihat Detail"
           buttonHref="/dashboard/request?tab=hasil"
           buttonClassName={`flex py-1 justify-center rounded-sm text-white items-end my-2 ${x.bgButton} w-full`}
           className="w-[300px] m-3 min-h-[130px] absolute shadow-md px-4 py-3"
         >
           <div className="flex flex-row w-full h-full py-4 gap-2 justify-center items-center">
-          <div className="flex justify-center items-center w-corousel">
-                <img src={x.icon} alt="icon" className='flex justify-center items-center' width={20} height={20}/>
-                </div>
+            <div className="flex justify-center items-center w-corousel">
+              <Image
+                src={x.icon}
+                alt="icon"
+                className="flex justify-center items-center"
+                width={20}
+                height={20}
+              />
+            </div>
 
             <div className="flex-col w-full space-y-1 flex ">
               <p className="text-sm font-semibold pr-8">{x.title}</p>
