@@ -116,8 +116,8 @@ export const ReusableTable: React.FC<TableProps> = ({ columns, children, classHe
                         </tr>
                         {hasSubTables && subTableColumns && (
                 <tr>
-                  <td colSpan={columns.length} className="border-none px-4 py-2">
-                       <table className="sub-table">
+                  <td colSpan={columns.length} className="border-none px-[00px] py-2">
+                       <table className="auto-table w-full">
                       <thead>
                         <tr>
                           {subTableColumns.map((subColumn, index) => (

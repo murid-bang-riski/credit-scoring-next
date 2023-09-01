@@ -7,3 +7,5 @@ export * from './date-range-picker';
 export * from './search';
 export * from './accordion';
 export * from './table';
+export * from './react-table';
+

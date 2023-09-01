@@ -3,15 +3,36 @@
 'use client';
 
 import { ReusableTable } from 'components/table';
+import { Search } from 'components/search';
 import React, { FC,useState } from 'react';
 import { useRouter, useSearchParams } from "next/navigation";
 import FakeDummyData from './MOCK_DATA.json'
+import {MdOutlineArrowForwardIos} from 'react-icons/md';
+import {MdArrowBackIosNew} from 'react-icons/md';
 
 export const Process: FC = () => {
   const itemsPerPage = 20; // Maksimal 20 data per halaman
   const [currentPage, setCurrentPage] = useState(1);
+  const [nextActive, setNextActive] = useState(true); // Initially set to true since initially Next is active
+  const [prevActive, setPrevActive] = useState(false);
   const router = useRouter();
   const query = useSearchParams();
+
+
+  const handleNext = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    setNextActive(true);
+    setPrevActive(false);
+    handleChangePage(currentPage + 1);
+};
+
+const handlePrev = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    setNextActive(false);
+    setPrevActive(true);
+    handleChangePage(currentPage - 1);
+};
+
 
   const columns = [
     { header: 'No',className:'w-[20px]' },
@@ -23,6 +44,7 @@ export const Process: FC = () => {
     { header: 'Kendala Proses' },
     { header: 'Hasil',className:'w-[150px]' },
   ];
+  
 
   const totalPages = Math.ceil(FakeDummyData.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -39,7 +61,7 @@ export const Process: FC = () => {
     for (let i = 1; i <= totalPages; i++) {
       pageNumbers.push(i);
     }
-    const visiblePages = Math.min(10, totalPages);
+    const visiblePages = Math.min(5, totalPages);
     let firstPageInRange = Math.max(currentPage - Math.floor(visiblePages / 2), 1);
     const lastPageInRange = Math.min(
       firstPageInRange + visiblePages - 1,
@@ -54,7 +76,7 @@ export const Process: FC = () => {
 
     if (firstPageInRange > 1) {
       pagination.push(
-        <span key="ellipsis-start" className="pagination-ellipsis">
+        <span key="ellipsis-start" className="text-[12px] text-[#C2C2C2] rounded-sm flex justify-center items-center shadow-md w-[30px]  h-[30px]  border-2 border-[#BCBCBC]">
           ...
         </span>
       );
@@ -64,7 +86,7 @@ export const Process: FC = () => {
       pagination.push(
         <button
           key={i}
-          className={i === currentPage ? 'w-[40px]  h-[40px]  bg-[#4AC1A2] flex justify-center items-center rounded-md' : 'rounded-md w-[40px]  h-[40px]  border-2 border-[#BCBCBC]'}
+          className={i === currentPage ? 'w-[30px]  h-[30px] text-white bg-[#4AC1A2] flex justify-center items-center rounded-sm text-[12px]' : ' text-[12px] text-[#C2C2C2] rounded-sm shadow-md w-[30px]  h-[30px]  border-2 border-[#BCBCBC]'}
           onClick={() => handleChangePage(i)}
         >
           {i}
@@ -74,7 +96,7 @@ export const Process: FC = () => {
 
     if (lastPageInRange < totalPages) {
       pagination.push(
-        <span key="ellipsis-end" className="pagination-ellipsis">
+        <span key="ellipsis-end" className="text-[12px] text-[#C2C2C2] rounded-sm flex justify-center items-center shadow-md w-[30px]  h-[30px]  border-2 border-[#BCBCBC]">
           ...
         </span>
       );
@@ -85,11 +107,16 @@ export const Process: FC = () => {
 
 
   return (
-    <div className='flex flex-col gap-7'>
+    <div className='flex flex-col gap-7 mb-20 mt-10'>
+      <div className="flex justify-between items-center">
+        <p className='text-[30px] font-bold'>Permintaan hari ini</p>
+        <div className='w-[350px]'>
+        <Search placeholder='Search NIK, Nama, No Permintaan'/>
+        </div>
+      </div>
       <ReusableTable
       classBody=''
       classHead='bg-[#F5F8FF]'
-      hasSubTables={true}
       columns={columns}>
         {paginatedData.map((data, index) => (
            <tr key={index} className='py-2'>
@@ -102,11 +129,11 @@ export const Process: FC = () => {
            <td className='flex justify-start items-center'>
             {data.kendala_proses === null ? '-' : data.kendala_proses}
         </td>
-           <td className='w-[120px] text-white font-bold text-[12px]'>
+           <td className='w-[120px] '>
             {data.hasil === 'GAGAL' ? (
-              <button className='w-full py-2 rounded-md bg-[#EE2D24]' >{data.hasil}</button>
+              <button className='w-full py-2 text-white font-bold text-[12px] rounded-md bg-[#EE2D24]' >{data.hasil}</button>
             ) : (
-              <button className='w-full py-2 rounded-md bg-[#F59E0B]' >{data.hasil}</button>
+              <button className='w-full py-2 text-white font-bold text-[12px] rounded-md bg-[#F59E0B]' >{data.hasil}</button>
             )}
           </td>
           
@@ -123,19 +150,24 @@ export const Process: FC = () => {
       <a className='text-[#4FA0CF]' href="#">click disini</a>
       </span>
       </div>
-      <div className="w-full flex justify-center items-center gap-4">
+      <div className="w-full flex justify-center items-center gap-8">
         <button
-          onClick={() => handleChangePage(currentPage - 1)}
+          onClick={handlePrev}
           disabled={currentPage === 1}
+          className='text-[12px] text-[#C2C2C2] rounded-sm flex justify-center items-center shadow-md w-[30px]  h-[30px]  border-2 border-[#BCBCBC]'
         >
-          Previous
+          {prevActive ? <MdArrowBackIosNew color='#4AC1A2'/> : <MdArrowBackIosNew/>}
         </button>
+        <div className='gap-4 flex justify-center items-center'>
+
         {renderPagination()}
+        </div>
         <button
-          onClick={() => handleChangePage(currentPage + 1)}
+          onClick={handleNext}
           disabled={currentPage === totalPages}
+          className='text-[12px] text-[#C2C2C2] rounded-sm flex justify-center items-center shadow-md w-[30px]  h-[30px]  border-2 border-[#BCBCBC]'
         >
-          Next
+         {nextActive? <MdOutlineArrowForwardIos color='#4AC1A2'/>: <MdOutlineArrowForwardIos />}
         </button>
       </div>
     </div>

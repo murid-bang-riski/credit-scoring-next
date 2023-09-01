@@ -7,7 +7,19 @@
     "no_permintaan": "8657881985",
     "tanggal_permintaan": "2023-03-09 03:24:24",
     "kendala_proses": "Kualitas Foto KTP buruk",
-    "hasil": "GAGAL"
+    "hasil": "GAGAL",
+    "Array": [
+      {
+        "no": 1,
+        "NIK": "00412481238",
+        "tanggal_input": "2023-01-13 17:36:44",
+        "nama": "Butch Ducket",
+        "no_permintaan": "8657881985",
+        "tanggal_permintaan": "2023-03-09 03:24:24",
+        "kendala_proses": "Kualitas Foto KTP buruk",
+        "hasil": "GAGAL"
+      }
+    ]
   },
   {
     "no": 2,
@@ -17,7 +29,19 @@
     "no_permintaan": "4696305236",
     "tanggal_permintaan": "2023-02-01 03:59:42",
     "kendala_proses": "Kualitas Foto KTP buruk",
-    "hasil": "GAGAL"
+    "hasil": "GAGAL",
+    "Array": [
+      {
+        "no": 1,
+        "NIK": "00412481238",
+        "tanggal_input": "2023-01-13 17:36:44",
+        "nama": "Butch Ducket",
+        "no_permintaan": "8657881985",
+        "tanggal_permintaan": "2023-03-09 03:24:24",
+        "kendala_proses": "Kualitas Foto KTP buruk",
+        "hasil": "GAGAL"
+      }
+    ]
   },
   {
     "no": 3,
@@ -27,7 +51,19 @@
     "no_permintaan": "1385139730",
     "tanggal_permintaan": "2023-03-11 08:55:19",
     "kendala_proses": "Kualitas Foto KTP buruk",
-    "hasil": "GAGAL"
+    "hasil": "GAGAL",
+    "Array": [
+      {
+        "no": 1,
+        "NIK": "00412481238",
+        "tanggal_input": "2023-01-13 17:36:44",
+        "nama": "Butch Ducket",
+        "no_permintaan": "8657881985",
+        "tanggal_permintaan": "2023-03-09 03:24:24",
+        "kendala_proses": "Kualitas Foto KTP buruk",
+        "hasil": "GAGAL"
+      }
+    ]
   },
   {
     "no": 4,
@@ -37,7 +73,19 @@
     "no_permintaan": "1502103540",
     "tanggal_permintaan": "2023-04-05 10:06:26",
     "kendala_proses": "Kualitas Foto KTP buruk",
-    "hasil": "GAGAL"
+    "hasil": "GAGAL",
+    "Array": [
+      {
+        "no": 1,
+        "NIK": "00412481238",
+        "tanggal_input": "2023-01-13 17:36:44",
+        "nama": "Butch Ducket",
+        "no_permintaan": "8657881985",
+        "tanggal_permintaan": "2023-03-09 03:24:24",
+        "kendala_proses": "Kualitas Foto KTP buruk",
+        "hasil": "GAGAL"
+      }
+    ]
   },
   {
     "no": 5,

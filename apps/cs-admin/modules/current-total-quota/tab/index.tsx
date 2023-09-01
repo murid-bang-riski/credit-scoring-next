@@ -16,7 +16,7 @@ const TabComponent: FC = () => {
     } else if (query.get("tab") === "pemakaian-kuota") {
       setActive("pemakaian-kuota");
     }
-  }, [query]);
+  }, [query, router, active]);
 
   return (
     <Tab.Group>
