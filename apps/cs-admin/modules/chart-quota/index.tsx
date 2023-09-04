@@ -6,13 +6,14 @@ import Image from "next/image";
 
 const ChartQuotaModules: FC = (): ReactElement => {
   return (
-    <section className="grid grid-cols-3 gap-8 mx-4">
+    <section className="grid grid-cols-3 gap-8 mx-4 pt-5">
       {dummy.map((item) => (
         <CardCS
           key={item.id}
           hasButton={true}
           buttonText="Lihat Semua"
-          buttonHref="/list-company"
+          buttonHref={item.link}
+          as={item.link}
           buttonClassName={`flex mb-2 py-2 justify-center rounded-md font-bold  items-end my-2 ${item.classButton} w-full shadow-lg `}
           className="w-full m-3 min-h-[171px] absolute shadow-md px-4"
         >
@@ -25,10 +26,10 @@ const ChartQuotaModules: FC = (): ReactElement => {
               priority={true}
               style={{ width: "70px", height: "auto" }}
             />
-            <div className="flex-col w-full justify-center space-y-1">
+            <span className="flex-col w-full justify-center space-y-1">
               <p className="text-[14px] font-semibold text-neutral-600">{item.title}</p>
-              <p className="text-black text-[28px]">500</p>
-            </div>
+              <p className="text-black text-[28px]">{item.desc}</p>
+            </span>
           </div>
         </CardCS>
       ))}

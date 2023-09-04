@@ -1,12 +1,9 @@
-import { FC, ReactElement, Suspense, useState } from "react";
-
-import { Button, Modal, Table } from "@components";
-import { formatDate } from "@utils";
-
-import { TQuotaItem } from "../types";
-import { useQuotaData } from "../hooks";
-
+import { useQuotaRequest } from "@/hooks";
+import { TQuotaRequestItem } from "@/types";
+import { Button, Modal, TableComponent } from "@components";
 import { createColumnHelper } from "@tanstack/react-table";
+import { formatDate } from "@utils";
+import { FC, ReactElement, Suspense, useState } from "react";
 
 const RequestQuotaTab: FC = (): ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,11 +12,11 @@ const RequestQuotaTab: FC = (): ReactElement => {
     setIsOpen(!isOpen);
   };
 
-  const { getQuotaData } = useQuotaData();
+  const {getQuotaRequestData} = useQuotaRequest();
 
-  const [data, setData] = useState<TQuotaItem[]>([...getQuotaData]);
+  const [data, setData] = useState<TQuotaRequestItem[]>([...getQuotaRequestData])
 
-  const columnHelper = createColumnHelper<TQuotaItem>();
+  const columnHelper = createColumnHelper<TQuotaRequestItem>();
 
   const columns = [
     {
@@ -78,7 +75,7 @@ const RequestQuotaTab: FC = (): ReactElement => {
     <Suspense fallback="Loading...">
       <section className="py-10">
         <Modal isOpen={isOpen} toggleModal={toggleModal} />
-        <Table data={data} columns={columns} />
+        <TableComponent data={data} columns={columns} />
       </section>
     </Suspense>
   );

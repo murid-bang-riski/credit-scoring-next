@@ -18,5 +18,6 @@ export type TCardProps = {
   buttonText?: string;
   buttonTextstyle?: string;
   buttonHref?: ReactNode;
+  as?: ReactNode;
   onClick?: MouseEventHandler<HTMLDivElement>;
 };

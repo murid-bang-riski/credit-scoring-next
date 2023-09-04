@@ -4,25 +4,31 @@ import { FC, ReactElement, Fragment, useState } from "react";
 import { IconGrafic, IconLogout, IconQuotaAdmin, IconToggle } from "../ui/icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const Sidebar: FC = (): ReactElement => {
+  const pathName = usePathname();
   const DataSidebar = [
     {
+      id: 1,
       title: "Permintaan Kuota",
       path: "/admin",
       icon: <IconQuotaAdmin />,
     },
     {
+      id: 2,
       title: "Grafik Kuota",
       path: "/admin/chart-quota",
       icon: <IconGrafic />,
     },
     {
+      id: 3,
       title: "Keluar",
       path: "/",
       icon: <IconLogout />,
     },
   ];
+
   const activeLink =
     "flex rounded-md cursor-pointer gap-2 p-2 items-center bg-white text-primary-600 shadow-md";
   const normalLink =
@@ -51,21 +57,25 @@ const Sidebar: FC = (): ReactElement => {
         aria-label="Sidebar"
       >
         <div className="h-screen px-3 py-4  bg-add2 border-b">
-          <div>
-            <img src={"/logo.svg"} alt="M-Knows Logo" className="w-[300px] h-auto p-6" />
-          </div>
-
-          <div className="pt-4 font-medium w-full border-neutral-100 ">
-            {DataSidebar.map((x, i) => {
-              return (
-                <div key={i} className="my-4">
-                  <Link href={x.path} className={x.path === pathname ? activeLink : normalLink}>
-                    <span className="p-1">{x.icon}</span>
-                    <span>{x.title}</span>
-                  </Link>
-                </div>
-              );
-            })}
+          <Link href={"/admin"}>
+            <Image
+              src="/logo.svg"
+              alt="logo"
+              width={300}
+              height={300}
+              className="w-[300px] h-auto p-6"
+              priority={true}
+            />
+          </Link>
+          <div className="pt-4 font-medium w-full border-neutral-100">
+            {DataSidebar.map((item) => (
+              <div key={item.id} className="my-4">
+                <Link href={item.path} className={item.path === pathName ? activeLink : normalLink}>
+                  <span className="p-1">{item.icon}</span>
+                  <span>{item.title}</span>
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </aside>
