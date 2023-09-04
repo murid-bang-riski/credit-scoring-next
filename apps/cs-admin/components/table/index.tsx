@@ -24,7 +24,6 @@ export const Table: FC<ITableProps> = ({ data, columns }): ReactElement => {
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    debugTable: true,
   });
 
   let currentQuery = {};
@@ -71,14 +70,16 @@ export const Table: FC<ITableProps> = ({ data, columns }): ReactElement => {
       { skipNull: true },
     );
 
+    console.log(url);
+
     router.push(url);
   }, [table, query, pathname, currentQuery, router]);
 
   useEffect(() => {
-    table.getPageCount() < Number(query.get("page")) && resetPage();
-
-    query.get("page") && table.setPageIndex(Number(query.get("page")) - 1);
-  }, [table, query]);
+    if (Number(query.get("page")) < 1 && Number(query.get("page")) > table.getPageCount()) {
+      resetPage();
+    }
+  }, [table, query, router]);
 
   return (
     <div className="p-2 text-xs">
