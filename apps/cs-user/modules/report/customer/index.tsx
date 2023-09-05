@@ -5,15 +5,15 @@
 import { ReusableTable, SubTable as SubTableComponent, TableColumn } from "components/table";
 import React, { FC, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import FakeDummyData from "./MOCK_DATA.json";
+import FakeDummyData from "../../permintaan/hasil/MOCK_DATA.json";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import { BiSolidCaretDownCircle } from "react-icons/bi";
 import { BiSolidCaretRightCircle } from "react-icons/bi";
 import { MdArrowBackIosNew } from "react-icons/md";
 import { Search } from "components/search";
-import OptionData from "./OptionData.json";
+import OptionData from "../../permintaan/hasil/OptionData.json";
 
-export const Result: FC = () => {
+export const ReportCustomer: FC = () => {
   const itemsPerPage = 20; // Maksimal 20 data per halaman
   const [currentPage, setCurrentPage] = useState(1);
   const [nextActive, setNextActive] = useState(true); // Initially set to true since initially Next is active
@@ -87,26 +87,21 @@ export const Result: FC = () => {
   };
 
   const columns = [
-    { header: " ", className: "w-[20px]" },
+    { header: " ", className: "w-[80px]" },
     { header: "No", className: "w-[20px]" },
-    { header: "Tanggal Input", hasSorting: true, className: "w-[150px]" },
-    { header: "NIK", hasSorting: true, className: "w-[100px]" },
+    { header: "NIK", className: "w-[100px]" },
     { header: "Nama", hasSorting: true },
-    { header: "No. Permintaan", hasSorting: true },
-    { header: "Tanggal Permintaan", hasSorting: true },
-    { header: "Kendala Proses" },
     { header: "Hasil", className: "w-[150px]" },
   ];
 
   const SubTable: TableColumn[] = [
     { header: "No", className: "w-[20px]" },
-    { header: "Tanggal Input", hasSorting: true, className: "w-[150px]" },
-    { header: "NIK", hasSorting: true, className: "w-[100px]" },
-    { header: "Nama", hasSorting: true },
-    { header: "No. Permintaan", hasSorting: true },
-    { header: "Tanggal Permintaan", hasSorting: true },
-    { header: "Kendala Proses", hasAllSelect: true },
+    { header: "No. Permintaan", className: "w-[150px]" },
+    { header: "Tanggal Permintaan", className: "w-[150px]" },
+    { header: "Jenis Permintaan", className: "w-[200px]" },
     { header: "Hasil", className: "w-[150px]" },
+    { header: "Lihat Detail", className: "w-[80px]" },
+    { header: "Semua", hasAllSelect: true, className: "w-[100px]" },
   ];
 
   const totalPages = Math.ceil(FakeDummyData.length / itemsPerPage);
@@ -174,6 +169,27 @@ export const Result: FC = () => {
 
     return pagination;
   };
+  const renderedHasil = (hasil: string) => {
+    if (hasil === "Sangat Baik") {
+      return (
+        <button className="w-full py-2 text-white font-bold text-[12px] rounded-md bg-[#54B435]">
+          {hasil}
+        </button>
+      );
+    } else if (hasil === "Cukup Buruk") {
+      return (
+        <button className="w-full py-2 text-white font-bold text-[12px] rounded-md bg-[#F59E0B]">
+          {hasil}
+        </button>
+      );
+    } else {
+      return (
+        <button className="w-full py-2 text-white font-bold text-[12px] rounded-md bg-[#EE2D24]">
+          {hasil}
+        </button>
+      );
+    }
+  };
 
   return (
     <div className="flex flex-col gap-7 mb-20 mt-10">
@@ -194,26 +210,25 @@ export const Result: FC = () => {
       <ReusableTable
         classBody=""
         MainTableSort={handleSort}
-        classHead="bg-[#F5F8FF] text-[#A3A3A3]"
+        classHead="bg-[#F5F8FF]"
         columns={columns}
       >
         {paginatedData.map((data, index) => (
           <React.Fragment key={index}>
             <tr className="py-4 border-y-2">
               <td>
-                <button onClick={() => toggleSubTable(index)}>
-                  {openRowIndex === index ? (
-                    <BiSolidCaretDownCircle color="#1B9984" className="w-[20px] h-[20px]" />
-                  ) : (
-                    <BiSolidCaretRightCircle color="#1B9984" className="w-[20px] h-[20px]" />
-                  )}
-                </button>
+                <div className="flex justify-center items-center">
+                  <button onClick={() => toggleSubTable(index)}>
+                    {openRowIndex === index ? (
+                      <BiSolidCaretDownCircle color="#1B9984" className="w-[20px] h-[20px]" />
+                    ) : (
+                      <BiSolidCaretRightCircle color="#1B9984" className="w-[20px] h-[20px]" />
+                    )}
+                  </button>
+                </div>
               </td>
               <td>
                 <div className="flex justify-center items-center">{data.no}</div>
-              </td>
-              <td>
-                <div className="flex justify-center items-center">{data.tanggal_input}</div>
               </td>
               <td>
                 <div className="flex justify-center items-center">{data.NIK}</div>
@@ -221,17 +236,7 @@ export const Result: FC = () => {
               <td>
                 <div className="flex justify-center items-center">{data.nama}</div>
               </td>
-              <td>
-                <div className="flex justify-center items-center">{data.no_permintaan}</div>
-              </td>
-              <td>
-                <div className="flex justify-center items-center">{data.tanggal_permintaan}</div>
-              </td>
-              <td>
-                <div className="flex justify-center items-center">
-                  {data.kendala_proses === null ? "-" : data.kendala_proses}
-                </div>
-              </td>
+
               <td className="w-[120px] ">
                 <div className="flex justify-center items-center">
                   {data.hasil === "GAGAL" ? (
@@ -248,17 +253,19 @@ export const Result: FC = () => {
             </tr>
             {data.Array && data.Array.length > 0 && openRowIndex === index && (
               <tr>
-                <td className="px-20 " colSpan={columns.length}>
-                  <Search
-                    value={searchQuery}
-                    onChange={handleSearchQueryChange}
-                    placeholder="Search Nama, NIK, No. "
-                  />
+                <td className="px-20 g" colSpan={columns.length}>
+                  <div className="w-[250px] my-2">
+                    <Search
+                      value={searchQuery}
+                      onChange={handleSearchQueryChange}
+                      placeholder="Search Nama, NIK, No. "
+                    />
+                  </div>
                   <SubTableComponent
                     classBody=""
                     columns={SubTable} // Mengirimkan arah pengurutan di subtable
                     SubTableShort={handleSort}
-                    classHead="bg-[#F5F8FF] text-[#A3A3A3]"
+                    classHead="bg-[#F5F8FF] text-[#1B9984]"
                     SelectAll={toggleSelectAll}
                   >
                     {data.Array.filter((item) =>
@@ -273,28 +280,41 @@ export const Result: FC = () => {
                         <td className="py-2 ">
                           <div className="flex justify-center items-center">{data.no}</div>
                         </td>
-                        <td className="py-2">{data.tanggal_input}</td>
-                        <td className="p-2">{data.NIK}</td>
-                        <td className="p-2">{data.nama}</td>
-                        <td className="p-2">{data.no_permintaan}</td>
-                        <td className="p-2"> {data.tanggal_permintaan}</td>
                         <td className="py-2">
-                          <input
-                            type="checkbox"
-                            onChange={toggleRowSelection.bind(null, index)}
-                            checked={selectedRows.includes(index)}
-                          />
+                          <div className="flex justify-center items-center">
+                            {data.no_permintaan}
+                          </div>
                         </td>
-                        <td className="w-[120px] py-2">
-                          {data.hasil === "GAGAL" ? (
-                            <button className="w-full py-2 text-white font-bold text-[12px] rounded-md bg-[#EE2D24]">
-                              {data.hasil}
+                        <td className="p-2">
+                          <div className="flex justify-center items-center">
+                            {data.no_permintaan}
+                          </div>
+                        </td>
+                        <td className="p-2">
+                          <div className="flex justify-center items-center">{data.nama}</div>
+                        </td>
+                        <td className="p-2">
+                          <div className="flex justify-center items-center">
+                            {renderedHasil(data.hasil)}
+                          </div>
+                        </td>
+                        <td className="w-[120px] p-2">
+                          <div className="flex justify-center items-center">
+                            <button className="px-4 py-1 bg-[#4AC1A2] text-[12px] font-bold text-white rounded-sm">
+                              Lihat
                             </button>
-                          ) : (
-                            <button className="w-full py-2 text-white font-bold text-[12px] rounded-md bg-[#F59E0B]">
-                              {data.hasil}
-                            </button>
-                          )}
+                          </div>
+                        </td>
+                        <td className="py-2">
+                          <div className="flex justify-center items-center">
+                            <input
+                              width={50}
+                              height={50}
+                              type="checkbox"
+                              onChange={toggleRowSelection.bind(null, index)}
+                              checked={selectedRows.includes(index)}
+                            />
+                          </div>
                         </td>
                       </tr>
                     ))}
