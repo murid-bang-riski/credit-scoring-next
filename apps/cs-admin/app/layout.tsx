@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={openSans.className}>
         <ReactQueryProvider>
-          <RecoilProvider>{children}</RecoilProvider>
+            <RecoilProvider>{children}</RecoilProvider>
         </ReactQueryProvider>
       </body>
     </html>
