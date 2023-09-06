@@ -34,3 +34,5 @@ export * from "./ic-warehouse";
 export * from "./ic-hp";
 export * from "./ic-building";
 export * from "./ic-cash-payment";
+export * from "./ic-chart-up";
+export * from "./ic-chart-down";
