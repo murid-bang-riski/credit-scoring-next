@@ -81,10 +81,12 @@ const RequestQuota: FC = (): ReactElement => {
                   </Tab>
                 </Tab.List>
                 <div className="flex flex-row items-center gap-x-3">
-                  <DateRangePickerComponent
-                    onRangeChange={() => <>belum bang</>}
-                    width="xl:w-[205px] w-[200px]"
-                  />
+                  <div>
+                    <DateRangePickerComponent
+                      onRangeChange={() => <>belum bang</>}
+                      width="w-[300px]"
+                    />
+                  </div>
                   <div
                     onClick={openModal}
                     className="cursor-pointer flex items-center flex-row gap-x-3 border-2 border-neutral-300 rounded-md px-4 py-2 text-neutral-800 "
