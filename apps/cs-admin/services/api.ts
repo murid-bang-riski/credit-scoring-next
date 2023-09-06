@@ -1,25 +1,34 @@
-import axios from "axios";
-import type { AxiosRequestConfig } from "axios";
-import TokenService from "./token";
+import axios, { AxiosRequestConfig } from "axios";
+import { getSession } from "next-auth/react";
 
-const config: AxiosRequestConfig = {
-  baseURL: "import.meta.env.VITE_API_URL",
+type Session = {
+  user?: {
+    id: string;
+    fullname: string;
+    email: string;
+    token: string;
+  };
 };
 
-const api = axios.create(config);
+const apiConfig: AxiosRequestConfig = {
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
+};
+
+const api = axios.create(apiConfig);
 
 api.interceptors.request.use(
   async (config) => {
-    const token = TokenService.getToken();
+    const session: Session = (await getSession()) as Session;
+
+    const token = session?.user?.token as string;
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;
   },
   (error) => {
-    Promise.reject(error);
-    TokenService.removeToken();
+    return Promise.reject(error);
   },
 );
 
-export default api;
+export { api };

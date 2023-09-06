@@ -1,4 +1,5 @@
 "use client";
+
 import LoginModule from "@/modules/login";
 import { FC, ReactElement } from "react";
 

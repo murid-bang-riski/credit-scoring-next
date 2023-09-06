@@ -1,11 +1,8 @@
 import { FC, ReactElement, Suspense, useState } from "react";
-
 import { Button, IconCheck, IconClock, IconError, Modal, TableComponent } from "@components";
 import { formatDate } from "@utils";
-
-import { TQuotaItem } from "../types";
-import { useQuotaData } from "../hooks";
-
+import { useQuotaRequest } from "@/hooks";
+import { TQuotaRequestItem } from "@/types";
 import { createColumnHelper } from "@tanstack/react-table";
 
 const RequestHistoryTab: FC = (): ReactElement => {
@@ -15,11 +12,11 @@ const RequestHistoryTab: FC = (): ReactElement => {
     setIsOpen(!isOpen);
   };
 
-  const { getQuotaData } = useQuotaData();
+  const {getQuotaRequestData} = useQuotaRequest();
+  
+  const [data, setData] = useState<TQuotaRequestItem[]>([...getQuotaRequestData])
 
-  const [data, setData] = useState<TQuotaItem[]>([...getQuotaData]);
-
-  const columnHelper = createColumnHelper<TQuotaItem>();
+  const columnHelper = createColumnHelper<TQuotaRequestItem>();
 
   const columns = [
     {
@@ -93,7 +90,7 @@ const RequestHistoryTab: FC = (): ReactElement => {
     <Suspense fallback="Loading...">
       <section className="py-10">
         <Modal isOpen={isOpen} toggleModal={toggleModal} />
-        <TableComponent data={data} columns={columns} />
+        <TableComponent data={data} columns={columns} thClassName="p-3" />
       </section>
     </Suspense>
   );
