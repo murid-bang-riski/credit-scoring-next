@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Logo from "../../public/logo.svg";
 import { asset1, asset2, asset3 } from "../../public/login";
-import FormLogin from "./form";
+import { FormLogin } from "./form";
 
 const LoginModule = () => {
   return (

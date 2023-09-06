@@ -1,52 +1,33 @@
 "use client";
 import { Button, Checkbox, TextField } from "@components";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { FC, ReactElement, useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { useLogin } from "../hooks";
 import Swal from "sweetalert2";
+import { z } from "zod";
 
-const FormLogin: FC = (): ReactElement => {
-  const [getError, setError] = useState<string | undefined>("");
-  const { mutate, isLoading } = useLogin();
+export const FormLogin: FC = (): ReactElement => {
   const router = useRouter();
-
-  interface dataDummyType {
-    id: number;
-    email: string;
-    password: string;
-  }
-
-  const dataDummy: dataDummyType[] = [
-    {
-      id: 1,
-      email: "zulham@gmail.com",
-      password: "123456",
-    },
-    {
-      id: 2,
-      email: "fatih@gmail.com",
-      password: "123456",
-    },
-  ];
+  const searchParams = useSearchParams();
+  const [getError, setError] = useState<string | undefined | null>(undefined);
+  type ValidationSchema = z.infer<typeof validationSchema>;
 
   const validationSchema = z.object({
     email: z
       .string()
       .min(1, { message: "Email harus diisi" })
-      .email({
-        message: "Email harus valid",
-      })
-      .min(6, { message: "Email minimal 6 karakter" }),
+      .email({ message: "Email tidak valid" }),
     password: z.string().min(1, { message: "Password harus diisi" }),
     remember: z.boolean().optional(),
   });
 
-  type ValidationSchema = z.infer<typeof validationSchema>;
-
-  const { control, formState, handleSubmit } = useForm<ValidationSchema>({
+  const {
+    control,
+    formState: { isValid, errors },
+    handleSubmit,
+  } = useForm<ValidationSchema>({
     resolver: zodResolver(validationSchema),
     mode: "all",
     defaultValues: {
@@ -56,66 +37,59 @@ const FormLogin: FC = (): ReactElement => {
     },
   });
 
-  const onSubmit = handleSubmit((data) => {
-    // mutate(
-    //   {
-    //     email: data.email,
-    //     password: data.password,
-    //   },
-    //   {
-    //     onSuccess: () => {
-    //       router.push("/admin/quota-request");
-    //       console.log("berhasil masuk");
-    //     },
-    //     onError: (e) => {
-    //       setError(e.response?.data.message);
-    //     },
-    //   },
-    // );
+  const callbackUrl = searchParams.get("callbackUrl") || "";
 
-    //validasi data admin
-    const isAdmin = dataDummy.find(
-      (item) => item.email === data.email && item.password === data.password,
-    );
+  const onSubmit = async (data: any) => {
+    try {
+      // setLoading(true);
+      // setFormValues({ email: "", password: "" });
 
-    //cek kondisi data admin terdapat pada database atau tidak
-    const isAdminExist = dataDummy.some((item) => item.email === data.email);
+      const res = await signIn("login", {
+        redirect: false,
+        email: data.email,
+        password: data.password,
+        callbackUrl,
+      });
 
-    if (!isAdminExist) {
+      // console.log(res);
+      if (!res?.error) {
+        Swal.fire({
+          toast: true,
+          position: "top-end",
+          icon: "success",
+          title: "Login Berhasil",
+          showConfirmButton: false,
+          timer: 1500,
+        }).then(() => {
+          // router.push(callbackUrl);
+          router.push("/admin");
+        });
+      } else {
+        Swal.fire({
+          toast: true,
+          position: "top-end",
+          icon: "error",
+          title: res.error,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error: any) {
       Swal.fire({
         toast: true,
         position: "top-end",
         icon: "error",
-        title: "Akun Tidak Terdaftar",
+        title: { error },
         showConfirmButton: false,
         timer: 1500,
       });
-    } else if (!isAdmin) {
-      Swal.fire({
-        toast: true,
-        position: "top-end",
-        icon: "error",
-        title: "email atau password salah!!!",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    } else {
-      Swal.fire({
-        toast: true,
-        position: "top-end",
-        icon: "success",
-        title: "Login Berhasil",
-        showConfirmButton: false,
-        timer: 1500,
-      }).then(() => {
-        router.push("/admin");
-      });
+      setError(error);
     }
-  });
+  };
 
   return (
     <form
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit(onSubmit)} // Use handleSubmit here
       className="bg-white items-center justify-center px-8 py-12 shadow-gray-300 shadow-lg lg:w-[512px] w-[400px] h-auto rounded-sm overflow-hidden"
     >
       <div className="space-y-5">
@@ -133,42 +107,40 @@ const FormLogin: FC = (): ReactElement => {
           label="Email"
           name="email"
           control={control}
-          placeholder="admin@admin.com"
-          status={formState.errors.email ? "error" : "none"}
-          message={formState.errors.email?.message}
+          placeholder="msdqn@psu.org"
+          status={errors.email ? "error" : "none"}
+          message={errors.email?.message}
           variant="md"
-          required
-          rules={{
-            required: true,
-          }}
+          rules={
+            {
+              // No need to specify 'required: true' here
+            }
+          }
         />
         <TextField
           type="password"
           label="Password"
           name="password"
-          required
-          status={formState.errors.password ? "error" : "none"}
-          message={formState.errors.password?.message}
-          rules={{
-            required: true,
-          }}
+          status={errors.password ? "error" : "none"}
+          message={errors.password?.message}
           placeholder="Masukkan Password Anda"
           control={control}
           variant="md"
+          rules={
+            {
+              // No need to specify 'required: true' here
+            }
+          }
         />
         <Checkbox name="remember" variant="md" control={control} label="Ingatkan Saya" />
       </div>
       <Button
         type="submit"
-        // loading={isLoading ? "Sedang Masuk..." : undefined}
-        // loading="Sedang Masuk..."
-        className="flex disabled:bg-neutral-200 justify-center w-full p-3 rounded-md border bg-primary-400 text-white font-bold mt-4"
-        disabled={!formState.isValid}
+        className="flex disabled:bg-neutral-200 justify-center w-full p-3 mt-8 rounded-md border bg-primary-400 text-white font-bold"
+        disabled={!isValid}
       >
         Masuk
       </Button>
     </form>
   );
 };
-
-export default FormLogin;

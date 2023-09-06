@@ -10,19 +10,30 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import queryString from "query-string";
 
 interface ITableProps {
-  data?: any;
-  columns?: any;
+  data: any;
+  columns: any;
   pagination?: boolean;
+  center?: boolean;
   thColor?: string;
   tbColor?: string;
+  thClassName?: string;
+  tbClassName?: string;
+  paginationColor?: string;
+  //hexadecimal
+  paginationIconColor?:string;
 }
 
 export const TableComponent: FC<ITableProps> = ({
   data,
   columns,
   pagination = true,
+  center = true,
   tbColor = "bg-gray-100",
   thColor = "bg-primary-100",
+  thClassName = "p-4",
+  tbClassName = "p-4",
+  paginationColor = "bg-primary-400",
+  paginationIconColor = "#4AC1A2",
 }): ReactElement => {
   const router = useRouter();
   const query = useSearchParams();
@@ -33,7 +44,6 @@ export const TableComponent: FC<ITableProps> = ({
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    debugTable: true,
   });
 
   let currentQuery = {};
@@ -80,23 +90,25 @@ export const TableComponent: FC<ITableProps> = ({
       { skipNull: true },
     );
 
+    console.log(url);
+
     router.push(url);
   }, [table, query, pathname, currentQuery, router]);
 
   useEffect(() => {
-    table.getPageCount() < Number(query.get("page")) && resetPage();
-
-    query.get("page") && table.setPageIndex(Number(query.get("page")) - 1);
-  }, [table, query]);
+    if (Number(query.get("page")) < 1 && Number(query.get("page")) > table.getPageCount()) {
+      resetPage();
+    }
+  }, [table, query, router]);
 
   return (
     <div className="p-2 text-xs">
-      <table className="overflow-x-scroll text-center text-xs w-full">
+      <table className={`overflow-x-scroll text-xs w-full ${center ? "text-center" : "text-left"}`}>
         <thead className={`${thColor}`}>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th className="p-3" key={header.id}>
+                <th className={`${thClassName}`} key={header.id}>
                   {header.isPlaceholder
                     ? null
                     : flexRender(header.column.columnDef.header, header.getContext())}
@@ -114,7 +126,7 @@ export const TableComponent: FC<ITableProps> = ({
             `}
             >
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className="p-3">
+                <td key={cell.id} className={`${tbClassName}`}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
@@ -124,19 +136,19 @@ export const TableComponent: FC<ITableProps> = ({
       </table>
       {!!pagination && (
         <>
-          <span className="flex items-center gap-1">
+          <span className="flex items-center gap-1 mt-4">
             <p className="text-gray-400 font-bold">
               Menampilkan {table.getRowModel().rows.length} dari {data.length} hasil
             </p>
           </span>
           <div className="flex items-center gap-2 font-bold mt-4 justify-center">
             <Button
-              className="border rounded px-3.5 py-3.5 text-primary-400 mr-9"
+              className="border rounded px-3.5 py-3.5 mr-9"
               onClick={() => setPageTable(table.getState().pagination.pageIndex - 1)}
               disabled={!table.getCanPreviousPage()}
               type="button"
             >
-              <IconBack disabled={!table.getCanPreviousPage()} />
+              <IconBack disabled={!table.getCanPreviousPage()} color={paginationIconColor}/>
             </Button>
             {table.getPageOptions().map((pageIndex) => (
               <Button
@@ -144,7 +156,7 @@ export const TableComponent: FC<ITableProps> = ({
                 className={`border rounded px-4 py-3 cursor-pointer 
             ${
               table.getState().pagination.pageIndex === pageIndex
-                ? "bg-primary-400 text-white shadow-lg"
+                ? `${paginationColor} text-white shadow-lg`
                 : "text-gray-400 "
             }
               `}
@@ -160,7 +172,7 @@ export const TableComponent: FC<ITableProps> = ({
               disabled={!table.getCanNextPage()}
               type="button"
             >
-              <IconNext disabled={!table.getCanNextPage()} />
+              <IconNext disabled={!table.getCanNextPage()} color={paginationIconColor} />
             </Button>
           </div>
         </>

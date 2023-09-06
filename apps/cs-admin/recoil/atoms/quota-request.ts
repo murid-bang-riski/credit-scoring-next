@@ -1,8 +1,8 @@
+import { TQuotaRequestItem } from "@/types";
 import { atom } from "recoil";
-import { TQuotaItem } from "./types";
 
-export const QuotaDummyData = atom<TQuotaItem[]>({
-  key: "quota-dummy-data",
+export const QuotaRequestState = atom<TQuotaRequestItem[]>({
+  key: "quota-request",
   default: [
     {
       _id: "647eadf33239637657350bda",

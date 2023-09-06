@@ -30,6 +30,6 @@ export const dummy: IChartQuota[] = [
     title: "Total Pengeluaran Biaya",
     desc: "Rp. 500.000.000",
     classButton: "bg-purple-100 hover:bg-purple-100 bg-opacity-20 text-purple-500",
-    link: "/admin/chart-quota/current-total-quota?tab=jumlah-kuota",
+    link: "/admin/chart-quota/total-expenditure-costs?tab=jumlah-pengeluaran",
   },
 ];
