@@ -4,8 +4,8 @@ import { Open_Sans } from "next/font/google";
 import "./global.css";
 
 export const metadata = {
-  title: "Credite Scoring Admin",
-  description: "Credite Scoring Admin",
+  title: "Credit Scoring Admin",
+  description: "Credit Scoring Admin",
   link: [
     {
       rel: "preload",
