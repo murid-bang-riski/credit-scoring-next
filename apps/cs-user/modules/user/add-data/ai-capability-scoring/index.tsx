@@ -341,7 +341,11 @@ export const CapabilityScoringSection: FC = (): ReactElement => {
         disabled={false}
       >
         <form onSubmit={onSubmit}>
-          <DraggableFileUpload />
+          <DraggableFileUpload
+            maxFileSize={2000}
+            allowedFileTypes={[".xls", ".xlsx"]}
+            multiple={false}
+          />
           {upload.map((x, i) => (
             <div className="py-2" key={i}>
               <div className="flex gap-4">

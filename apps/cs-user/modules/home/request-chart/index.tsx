@@ -1,3 +1,4 @@
+"use client";
 import {
   ArcElement,
   CategoryScale,
@@ -8,6 +9,8 @@ import {
   LinearScale,
   PointElement,
   Tooltip,
+  Chart,
+  ChartOptions,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 ChartJS.register(
@@ -21,10 +24,12 @@ ChartJS.register(
   Filler,
 );
 import { TRequestHistoryGraphDataItem } from "@cs-user/types";
+import zoomPlugin from "chartjs-plugin-zoom";
+import { useRef, RefObject } from "react";
 
+Chart.register(zoomPlugin);
 export const RequestChart = (data: any) => {
-  // console.log(`Graph Data`, data);
-
+  const chartRef = useRef<Chart<"line", any[], string> | null>(null);
   const labels = [
     "Jan",
     "Feb",
@@ -83,17 +88,45 @@ export const RequestChart = (data: any) => {
       },
     ],
   };
+
+  const options = {
+    scales: {
+      y: {
+        min: 0,
+      },
+    },
+    plugins: {
+      zoom: {
+        zoom: {
+          wheel: {
+            enabled: true,
+          },
+          mode: "x",
+          speed: 5,
+        },
+      },
+      pan: {
+        enabled: true,
+        mode: "x",
+        speed: 5,
+      },
+    },
+  };
+
   return (
-    <div>
-      <div className="flex px-8 justify-end gap-4">
-        <button className="border border-primary-500 rounded-full w-6 h-6 text-md">+</button>
-        <button className="border border-primary-500 rounded-full w-6 text-md">-</button>
-      </div>
-      <div className="px-4 w-full py-8 flex justify-center">
-        <div className="h-full w-full mt-4 overflow-hidden ">
-          <Line data={dataLine} options={{ maintainAspectRatio: false }} />
+    <div className="h-full">
+      <div className="px-4 w-full flex justify-center">
+        <div className="h-full w-full mt-4 overflow-hidden flex items-stretch">
+          <Line
+            data={dataLine}
+            width={"100%"}
+            height={"100%"}
+            options={options as ChartOptions<"line">}
+            ref={chartRef}
+          />
         </div>
       </div>
     </div>
   );
 };
+export default RequestChart;
