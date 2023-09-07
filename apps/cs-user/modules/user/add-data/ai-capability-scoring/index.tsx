@@ -1,4 +1,4 @@
-import { FC, ReactElement, useState } from 'react';
+import { FC, ReactElement, useState } from "react";
 import {
   FileUploadField,
   Button,
@@ -7,153 +7,117 @@ import {
   IconInfo,
   IconClose,
   DraggableFileUpload,
-} from '@cs-user/components';
-import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  useForm,
-  Control,
-  FieldError,
-  FieldErrorsImpl,
-  Merge,
-} from 'react-hook-form';
-import { z } from 'zod';
-import { Dialog } from '@headlessui/react';
-import Image from 'next/image';
+} from "@cs-user/components";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, Control, FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
+import { z } from "zod";
+import { Dialog } from "@headlessui/react";
+import Image from "next/image";
 
-export const CapabilityScoringSection = () => {
+export const CapabilityScoringSection: FC = (): ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
   const MAX_FILE_SIZE = 3000000;
-  const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/jpg'];
+  const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/jpg"];
   const dataValidationSchema = z.object({
     all_files_capability: z
       .any()
       .refine(
-        (files: File[]) =>
-          files !== undefined && files?.[0]?.size <= MAX_FILE_SIZE,
-        'Ukuran maksimun adalah 3mb.'
+        (files: File[]) => files !== undefined && files?.[0]?.size <= MAX_FILE_SIZE,
+        "Ukuran maksimun adalah 3mb.",
       )
       .refine(
-        (files: File[]) =>
-          files !== undefined &&
-          ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-        'Only .jpg, .jpeg, and .png formats are supported'
+        (files: File[]) => files !== undefined && ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+        "Only .jpg, .jpeg, and .png formats are supported",
       ),
     image_ktp: z
       .any()
       .refine(
-        (files: File[]) =>
-          files !== undefined && files?.[0]?.size <= MAX_FILE_SIZE,
-        'Ukuran maksimun adalah 3mb.'
+        (files: File[]) => files !== undefined && files?.[0]?.size <= MAX_FILE_SIZE,
+        "Ukuran maksimun adalah 3mb.",
       )
       .refine(
-        (files: File[]) =>
-          files !== undefined &&
-          ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-        'Only .jpg, .jpeg, and .png formats are supported'
+        (files: File[]) => files !== undefined && ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+        "Only .jpg, .jpeg, and .png formats are supported",
       ),
     image_surat_nomor_induk_berusaha: z
       .any()
       .refine(
-        (files: File[]) =>
-          files !== undefined && files?.[0]?.size <= MAX_FILE_SIZE,
-        'Ukuran maksimun adalah 3mb.'
+        (files: File[]) => files !== undefined && files?.[0]?.size <= MAX_FILE_SIZE,
+        "Ukuran maksimun adalah 3mb.",
       )
       .refine(
-        (files: File[]) =>
-          files !== undefined &&
-          ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-        'Only .jpg, .jpeg, and .png formats are supported'
+        (files: File[]) => files !== undefined && ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+        "Only .jpg, .jpeg, and .png formats are supported",
       ),
     image_surat_izin_usaha_perdagangan: z
       .any()
       .refine(
-        (files: File[]) =>
-          files !== undefined && files?.[0]?.size <= MAX_FILE_SIZE,
-        'Ukuran maksimun adalah 3mb.'
+        (files: File[]) => files !== undefined && files?.[0]?.size <= MAX_FILE_SIZE,
+        "Ukuran maksimun adalah 3mb.",
       )
       .refine(
-        (files: File[]) =>
-          files !== undefined &&
-          ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-        'Only .jpg, .jpeg, and .png formats are supported'
+        (files: File[]) => files !== undefined && ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+        "Only .jpg, .jpeg, and .png formats are supported",
       ),
     image_surat_nomor_akta_notaris: z
       .any()
       .refine(
-        (files: File[]) =>
-          files !== undefined && files?.[0]?.size <= MAX_FILE_SIZE,
-        'Ukuran maksimun adalah 3mb.'
+        (files: File[]) => files !== undefined && files?.[0]?.size <= MAX_FILE_SIZE,
+        "Ukuran maksimun adalah 3mb.",
       )
       .refine(
-        (files: File[]) =>
-          files !== undefined &&
-          ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-        'Only .jpg, .jpeg, and .png formats are supported'
+        (files: File[]) => files !== undefined && ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+        "Only .jpg, .jpeg, and .png formats are supported",
       ),
     image_surat_keterangan_domisili_usaha: z
       .any()
       .refine(
-        (files: File[]) =>
-          files !== undefined && files?.[0]?.size <= MAX_FILE_SIZE,
-        'Ukuran maksimun adalah 3mb.'
+        (files: File[]) => files !== undefined && files?.[0]?.size <= MAX_FILE_SIZE,
+        "Ukuran maksimun adalah 3mb.",
       )
       .refine(
-        (files: File[]) =>
-          files !== undefined &&
-          ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-        'Only .jpg, .jpeg, and .png formats are supported'
+        (files: File[]) => files !== undefined && ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+        "Only .jpg, .jpeg, and .png formats are supported",
       ),
     image_surat_nomor_pokok_wajib_pajak: z
       .any()
       .refine(
-        (files: File[]) =>
-          files !== undefined && files?.[0]?.size <= MAX_FILE_SIZE,
-        'Ukuran maksimun adalah 3mb.'
+        (files: File[]) => files !== undefined && files?.[0]?.size <= MAX_FILE_SIZE,
+        "Ukuran maksimun adalah 3mb.",
       )
       .refine(
-        (files: File[]) =>
-          files !== undefined &&
-          ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-        'Only .jpg, .jpeg, and .png formats are supported'
+        (files: File[]) => files !== undefined && ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+        "Only .jpg, .jpeg, and .png formats are supported",
       ),
     image_surat_tanda_daftar_perusahaan: z
       .any()
       .refine(
-        (files: File[]) =>
-          files !== undefined && files?.[0]?.size <= MAX_FILE_SIZE,
-        'Ukuran maksimun adalah 3mb.'
+        (files: File[]) => files !== undefined && files?.[0]?.size <= MAX_FILE_SIZE,
+        "Ukuran maksimun adalah 3mb.",
       )
       .refine(
-        (files: File[]) =>
-          files !== undefined &&
-          ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-        'Only .jpg, .jpeg, and .png formats are supported'
+        (files: File[]) => files !== undefined && ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+        "Only .jpg, .jpeg, and .png formats are supported",
       ),
     image_credit_applicant: z
       .any()
       .refine(
-        (files: File[]) =>
-          files !== undefined && files?.[0]?.size <= MAX_FILE_SIZE,
-        'Ukuran maksimun adalah 3mb.'
+        (files: File[]) => files !== undefined && files?.[0]?.size <= MAX_FILE_SIZE,
+        "Ukuran maksimun adalah 3mb.",
       )
       .refine(
-        (files: File[]) =>
-          files !== undefined &&
-          ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-        'Only .jpg, .jpeg, and .png formats are supported'
+        (files: File[]) => files !== undefined && ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+        "Only .jpg, .jpeg, and .png formats are supported",
       ),
     image_laporan_keuangan: z
       .any()
       .refine(
-        (files: File[]) =>
-          files !== undefined && files?.[0]?.size <= MAX_FILE_SIZE,
-        'Ukuran maksimun adalah 3mb.'
+        (files: File[]) => files !== undefined && files?.[0]?.size <= MAX_FILE_SIZE,
+        "Ukuran maksimun adalah 3mb.",
       )
       .refine(
-        (files: File[]) =>
-          files !== undefined &&
-          ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-        'Only .jpg, .jpeg, and .png formats are supported'
+        (files: File[]) => files !== undefined && ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+        "Only .jpg, .jpeg, and .png formats are supported",
       ),
   });
 
@@ -167,7 +131,7 @@ export const CapabilityScoringSection = () => {
     formState: { isValid, errors },
   } = useForm<DataValidationSchema>({
     resolver: zodResolver(dataValidationSchema),
-    mode: 'all',
+    mode: "all",
     defaultValues: {
       all_files_capability: undefined,
       image_credit_applicant: undefined,
@@ -219,7 +183,7 @@ export const CapabilityScoringSection = () => {
       // );
     } catch (err) {
       //   setDataCharacter(false);
-      console.log('error');
+      console.log("error");
       throw err;
     }
   });
@@ -231,111 +195,105 @@ export const CapabilityScoringSection = () => {
     accepted: string;
     label: string;
     notif: string;
-    message?:
-      | string
-      | FieldError
-      | Merge<FieldError, FieldErrorsImpl<any>>
-      | undefined;
-    status: 'error' | 'none' | 'success' | 'warning' | undefined;
+    message?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
+    status: "error" | "none" | "success" | "warning" | undefined;
   }> = [
     {
-      name: 'image_ktp',
+      name: "image_ktp",
       control,
       required: true,
-      accepted: '.jpg, .jpeg, .png',
-      label: 'Kartu Tanda Penduduk (KTP)',
+      accepted: ".jpg, .jpeg, .png",
+      label: "Kartu Tanda Penduduk (KTP)",
       message: errors.image_ktp?.message,
-      status: errors.image_ktp ? 'error' : 'none',
-      notif:
-        '*Pastikan foto KTP dapat terlihat dengan jelas dan pencahayaan yang baik',
+      status: errors.image_ktp ? "error" : "none",
+      notif: "*Pastikan foto KTP dapat terlihat dengan jelas dan pencahayaan yang baik",
     },
     {
-      name: 'image_surat_nomor_induk_berusaha',
+      name: "image_surat_nomor_induk_berusaha",
       control,
       required: true,
-      accepted: '.jpg, .jpeg, .png',
-      label: 'Surat Nomor Induk Berusaha',
+      accepted: ".jpg, .jpeg, .png",
+      label: "Surat Nomor Induk Berusaha",
       message: errors.image_surat_nomor_induk_berusaha?.message,
-      status: errors.image_surat_nomor_induk_berusaha ? 'error' : 'none',
+      status: errors.image_surat_nomor_induk_berusaha ? "error" : "none",
       notif:
-        '*Pastikan foto Surat Nomor Induk Berusha dapat terlihat dengan jelas dan pencahayaan yang baik',
+        "*Pastikan foto Surat Nomor Induk Berusha dapat terlihat dengan jelas dan pencahayaan yang baik",
     },
     {
-      name: 'image_surat_izin_usaha_perdagangan',
+      name: "image_surat_izin_usaha_perdagangan",
       control,
       required: true,
-      accepted: '.jpg, .jpeg, .png',
-      label: 'Surat Izin Usaha Perdagangan',
+      accepted: ".jpg, .jpeg, .png",
+      label: "Surat Izin Usaha Perdagangan",
       message: errors.image_surat_izin_usaha_perdagangan?.message,
-      status: errors.image_surat_izin_usaha_perdagangan ? 'error' : 'none',
+      status: errors.image_surat_izin_usaha_perdagangan ? "error" : "none",
       notif:
-        '*Pastikan foto Surat Izin Usaha Perdagangan dapat terlihat dengan jelas dan pencahayaan yang baik',
+        "*Pastikan foto Surat Izin Usaha Perdagangan dapat terlihat dengan jelas dan pencahayaan yang baik",
     },
     {
-      name: 'image_surat_nomor_akta_notaris',
+      name: "image_surat_nomor_akta_notaris",
       control,
       required: true,
-      accepted: '.jpg, .jpeg, .png',
-      label: 'Surat Nomor Akta Notaris',
+      accepted: ".jpg, .jpeg, .png",
+      label: "Surat Nomor Akta Notaris",
       message: errors.image_surat_nomor_akta_notaris?.message,
-      status: errors.image_surat_nomor_akta_notaris ? 'error' : 'none',
+      status: errors.image_surat_nomor_akta_notaris ? "error" : "none",
       notif:
-        '*Pastikan foto Surat Nomor Akta Notaris dapat terlihat dengan jelas dan pencahayaan yang baik',
+        "*Pastikan foto Surat Nomor Akta Notaris dapat terlihat dengan jelas dan pencahayaan yang baik",
     },
     {
-      name: 'image_surat_keterangan_domisili_usaha',
+      name: "image_surat_keterangan_domisili_usaha",
       control,
       required: true,
-      accepted: '.jpg, .jpeg, .png',
-      label: 'Surat Keterangan Domisili Usaha',
+      accepted: ".jpg, .jpeg, .png",
+      label: "Surat Keterangan Domisili Usaha",
       message: errors.image_surat_keterangan_domisili_usaha?.message,
-      status: errors.image_surat_keterangan_domisili_usaha ? 'error' : 'none',
+      status: errors.image_surat_keterangan_domisili_usaha ? "error" : "none",
       notif:
-        '*Pastikan foto Surat Keterangan Domisili Usaha dapat terlihat dengan jelas dan pencahayaan yang baik',
+        "*Pastikan foto Surat Keterangan Domisili Usaha dapat terlihat dengan jelas dan pencahayaan yang baik",
     },
     {
-      name: 'image_surat_nomor_pokok_wajib_pajak',
+      name: "image_surat_nomor_pokok_wajib_pajak",
       control,
       required: true,
-      accepted: '.jpg, .jpeg, .png',
-      label: 'Surat Nomor Pokok Wajib Pajak',
+      accepted: ".jpg, .jpeg, .png",
+      label: "Surat Nomor Pokok Wajib Pajak",
       message: errors.image_surat_nomor_pokok_wajib_pajak?.message,
-      status: errors.image_surat_nomor_pokok_wajib_pajak ? 'error' : 'none',
+      status: errors.image_surat_nomor_pokok_wajib_pajak ? "error" : "none",
       notif:
-        '*Pastikan foto Surat Nomor Pokok Wajib Pajak dapat terlihat dengan jelas dan pencahayaan yang baik',
+        "*Pastikan foto Surat Nomor Pokok Wajib Pajak dapat terlihat dengan jelas dan pencahayaan yang baik",
     },
     {
-      name: 'image_surat_tanda_daftar_perusahaan',
+      name: "image_surat_tanda_daftar_perusahaan",
       control,
       required: true,
-      accepted: '.jpg, .jpeg, .png',
-      label: 'Surat Tanda Daftar Perusahaan',
+      accepted: ".jpg, .jpeg, .png",
+      label: "Surat Tanda Daftar Perusahaan",
       message: errors.image_surat_tanda_daftar_perusahaan?.message,
-      status: errors.image_surat_tanda_daftar_perusahaan ? 'error' : 'none',
+      status: errors.image_surat_tanda_daftar_perusahaan ? "error" : "none",
       notif:
-        '*Pastikan foto Surat Tanda Daftar Perusahaan dapat terlihat dengan jelas dan pencahayaan yang baik',
+        "*Pastikan foto Surat Tanda Daftar Perusahaan dapat terlihat dengan jelas dan pencahayaan yang baik",
     },
     {
-      name: 'image_credit_applicant',
+      name: "image_credit_applicant",
       control,
       required: true,
-      accepted: '.jpg, .jpeg, .png',
-      label: 'Form Credit Applicant',
+      accepted: ".jpg, .jpeg, .png",
+      label: "Form Credit Applicant",
       message: errors.image_credit_applicant?.message,
-      status: errors.image_credit_applicant ? 'error' : 'none',
+      status: errors.image_credit_applicant ? "error" : "none",
       notif:
-        '*Pastikan Form Credit Applicant dapat terlihat dengan jelas dan pencahayaan yang baik',
+        "*Pastikan Form Credit Applicant dapat terlihat dengan jelas dan pencahayaan yang baik",
     },
     {
-      name: 'image_laporanKeuangan',
+      name: "image_laporanKeuangan",
       control,
       required: true,
-      accepted: '.jpg, .jpeg, .png',
-      label: 'Laporan Keuangan',
+      accepted: ".jpg, .jpeg, .png",
+      label: "Laporan Keuangan",
       message: errors.image_laporan_keuangan?.message,
-      status: errors.image_laporan_keuangan ? 'error' : 'none',
-      notif:
-        '*Pastikan Laporan Keuangan dapat terlihat dengan jelas dan pencahayaan yang baik',
+      status: errors.image_laporan_keuangan ? "error" : "none",
+      notif: "*Pastikan Laporan Keuangan dapat terlihat dengan jelas dan pencahayaan yang baik",
     },
   ];
   return (
@@ -358,9 +316,7 @@ export const CapabilityScoringSection = () => {
                 <div className="w-[60%]">
                   <h1 className="font-bold">Tata Cara Mengambil Foto</h1>
                   <p>1. Pastikan Foto Pas di Layar</p>
-                  <p>
-                    2. Pastikan Foto yang diambil jelas dan tidak terlihat buram
-                  </p>
+                  <p>2. Pastikan Foto yang diambil jelas dan tidak terlihat buram</p>
                   <p>3. Pastikan teks terbaca</p>
                 </div>
                 <div>
@@ -369,7 +325,7 @@ export const CapabilityScoringSection = () => {
                     alt="sample"
                     width={0}
                     height={0}
-                    style={{ width: '100px', height: 'auto' }}
+                    style={{ width: "100px", height: "auto" }}
                   />
                 </div>
               </div>
@@ -390,11 +346,7 @@ export const CapabilityScoringSection = () => {
             <div className="py-2" key={i}>
               <div className="flex gap-4">
                 <div className="w-[95%] ">
-                  <FileUploadField
-                    {...x}
-                    message={x.message as string}
-                    variant={'md'}
-                  />
+                  <FileUploadField {...x} message={x.message as string} variant={"md"} />
                   <div className="flex w-full justify-between text-black">
                     <p className="text-xs ">{x.notif}</p>
                     <div className="flex gap-2">
@@ -403,10 +355,7 @@ export const CapabilityScoringSection = () => {
                     </div>
                   </div>
                 </div>
-                <div
-                  onClick={() => setIsOpen(true)}
-                  className="flex group flex-col gap-2 relative"
-                >
+                <div onClick={() => setIsOpen(true)} className="flex group flex-col gap-2 relative">
                   <button className="flex justify-end items-center rounded-full text-center text-white font-bold p-4 text-[20px] w-10 h-10 bg-gray-200 mt-8 group-hover:bg-primary-300">
                     ?
                   </button>
@@ -422,7 +371,7 @@ export const CapabilityScoringSection = () => {
             <Button
               disabled={!isValid}
               className="my-4 w-[200px] rounded-[8px] disabled:bg-gray-300 disabled:text-gray-100 bg-primary-300 text-white font-bold p-3 text-1xl"
-              type={'submit'}
+              type={"submit"}
             >
               Simpan
             </Button>

@@ -3,8 +3,11 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "cs-user": "nx serve cs-user",
-    "cs-admin": "nx serve cs-admin"
+    "cs-user:serve": "yarn nx serve cs-user",
+    "cs-user:build": "yarn nx build cs-user",
+    "cs-user:build-prod": "yarn nx build cs-user --prod",
+    "cs-user:lint": "yarn nx lint cs-user",
+    "cs-admin:serve": "yarn nx serve cs-admin"
   },
   "private": true,
   "dependencies": {

@@ -1,7 +1,7 @@
-import React, { useState, ChangeEvent, DragEvent } from 'react';
-import { IconUpload } from 'components/icons';
-import Image from 'next/image';
-import { TDraggableField } from './types';
+import React, { useState, ChangeEvent, DragEvent } from "react";
+import { IconUpload } from "components/icons";
+import Image from "next/image";
+import { TDraggableField } from "./types";
 
 interface DraggableFileUploadProps {
   onFileUpload: (files: File[]) => void;
@@ -23,14 +23,11 @@ export const DraggableFileUpload: React.FC<DraggableFileUploadProps> = () => {
     event.stopPropagation();
     const fileList = Array.from(event.dataTransfer.files);
     console.log(fileList);
-    const updatedFiles =
-      fileList.length > 0 ? [...fileList] : [...originalFile];
+    const updatedFiles = fileList.length > 0 ? [...fileList] : [...originalFile];
     const slicedFiles = updatedFiles.slice(0, 3);
     setFiles(slicedFiles);
     if (slicedFiles.length > 0) {
-      const previewURLs = slicedFiles.map((image) =>
-        URL.createObjectURL(image)
-      );
+      const previewURLs = slicedFiles.map((image) => URL.createObjectURL(image));
       setPreviewFile(previewURLs);
     } else {
       setPreviewFile([]);
@@ -42,11 +39,11 @@ export const DraggableFileUpload: React.FC<DraggableFileUploadProps> = () => {
     const updatedFiles = fileList ? Array.from(fileList) : [...originalFile];
 
     // Validate file types
-    const allowedFileTypes = ['.xls', '.xlsx'];
+    const allowedFileTypes = [".xls", ".xlsx"];
     const validFiles = updatedFiles.filter((file) => {
       const fileExtension = file.name
         .toLowerCase()
-        .slice(((file.name.lastIndexOf('.') - 1) >>> 0) + 2);
+        .slice(((file.name.lastIndexOf(".") - 1) >>> 0) + 2);
       return allowedFileTypes.includes(`.${fileExtension}`);
     });
 
@@ -63,7 +60,7 @@ export const DraggableFileUpload: React.FC<DraggableFileUploadProps> = () => {
   const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     event.stopPropagation();
-    event.dataTransfer.dropEffect = 'copy';
+    event.dataTransfer.dropEffect = "copy";
   };
 
   const handleRemovePreview = (index: number) => {
@@ -82,10 +79,7 @@ export const DraggableFileUpload: React.FC<DraggableFileUploadProps> = () => {
             onDrop={handleDrop}
           >
             <div className="extraOutline p-4 bg-white w-max m-auto">
-              <div
-                className="file_upload p-5 relative rounded-lg"
-                style={{ width: '450px' }}
-              >
+              <div className="file_upload p-5 relative rounded-lg" style={{ width: "450px" }}>
                 <div className="flex justify-center mb-8">
                   <IconUpload size={50} color="#787878" />
                 </div>
@@ -101,25 +95,20 @@ export const DraggableFileUpload: React.FC<DraggableFileUploadProps> = () => {
                       Select
                     </div>
                   </label>
-                  <div className="title text-primary-400 uppercase">
-                    or drop files here
-                  </div>
+                  <div className="title text-primary-400 uppercase">or drop files here</div>
                 </div>
               </div>
               {previewFile.length > 0 && (
                 <div className="flex items-center gap-5 justify-center">
                   {/* {console.log(files)} */}
                   {previewFile.map((image, index) => (
-                    <div
-                      className="flex flex-col items-center justify-center"
-                      key={index}
-                    >
+                    <div className="flex flex-col items-center justify-center" key={index}>
                       <Image
                         src={image}
                         alt="Preview"
                         width={0}
                         height={0}
-                        style={{ maxWidth: '80px', marginTop: '0.5rem' }}
+                        style={{ maxWidth: "80px", marginTop: "0.5rem" }}
                       />
                       <button
                         className="mt-1 text-sm text-white bg-[#DE3163] w-[150px] h-[35px]"
@@ -143,7 +132,7 @@ export const DraggableFileUpload: React.FC<DraggableFileUploadProps> = () => {
                       type="file"
                       accept=".xls, .xlsx"
                       onChange={handleFileChange}
-                      style={{ display: 'none' }}
+                      style={{ display: "none" }}
                       multiple
                     />
                   </label>
