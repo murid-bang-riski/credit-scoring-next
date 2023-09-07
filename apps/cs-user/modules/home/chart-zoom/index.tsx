@@ -1,15 +1,15 @@
 import React, { useRef } from "react";
 import { Chart } from "chart.js";
 
-export const ChartZoom = (chart: any) => {
-  const chartRef = useRef<Chart | null>(null);
+export const ChartZoom = (ref: any) => {
+  // const chartRef = useRef<Chart | null>(null);
 
   const zoomIn = () => {
-    chartRef?.current?.zoom(2);
+    ref?.current?.zoom(2);
   };
 
   const zoomOut = () => {
-    chartRef?.current?.zoom(-2);
+    ref?.current?.zoom(-2);
   };
   return (
     <div className="flex px-8 justify-end gap-4">

@@ -4,11 +4,10 @@ import Image from "next/image";
 import { TDraggableField } from "./types";
 
 interface DraggableFileUploadProps {
-  onFileUpload: (files: File[]) => void;
+  // onFileUpload: (files: File[]) => void;
   maxFileSize: number;
   allowedFileTypes: string[];
   multiple: boolean;
-  maxPreviewCount: number;
   customStyles?: React.CSSProperties;
 }
 

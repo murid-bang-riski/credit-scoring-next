@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import { ReusableTable } from '@cs-user/components';
-import React, { FC, useState } from 'react';
-import FakeDummyData from './MOCK_DATA.json';
+import { ReusableTable } from "@cs-user/components";
+import React, { FC, useState } from "react";
+import FakeDummyData from "./MOCK_DATA.json";
 
 export const UserTable: FC = () => {
   const itemsPerPage = 20; // Maksimal 20 data per halaman
   const [currentPage, setCurrentPage] = useState(1);
 
   const columns = [
-    { header: 'No', className: 'w-[20px] h-10' },
-    { header: 'NIK', hasSorting: true, className: 'text-center' },
-    { header: 'Nama', hasSorting: true },
-    { header: 'Tanggal', hasSorting: true },
-    { header: 'Berkas' },
-    { header: 'Action' },
+    { header: "No", className: "w-[20px] h-10" },
+    { header: "NIK", hasSorting: true, className: "text-center" },
+    { header: "Nama", hasSorting: true },
+    { header: "Tanggal", hasSorting: true },
+    { header: "Berkas" },
+    { header: "Action" },
   ];
   const totalPages = Math.ceil(FakeDummyData.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -26,12 +26,7 @@ export const UserTable: FC = () => {
 
   return (
     <div className="flex flex-col gap-20">
-      <ReusableTable
-        classBody="bg-[#fff]"
-        classHead="bg-[#F5F8FF]"
-        hasSubTables={true}
-        columns={columns}
-      >
+      <ReusableTable classBody="bg-[#fff]" classHead="bg-[#F5F8FF]" columns={columns}>
         {paginatedData.map((data, index) => (
           <tr key={index}>
             <td>{data.id}</td>
@@ -44,10 +39,7 @@ export const UserTable: FC = () => {
         ))}
       </ReusableTable>
       <div className="pagination-controls">
-        <button
-          onClick={() => handleChangePage(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
+        <button onClick={() => handleChangePage(currentPage - 1)} disabled={currentPage === 1}>
           Previous
         </button>
         <span>{currentPage}</span>

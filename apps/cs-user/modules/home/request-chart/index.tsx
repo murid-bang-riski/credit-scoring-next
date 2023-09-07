@@ -10,7 +10,7 @@ import {
   PointElement,
   Tooltip,
   Chart,
-  ZoomOptions,
+  ChartOptions,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 ChartJS.register(
@@ -25,11 +25,11 @@ ChartJS.register(
 );
 import { TRequestHistoryGraphDataItem } from "@cs-user/types";
 import zoomPlugin from "chartjs-plugin-zoom";
-import { useRef } from "react";
-import { ChartZoom } from "../chart-zoom";
+import { useRef, RefObject } from "react";
 
 Chart.register(zoomPlugin);
 export const RequestChart = (data: any) => {
+  const chartRef = useRef<Chart<"line", any[], string> | null>(null);
   const labels = [
     "Jan",
     "Feb",
@@ -117,7 +117,13 @@ export const RequestChart = (data: any) => {
     <div className="h-full">
       <div className="px-4 w-full flex justify-center">
         <div className="h-full w-full mt-4 overflow-hidden flex items-stretch">
-          <Line data={dataLine} width={"100%"} height={"100%"} options={options} ref={chartRef} />
+          <Line
+            data={dataLine}
+            width={"100%"}
+            height={"100%"}
+            options={options as ChartOptions<"line">}
+            ref={chartRef}
+          />
         </div>
       </div>
     </div>
