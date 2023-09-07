@@ -129,3 +129,4 @@ export const RequestChart = (data: any) => {
     </div>
   );
 };
+export default RequestChart;
