@@ -6,11 +6,15 @@ import { ReusableTable } from "components/table";
 import { Search } from "components/search";
 import React, { FC, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import FakeDummyData from "./MOCK_DATA.json";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import { MdArrowBackIosNew } from "react-icons/md";
+import { TSRequestProcess } from "types/dashboard";
 
-export const Process: FC = () => {
+type Props = {
+  data: TSRequestProcess[];
+};
+
+export const Process: FC<Props> = ({ data }) => {
   const itemsPerPage = 20; // Maksimal 20 data per halaman
   const [currentPage, setCurrentPage] = useState(1);
   const [nextActive, setNextActive] = useState(true); // Initially set to true since initially Next is active
@@ -45,11 +49,11 @@ export const Process: FC = () => {
     { header: "Hasil", className: "w-[150px]" },
   ];
 
-  const totalPages = Math.ceil(FakeDummyData.length / itemsPerPage);
+  const totalPages = Math.ceil(data.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const totalIndex = FakeDummyData.length;
-  const endIndex = Math.min(startIndex + itemsPerPage, FakeDummyData.length);
-  const paginatedData = FakeDummyData.slice(startIndex, endIndex);
+  const totalIndex = data.length;
+  const endIndex = Math.min(startIndex + itemsPerPage, data.length);
+  const paginatedData = data.slice(startIndex, endIndex);
   const handleChangePage = (newPage: number) => {
     setCurrentPage(newPage);
     router.push(`/dashboard/request/?perPage=${itemsPerPage}&page=${newPage}`);
@@ -138,37 +142,37 @@ export const Process: FC = () => {
           <React.Fragment key={index}>
             <tr className="py-4 border-y-2">
               <td>
-                <div className="flex justify-center items-center">{data.no}</div>
+                <div className="flex justify-center items-center">{startIndex + index + 1}</div>
               </td>
               <td>
-                <div className="flex justify-center items-center">{data.tanggal_input}</div>
+                <div className="flex justify-center items-center">{data.requested_at}</div>
               </td>
               <td>
-                <div className="flex justify-center items-center">{data.NIK}</div>
+                <div className="flex justify-center items-center">{data.nik}</div>
               </td>
               <td>
-                <div className="flex justify-center items-center">{data.nama}</div>
+                <div className="flex justify-center items-center">{data.name}</div>
               </td>
               <td>
-                <div className="flex justify-center items-center">{data.no_permintaan}</div>
+                <div className="flex justify-center items-center">{data.request_number}</div>
               </td>
               <td>
-                <div className="flex justify-center items-center">{data.tanggal_permintaan}</div>
+                <div className="flex justify-center items-center">{data.requested_at}</div>
               </td>
               <td>
                 <div className="flex justify-center items-center">
-                  {data.kendala_proses === null ? "-" : data.kendala_proses}
+                  {data.problem === null ? "-" : data.problem}
                 </div>
               </td>
               <td className="w-[120px] ">
                 <div className="flex justify-center items-center">
-                  {data.hasil === "GAGAL" ? (
+                  {data.result === "GAGAL" ? (
                     <button className="w-full py-2 text-white font-bold text-[12px] rounded-md bg-[#EE2D24]">
-                      {data.hasil}
+                      {data.result}
                     </button>
                   ) : (
                     <button className="w-full py-2 text-white font-bold text-[12px] rounded-md bg-[#F59E0B]">
-                      {data.hasil}
+                      {data.result}
                     </button>
                   )}
                 </div>

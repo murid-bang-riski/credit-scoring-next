@@ -4,8 +4,11 @@ import { RequestAI } from "./permintaan";
 import { Result } from "./hasil";
 import { Process } from "./process";
 import { Tab } from "@headlessui/react";
+import { DataProcess } from "hooks/dashboard/request/hooks";
 
 export const ModuleRequest = () => {
+  const { data } = DataProcess();
+  console.log(data);
   return (
     <div className="bg-white px-10 my-5 py-5 ">
       <Tab.Group>
@@ -48,9 +51,7 @@ export const ModuleRequest = () => {
           <Tab.Panel>
             <RequestAI />
           </Tab.Panel>
-          <Tab.Panel>
-            <Process />
-          </Tab.Panel>
+          <Tab.Panel>{data && <Process data={data?.data} />}</Tab.Panel>
           <Tab.Panel>
             <Result />
           </Tab.Panel>

@@ -2,18 +2,27 @@
 
 "use client";
 
-import { ReusableTable, SubTable as SubTableComponent, TableColumn } from "components/table";
+import {
+  ReusableTable,
+  SubTable as SubTableComponent,
+  DateTimeRenderer,
+  renderedHasil,
+} from "components/table";
 import React, { FC, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import FakeDummyData from "../../permintaan/hasil/MOCK_DATA.json";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import { BiSolidCaretDownCircle } from "react-icons/bi";
 import { BiSolidCaretRightCircle } from "react-icons/bi";
 import { MdArrowBackIosNew } from "react-icons/md";
 import { Search, DatePickerRange } from "@cs-user/components";
 import OptionData from "../../permintaan/hasil/OptionData.json";
+import { TSRequestReport } from "@cs-user/types";
+import { Columns, SubTable } from "./headertable";
 
-export const RequestReport: FC = () => {
+type Props = {
+  data: TSRequestReport[];
+};
+export const RequestReport: FC<Props> = ({ data }) => {
   const itemsPerPage = 20; // Maksimal 20 data per halaman
   const [currentPage, setCurrentPage] = useState(1);
   const [nextActive, setNextActive] = useState(true); // Initially set to true since initially Next is active
@@ -101,31 +110,11 @@ export const RequestReport: FC = () => {
     handleChangePage(currentPage - 1);
   };
 
-  const columns = [
-    { header: " ", className: "w-[20px]" },
-    { header: "No", className: "w-[20px]" },
-    { header: "Tanggal Input", className: "w-[150px]" },
-    { header: "Jenis Permintaan", className: "w-[100px]" },
-    { header: "Jumlah Customer", className: "w-[100px]" },
-    { header: "No. Permintaan", className: "w-[100px]" },
-    { header: "Tanggal Permintaan", className: "w-[100px]" },
-    { header: "Tanggal Selesai", className: "w-[100px]" },
-  ];
-  const SubTable: TableColumn[] = [
-    { header: "No", className: "w-[20px]" },
-    { header: "No. Permintaan", className: "w-[150px]" },
-    { header: "Tanggal Permintaan", className: "w-[150px]" },
-    { header: "Jenis Permintaan", className: "w-[200px]" },
-    { header: "Hasil", className: "w-[150px]" },
-    { header: "Lihat Detail", className: "w-[80px]" },
-    { header: "Semua", hasAllSelect: true, className: "w-[100px]" },
-  ];
-
-  const totalPages = Math.ceil(FakeDummyData.length / itemsPerPage);
+  const totalPages = Math.ceil(data.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const totalIndex = FakeDummyData.length;
-  const endIndex = Math.min(startIndex + itemsPerPage, FakeDummyData.length);
-  const paginatedData = FakeDummyData.slice(startIndex, endIndex);
+  const totalIndex = data.length;
+  const endIndex = Math.min(startIndex + itemsPerPage, data.length);
+  const paginatedData = data.slice(startIndex, endIndex);
   const handleChangePage = (newPage: number) => {
     setCurrentPage(newPage);
     router.push(`/dashboard/request/?perPage=${itemsPerPage}&page=${newPage}`);
@@ -186,27 +175,6 @@ export const RequestReport: FC = () => {
 
     return pagination;
   };
-  const renderedHasil = (hasil: string) => {
-    if (hasil === "Sangat Baik") {
-      return (
-        <button className="w-full py-2 text-white font-bold text-[12px] rounded-md bg-[#54B435]">
-          {hasil}
-        </button>
-      );
-    } else if (hasil === "Cukup Buruk") {
-      return (
-        <button className="w-full py-2 text-white font-bold text-[12px] rounded-md bg-[#F59E0B]">
-          {hasil}
-        </button>
-      );
-    } else {
-      return (
-        <button className="w-full py-2 text-white font-bold text-[12px] rounded-md bg-[#EE2D24]">
-          {hasil}
-        </button>
-      );
-    }
-  };
 
   return (
     <div className="flex flex-col gap-7 mb-20 mt-10">
@@ -228,7 +196,7 @@ export const RequestReport: FC = () => {
         classBody=""
         MainTableSort={handleSort}
         classHead="bg-[#F5F8FF]"
-        columns={columns}
+        columns={Columns}
       >
         {paginatedData.map((data, index) => (
           <React.Fragment key={index}>
@@ -243,30 +211,37 @@ export const RequestReport: FC = () => {
                 </button>
               </td>
               <td>
-                <div className="flex justify-center items-center">{data.no}</div>
+                <div className="flex justify-center items-center">{index + 1}</div>
               </td>
               <td>
-                <div className="flex justify-center items-center">{data.tanggal_input}</div>
+                <div className="flex justify-center items-center">
+                  {" "}
+                  {DateTimeRenderer({ timestamp: data.requested_at })}
+                </div>
               </td>
               <td>
-                <div className="flex justify-center items-center">{data.nama}</div>
+                <div className="flex justify-center items-center">{data.feature}</div>
               </td>
               <td>
-                <div className="flex justify-center items-center">{data.no_permintaan}</div>
+                <div className="flex justify-center items-center">{data.total_user}</div>
               </td>
               <td>
-                <div className="flex justify-center items-center">{data.no_permintaan}</div>
+                <div className="flex justify-center items-center">{data.request_number}</div>
               </td>
               <td>
-                <div className="flex justify-center items-center">{data.tanggal_permintaan}</div>
+                <div className="flex justify-center items-center">
+                  {DateTimeRenderer({ timestamp: data.requested_at })}
+                </div>
               </td>
               <td>
-                <div className="flex justify-center items-center">{data.tanggal_permintaan}</div>
+                <div className="flex justify-center items-center">
+                  {DateTimeRenderer({ timestamp: data.finished_at })}
+                </div>
               </td>
             </tr>
-            {data.Array && data.Array.length > 0 && openRowIndex === index && (
+            {data.user_requests && data.user_requests.length > 0 && openRowIndex === index && (
               <tr>
-                <td className="px-20 g" colSpan={columns.length}>
+                <td className="px-20 g" colSpan={Columns.length}>
                   <div className="w-[250px] my-2">
                     <Search
                       value={searchQuery}
@@ -281,56 +256,56 @@ export const RequestReport: FC = () => {
                     classHead="bg-[#F5F8FF] text-[#1B9984]"
                     SelectAll={toggleSelectAll}
                   >
-                    {data.Array.filter((item) =>
-                      searchQuery
-                        ? Object.values(item)
-                            .join(" ")
-                            .toLowerCase()
-                            .includes(searchQuery.toLowerCase())
-                        : true,
-                    ).map((data, index) => (
-                      <tr className="border-y-2" key={index}>
-                        <td className="py-2 ">
-                          <div className="flex justify-center items-center">{data.no}</div>
-                        </td>
-                        <td className="py-2">
-                          <div className="flex justify-center items-center">
-                            {data.no_permintaan}
-                          </div>
-                        </td>
-                        <td className="p-2">
-                          <div className="flex justify-center items-center">
-                            {data.no_permintaan}
-                          </div>
-                        </td>
-                        <td className="p-2">
-                          <div className="flex justify-center items-center">{data.nama}</div>
-                        </td>
-                        <td className="p-2">
-                          <div className="flex justify-center items-center">
-                            {renderedHasil(data.hasil)}
-                          </div>
-                        </td>
-                        <td className="w-[120px] p-2">
-                          <div className="flex justify-center items-center">
-                            <button className="px-4 py-1 bg-[#4AC1A2] text-[12px] font-bold text-white rounded-sm">
-                              Lihat
-                            </button>
-                          </div>
-                        </td>
-                        <td className="py-2">
-                          <div className="flex justify-center items-center">
-                            <input
-                              width={50}
-                              height={50}
-                              type="checkbox"
-                              onChange={toggleRowSelection.bind(null, index)}
-                              checked={selectedRows.includes(index)}
-                            />
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
+                    {data.user_requests
+                      .filter((item) =>
+                        searchQuery
+                          ? Object.values(item)
+                              .join(" ")
+                              .toLowerCase()
+                              .includes(searchQuery.toLowerCase())
+                          : true,
+                      )
+                      .map((data, index) => (
+                        <tr className="border-y-2" key={index}>
+                          <td className="py-2 ">
+                            <div className="flex justify-center items-center">{index + 1}</div>
+                          </td>
+                          <td className="py-2">
+                            <div className="flex justify-center items-center">{data.nik}</div>
+                          </td>
+                          <td className="p-2">
+                            <div className="flex justify-center items-center">
+                              {DateTimeRenderer({ timestamp: data.date_requested })}
+                            </div>
+                          </td>
+                          <td className="p-2">
+                            <div className="flex justify-center items-center">{data.name}</div>
+                          </td>
+                          <td className="p-2">
+                            <div className="flex justify-center items-center">
+                              {renderedHasil(data.result)}
+                            </div>
+                          </td>
+                          <td className="w-[120px] p-2">
+                            <div className="flex justify-center items-center">
+                              <button className="px-4 py-1 bg-[#4AC1A2] text-[12px] font-bold text-white rounded-sm">
+                                Lihat
+                              </button>
+                            </div>
+                          </td>
+                          <td className="py-2">
+                            <div className="flex justify-center items-center">
+                              <input
+                                width={50}
+                                height={50}
+                                type="checkbox"
+                                onChange={toggleRowSelection.bind(null, index)}
+                                checked={selectedRows.includes(index)}
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
                     <tr className="">
                       <td colSpan={8} className="py-2">
                         <div className="justify-end flex items-end px-10">

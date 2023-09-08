@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { ReportCustomer } from "./customer";
+import dynamic from "next/dynamic";
 import { RequestReport } from "./request";
 import { FeatureReport } from "./feature";
 import React from "react";
 import { Tab } from "@headlessui/react";
+import { RequestCustomerData, RequestsReport } from "hooks/dashboard/report/hooks";
 
 export const ModuleReport = () => {
+  const { data } = RequestCustomerData();
+  const { data: datareport } = RequestsReport();
   return (
     <div className=" my-5 bg-white overflow-hidden rounded-md">
       <Tab.Group>
@@ -45,12 +49,8 @@ export const ModuleReport = () => {
           </Tab>
         </Tab.List>
         <Tab.Panels className={"px-10"}>
-          <Tab.Panel>
-            <ReportCustomer />
-          </Tab.Panel>
-          <Tab.Panel>
-            <RequestReport />
-          </Tab.Panel>
+          <Tab.Panel>{data?.data && <ReportCustomer data={data?.data} />}</Tab.Panel>
+          <Tab.Panel>{datareport?.data && <RequestReport data={datareport?.data} />}</Tab.Panel>
           <Tab.Panel>
             <FeatureReport />
           </Tab.Panel>
