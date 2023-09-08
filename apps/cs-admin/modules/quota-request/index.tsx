@@ -1,4 +1,5 @@
 "use client";
+
 import { Button, CardCS, IconArrow, IconClose, IconFilter, Search } from "@components";
 import { Dialog, Disclosure, Tab, Transition } from "@headlessui/react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -6,6 +7,7 @@ import { FC, Fragment, ReactElement, Suspense, useState, useEffect } from "react
 import RequestHistoryTab from "./request-history";
 import RequestQuotaTab from "./request-quota";
 import { DateRangePickerComponent } from "@components";
+import { getProcessResponse } from "./api";
 
 const RequestQuota: FC = (): ReactElement => {
   const query = useSearchParams();

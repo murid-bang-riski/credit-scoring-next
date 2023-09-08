@@ -41,9 +41,6 @@ export const FormLogin: FC = (): ReactElement => {
 
   const onSubmit = async (data: any) => {
     try {
-      // setLoading(true);
-      // setFormValues({ email: "", password: "" });
-
       const res = await signIn("login", {
         redirect: false,
         email: data.email,
@@ -51,7 +48,6 @@ export const FormLogin: FC = (): ReactElement => {
         callbackUrl,
       });
 
-      // console.log(res);
       if (!res?.error) {
         Swal.fire({
           toast: true,
@@ -61,7 +57,6 @@ export const FormLogin: FC = (): ReactElement => {
           showConfirmButton: false,
           timer: 1500,
         }).then(() => {
-          // router.push(callbackUrl);
           router.push("/admin");
         });
       } else {

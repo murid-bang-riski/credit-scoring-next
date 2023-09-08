@@ -1,4 +1,4 @@
-import {api} from "../../services/api";
+import { api } from "../../config/api";
 import { TLoginPayload, TLoginResponse } from "./types";
 
 export const loginRequest = async (payload: TLoginPayload): Promise<TLoginResponse> => {
