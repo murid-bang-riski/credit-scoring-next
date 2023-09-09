@@ -20,7 +20,8 @@
     "baseUrl": ".",
     "paths": {
       "@cs-user/components": ["components/index.ts"],
-      "@cs-user/utils": ["utils/index.ts"]
+      "@cs-user/utils": ["utils/index.ts"],
+      "@cs-user/types": ["types/index.ts"]
     }
   },
   "include": [
@@ -32,10 +33,5 @@
     "../../dist/apps/cs-user/.next/types/**/*.ts",
     "next-env.d.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "jest.config.ts",
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts"
-  ]
+  "exclude": ["node_modules", "jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
 }
