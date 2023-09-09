@@ -20,7 +20,7 @@ interface ITableProps {
   tbClassName?: string;
   paginationColor?: string;
   //hexadecimal
-  paginationIconColor?:string;
+  paginationIconColor?: string;
 }
 
 export const TableComponent: FC<ITableProps> = ({
@@ -102,7 +102,7 @@ export const TableComponent: FC<ITableProps> = ({
   }, [table, query, router]);
 
   return (
-    <div className="p-2 text-xs">
+    <div className="pr-1 text-xs">
       <table className={`overflow-x-scroll text-xs w-full ${center ? "text-center" : "text-left"}`}>
         <thead className={`${thColor}`}>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -148,7 +148,7 @@ export const TableComponent: FC<ITableProps> = ({
               disabled={!table.getCanPreviousPage()}
               type="button"
             >
-              <IconBack disabled={!table.getCanPreviousPage()} color={paginationIconColor}/>
+              <IconBack disabled={!table.getCanPreviousPage()} color={paginationIconColor} />
             </Button>
             {table.getPageOptions().map((pageIndex) => (
               <Button

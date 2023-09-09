@@ -1,11 +1,12 @@
-'use client';
-import { FC, ReactElement, Fragment, useState } from 'react';
-import Avatar from 'react-avatar';
-import { usePathname } from 'next/navigation';
-import { SidebarProps } from './types';
-import { TbLogout } from 'react-icons/tb';
-import Link from 'next/link';
-import Image from 'next/image';
+"use client";
+import { FC, ReactElement, Fragment, useState } from "react";
+import Avatar from "react-avatar";
+import { usePathname } from "next/navigation";
+import { SidebarProps } from "./types";
+import { TbLogout } from "react-icons/tb";
+import Link from "next/link";
+import Image from "next/image";
+import { signOut } from "next-auth/react";
 
 const Sidebar: FC<SidebarProps> = ({ name, avatar }): ReactElement => {
   const router = usePathname();
@@ -13,37 +14,37 @@ const Sidebar: FC<SidebarProps> = ({ name, avatar }): ReactElement => {
   const [hoveredSvg, setHoveredSvg] = useState(false);
   const DataSidebar = [
     {
-      title: 'Dashboard',
-      path: '/dashboard/home',
-      icon: '/assets/img/dashboard.svg',
+      title: "Dashboard",
+      path: "/dashboard/home",
+      icon: "/assets/img/dashboard.svg",
     },
     {
-      title: 'User',
-      path: '/dashboard/user',
-      icon: '/assets/img/user.svg',
+      title: "User",
+      path: "/dashboard/user",
+      icon: "/assets/img/user.svg",
     },
     {
-      title: 'Permintaan',
-      path: '/dashboard/request',
-      icon: '/assets/img/permintaan.svg',
+      title: "Permintaan",
+      path: "/dashboard/request",
+      icon: "/assets/img/permintaan.svg",
     },
     {
-      title: 'Laporan',
-      path: '/dashboard/report',
-      icon: '/assets/img/laporan.svg',
+      title: "Laporan",
+      path: "/dashboard/report",
+      icon: "/assets/img/laporan.svg",
     },
     {
-      title: 'Kuota',
-      path: '/dashboard/quota',
-      icon: '/assets/img/kouta.svg',
+      title: "Kuota",
+      path: "/dashboard/quota",
+      icon: "/assets/img/kouta.svg",
     },
   ];
   const activeLink =
-    'flex h-[50px] rounded-md cursor-pointer gap-2 p-2 items-center bg-primary-400 text-white';
+    "flex h-[50px] rounded-md cursor-pointer gap-2 p-2 items-center bg-primary-400 text-white";
   const normalLink =
-    'flex h-[50px] rounded-md cursor-pointer gap-2 p-2 items-center bg-white text-[#9E9E9E] hover:bg-neutral-300 hover:text-white';
-  const activeSvg = 'fill-white stroke-2 stroke-white';
-  const normalSvg = 'fill-[#9E9E9E]';
+    "flex h-[50px] rounded-md cursor-pointer gap-2 p-2 items-center bg-white text-[#9E9E9E] hover:bg-neutral-300 hover:text-white";
+  const activeSvg = "fill-white stroke-2 stroke-white";
+  const normalSvg = "fill-[#9E9E9E]";
   const [open, setOpen] = useState(true);
 
   const toggleSidebar = (): void => {
@@ -61,30 +62,22 @@ const Sidebar: FC<SidebarProps> = ({ name, avatar }): ReactElement => {
       <aside
         id="separator-sidebar"
         className={` ${
-          open
-            ? '  -translate-x-full h-screen overflow-hidden'
-            : ' sm:translate-x-0 '
+          open ? "  -translate-x-full h-screen overflow-hidden" : " sm:translate-x-0 "
         } absolute lg:relative top-0 left-0 z-50 lg:sm:translate-x-0 w-64 overflow-hidden h-screen transition-transform text-black bg-white `}
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 text-black bg-white flex justify-between flex-col">
           <div>
             <div className="w-[200px] h-fit p-6 top-0 relative">
-              <Image src={'/assets/auth/logo.svg'} alt="logo" fill />
+              <Image src={"/assets/auth/logo.svg"} alt="logo" fill />
             </div>
 
             <div className="pt-4 font-medium w-full border-[#F5F5F5] ">
               <div className="flex border-b-2 rounded-md cursor-pointer gap-2 px-2 pt-6 pb-6 items-center">
                 <div className=" rounded-full border-primary-base border-2 items-center flex">
-                  <Avatar
-                    name={avatar}
-                    className="rounded-full w-[36px] h-[36px]"
-                    size="36"
-                  />
+                  <Avatar name={avatar} className="rounded-full w-[36px] h-[36px]" size="36" />
                 </div>
-                <div className="font-semibold text-sm text-neutral-500">
-                  {name}
-                </div>
+                <div className="font-semibold text-sm text-neutral-500">{name}</div>
               </div>
 
               {DataSidebar.map((x, i) => {
@@ -101,10 +94,7 @@ const Sidebar: FC<SidebarProps> = ({ name, avatar }): ReactElement => {
                         <span className="p-1">
                           <Image
                             style={{
-                              filter:
-                                isActive || isHovered
-                                  ? 'invert(0%)'
-                                  : 'invert(60%)',
+                              filter: isActive || isHovered ? "invert(0%)" : "invert(60%)",
                             }}
                             className={isActive ? activeSvg : normalSvg}
                             src={x.icon}
@@ -122,22 +112,19 @@ const Sidebar: FC<SidebarProps> = ({ name, avatar }): ReactElement => {
             </div>
           </div>
 
-          <div
+          <button
+            onClick={() => signOut()}
             onMouseEnter={() => setHoveredSvg(true)}
             onMouseLeave={() => setHoveredSvg(false)}
             className="flex gap-2  p-2 rounded-md text-neutral-400  hover:text-red cursor-pointer items-end"
           >
             <span>
               <span className="flex justify-center hover:color-red items-center">
-                <TbLogout
-                  size={35}
-                  stroke={hoveredSvg ? 'red' : 'gray'}
-                  className="p-1"
-                />
+                <TbLogout size={35} stroke={hoveredSvg ? "red" : "gray"} className="p-1" />
                 Keluar
               </span>
             </span>
-          </div>
+          </button>
         </div>
       </aside>
     </Fragment>

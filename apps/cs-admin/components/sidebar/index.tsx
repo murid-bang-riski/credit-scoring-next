@@ -8,6 +8,7 @@ import Image from "next/image";
 
 const Sidebar: FC = (): ReactElement => {
   const pathName = usePathname();
+
   const DataSidebar = [
     {
       id: 1,
@@ -38,12 +39,11 @@ const Sidebar: FC = (): ReactElement => {
     setOpen(!open);
   };
 
-  const pathname = usePathname();
   return (
     <Fragment>
       <button
         type="button"
-        className="z-50 fixed bottom-10 shadow-md right-10 inline-flex items-center p-2 mt-2 ml-3 bg-add2 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        className="z-10 fixed bottom-10 shadow-md right-10 inline-flex items-center p-2 mt-2 ml-3 bg-add2 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
         onClick={toggleSidebar}
       >
         <IconToggle />
@@ -53,7 +53,7 @@ const Sidebar: FC = (): ReactElement => {
         id="separator-sidebar"
         className={` ${
           open ? "  -translate-x-full" : " sm:translate-x-0 "
-        } absolute lg:relative top-0 left-0 z-50 lg:sm:translate-x-0 w-64 h-full transition-transform bg-add2 `}
+        } absolute lg:relative top-0 left-0 z-10 lg:sm:translate-x-0 w-64 h-full transition-transform bg-add2 `}
         aria-label="Sidebar"
       >
         <div className="h-screen px-3 py-4  bg-add2 border-b">

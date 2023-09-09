@@ -1,5 +1,5 @@
-import { FC, ReactElement } from 'react';
-import { Bar } from 'react-chartjs-2';
+import { FC, ReactElement } from "react";
+import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   BarElement,
@@ -10,7 +10,7 @@ import {
   PointElement,
   LineElement,
   Filler,
-} from 'chart.js';
+} from "chart.js";
 ChartJS.register(
   BarElement,
   Tooltip,
@@ -19,30 +19,30 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
-  Filler
+  Filler,
 );
 const data = {
   labels: [
-    '<5jt',
-    '6jt- 10jt',
-    '11jt - 15jt',
-    '16jt - 20jt',
-    '21jt - 25jt',
-    '26jt - 30jt',
-    '31jt - 35jt',
-    '>40jt',
+    "<5jt",
+    "6jt- 10jt",
+    "11jt - 15jt",
+    "16jt - 20jt",
+    "21jt - 25jt",
+    "26jt - 30jt",
+    "31jt - 35jt",
+    ">40jt",
   ],
   datasets: [
     {
-      label: 'salary',
+      label: "salary",
       backgroundColor: (context: any) => {
         const ctx = context.chart.ctx;
         const gradient = ctx.createLinearGradient(0, 0, 0, 200);
-        gradient.addColorStop(0, '#1B9984');
-        gradient.addColorStop(1, '#D0F9E3');
+        gradient.addColorStop(0, "#1B9984");
+        gradient.addColorStop(1, "#D0F9E3");
         return gradient;
       },
-      borderColor: 'white',
+      borderColor: "white",
       borderWidth: 1,
       data: [320, 270, 320, 400, 420, 500, 440, 240],
     },
@@ -52,3 +52,5 @@ const data = {
 export const SalaryChart: FC = (): ReactElement => {
   return <Bar data={data} />;
 };
+
+export default SalaryChart;

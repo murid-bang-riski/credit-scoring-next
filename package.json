@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "cs-user:serve": "yarn nx serve cs-user",
+    "cs-user:build": "yarn nx build cs-user",
+    "cs-user:build-prod": "yarn nx build cs-user --prod",
+    "cs-user:lint": "yarn nx lint cs-user",
     "cs-admin:serve": "yarn nx serve cs-admin",
     "cs-admin:build": "yarn nx build cs-admin",
     "cs-admin:build-prod": "yarn nx build cs-admin --prod",
@@ -22,6 +26,7 @@
     "@types/react-date-range": "^1.4.4",
     "axios": "^1.4.0",
     "chart.js": "^4.3.3",
+    "chartjs-plugin-zoom": "^2.0.1",
     "clsx": "^2.0.0",
     "core-js-pure": "^3.32.1",
     "date-fns": "^2.30.0",

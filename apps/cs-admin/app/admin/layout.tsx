@@ -3,8 +3,8 @@ import "../global.css";
 import { Suspense } from "react";
 
 export const metadata = {
-  title: "Credite Scoring Admin",
-  description: "Credite Scoring Admin",
+  title: "Credit Scoring Admin",
+  description: "Credit Scoring Admin",
 };
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

@@ -1,7 +1,7 @@
 import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { TLoginPayload, TLoginResponse } from "./types";
 import { loginRequest } from "./api";
-import TokenService from "../../services/token";
+import TokenService from "../../config/token";
 import { TMetaErrorResponse } from "@utils";
 
 export const useLogin = (): UseMutationResult<
