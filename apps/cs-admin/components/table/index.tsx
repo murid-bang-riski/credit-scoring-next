@@ -20,7 +20,7 @@ interface ITableProps {
   tbClassName?: string;
   paginationColor?: string;
   //hexadecimal
-  paginationIconColor?:string;
+  paginationIconColor?: string;
 }
 
 export const TableComponent: FC<ITableProps> = ({
@@ -148,7 +148,7 @@ export const TableComponent: FC<ITableProps> = ({
               disabled={!table.getCanPreviousPage()}
               type="button"
             >
-              <IconBack disabled={!table.getCanPreviousPage()} color={paginationIconColor}/>
+              <IconBack disabled={!table.getCanPreviousPage()} color={paginationIconColor} />
             </Button>
             {table.getPageOptions().map((pageIndex) => (
               <Button

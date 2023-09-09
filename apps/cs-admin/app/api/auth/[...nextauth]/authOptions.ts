@@ -1,9 +1,9 @@
 import { loginRequest } from "@/modules/login/api";
 import { NextAuthOptions } from "next-auth";
 import { TLoginData } from "../../../../types";
-import  CredentialsProvider from 'next-auth/providers/credentials';
+import CredentialsProvider from "next-auth/providers/credentials";
 
-export const options: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/",
   },
@@ -47,4 +47,41 @@ export const options: NextAuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    async signIn({ user }) {
+      if (user) return true;
+      return false;
+    },
+
+    async jwt({ token, user, account }) {
+      const currentUser = user as unknown as TLoginData;
+      if (account?.provider === "login" && currentUser) {
+        console.log("cruser", currentUser);
+        console.log(user, account);
+
+        token.access_token = currentUser.data.token;
+        currentUser.name = user.name;
+        currentUser.email = user.email;
+      }
+
+      return { ...token, ...currentUser };
+    },
+    async session({ session, token }) {
+      const jwt_token = {
+        access_token: token?.access_token,
+        refresh_token: token?.refresh_token,
+      };
+      session = {
+        expires: token?.expires as string,
+        user: {
+          id: "w",
+          name: token.name,
+          email: token.email,
+          token: jwt_token,
+        },
+      };
+
+      return session;
+    },
+  },
 };
