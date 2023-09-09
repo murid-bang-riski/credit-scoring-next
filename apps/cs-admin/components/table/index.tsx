@@ -74,33 +74,6 @@ export const TableComponent: FC<ITableProps> = ({
     [table, query, pathname, currentQuery, router],
   );
 
-  const resetPage = useCallback(() => {
-    table.setPageIndex(0);
-
-    const updatedQuery: any = {
-      ...currentQuery,
-      page: 1,
-    };
-
-    const url = queryString.stringifyUrl(
-      {
-        url: pathname,
-        query: updatedQuery,
-      },
-      { skipNull: true },
-    );
-
-    console.log(url);
-
-    router.push(url);
-  }, [table, query, pathname, currentQuery, router]);
-
-  useEffect(() => {
-    if (Number(query.get("page")) < 1 && Number(query.get("page")) > table.getPageCount()) {
-      resetPage();
-    }
-  }, [table, query, router]);
-
   return (
     <div className="p-2 text-xs">
       <table className={`overflow-x-scroll text-xs w-full ${center ? "text-center" : "text-left"}`}>
