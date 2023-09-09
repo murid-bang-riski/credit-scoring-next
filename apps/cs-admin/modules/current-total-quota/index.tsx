@@ -314,7 +314,7 @@ const CurrentTotalQuotaModule: FC = (): ReactElement => {
               )}
             </section>
             {/* content */}
-            <Tab.Panels>
+            <Tab.Panels className="mt-5">
               <Suspense fallback={"loading..."}>
                 {active === "jumlah-kuota" && <JumlahKuota />}
               </Suspense>
