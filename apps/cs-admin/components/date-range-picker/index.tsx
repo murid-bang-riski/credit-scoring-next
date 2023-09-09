@@ -37,16 +37,15 @@ export const DateRangePickerComponent: React.FC<DateRangePickerProps> = ({
   };
 
   const options: DateTimeFormatOptions = {
-    weekday: "long",
     year: "numeric",
-    month: "long",
+    month: "short",
     day: "numeric",
   };
 
   return (
     <div>
       <div
-        className={`flex bg-white justify-center text-xs items-center rounded-md text-gray-400 border border-gray-200 p-2  gap-x-2 ${
+        className={`flex bg-white justify-center text-xs items-center text-gray-400 border border-gray-200 p-2  gap-x-2 ${
           props.width ? props.width : "w-auto"
         }`}
         onClick={() => setOpen((open) => !open)}
@@ -57,7 +56,9 @@ export const DateRangePickerComponent: React.FC<DateRangePickerProps> = ({
             date: ranges?.startDate,
             options,
           })}
-          <IConCalendar />
+          <span className="text-base pl-2">
+            <IConCalendar />
+          </span>
         </span>
         <span className="flex flex-row items-center">
           Sampai{" "}
@@ -65,20 +66,28 @@ export const DateRangePickerComponent: React.FC<DateRangePickerProps> = ({
             date: ranges?.endDate,
             options,
           })}
-          <IConCalendar />
+          <span className="text-base pl-2">
+            <IConCalendar />
+          </span>
         </span>
       </div>
 
       <div ref={refOne}>
         {open && (
-          <DateRangePicker
-            onChange={handleRangeChange}
-            moveRangeOnFirstSelection={false}
-            months={1}
-            ranges={[ranges]}
-            direction="horizontal"
-            className="absolute z-40 pt-2"
-          />
+          <>
+            <DateRangePicker
+              onChange={handleRangeChange}
+              moveRangeOnFirstSelection={false}
+              months={1}
+              ranges={[ranges]}
+              direction="horizontal"
+              className="absolute z-40 pt-2"
+            />
+            <div
+              onClick={() => setOpen((open) => !open)}
+              className="fixed inset-0 bg-black bg-opacity-25 z-10"
+            ></div>
+          </>
         )}
       </div>
     </div>

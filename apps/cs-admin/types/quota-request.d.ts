@@ -1,12 +1,13 @@
-export type TQuotaResponse = { getQuotaData: TQuotaItem[] };
-export type TQuotaParams = {
+export type TQuotaRequestResponse = { getQuotaRequestData: TQuotaRequestItem[] };
+
+export type TQuotaRequestParams = {
   date_from?: string;
   date_to?: string;
   feature?: string;
   per_page?: string;
   page?: string;
 };
-export type TQuotaItem = {
+export type TQuotaRequestItem = {
   _id: string;
   request_number: string;
   feature: string;

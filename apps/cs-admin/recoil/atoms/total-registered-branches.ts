@@ -1,7 +1,8 @@
+import { TTotalRegisteredBranchesItem } from "@/types";
 import { atom } from "recoil";
-import { TKantorItem } from "./types";
 
-export const KantorDummyData = atom<TKantorItem[]>({
+export const TotalRegisteredBranchesState
+= atom<TTotalRegisteredBranchesItem[]>({
   key: "kantor-dummy-data",
   default: [
     {

@@ -1,15 +1,15 @@
 "use client";
-import { Button, IconBack, IconBuilding, TableComponent } from "@components";
+import { useTotalRegisteredBranches } from "@/hooks";
+import { TTotalRegisteredBranchesItem } from "@/types";
+import { Button, IconBack, IconBuilding, Search, TableComponent } from "@components";
 import { createColumnHelper } from "@tanstack/react-table";
 import { FC, useState } from "react";
-import { useKantorData } from "./hooks";
-import { TKantorItem } from "./types";
 
 const TotalRegisteredBranchesModule: FC = () => {
-  const { getKantorData } = useKantorData();
-  const [data, setData] = useState<TKantorItem[]>([...getKantorData]);
+  const {getTotalRegisteredBranchesData}= useTotalRegisteredBranches();
+  const [data, setData] = useState<TTotalRegisteredBranchesItem[]>([...getTotalRegisteredBranchesData])
 
-  const columnHelper = createColumnHelper<TKantorItem>();
+  const columnHelper = createColumnHelper<TTotalRegisteredBranchesItem>();
 
   const columns = [
     columnHelper.accessor("kode_cabang", {
@@ -42,17 +42,20 @@ const TotalRegisteredBranchesModule: FC = () => {
             <IconBuilding />
             <p className="text-2xl font-semibold">Daftar Kantor Cabang</p>
           </span>
-          <span>INI SEARCHBAR</span>
+          <span className="w-1/5">
+            <Search placeholder="Search"/>
+          </span>
         </section>
         <section className="overflow-x-auto mt-5">
           <TableComponent
             data={data}
             columns={columns}
-            thColor="bg-white"
-            tbColor="bg-add3"
+            thColor="bg-secondary-100"
             center={false}
-            thClassName="text-gray-400 p-4 border-b-2 font-semibold"
+            thClassName="p-4 border-b-2 font-bold"
             tbClassName="font-semibold p-4 border-b-2"
+            paginationColor="bg-secondary-400"
+            paginationIconColor="#6FB2D8"
           />
         </section>
       </div>
