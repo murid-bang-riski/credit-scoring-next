@@ -1,13 +1,12 @@
 "use client";
-import { Button, TextField, Checkbox } from "@cs-user/components";
-import { FC, ReactElement, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { z } from "zod";
+import { Button, Checkbox, TextField } from "@cs-user/components";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
-import { FormEvent } from "react"; // Add FormEvent import
+import { useRouter, useSearchParams } from "next/navigation";
+import { FC, ReactElement, useState } from "react";
+import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { z } from "zod";
 
 export const LoginForm: FC = (): ReactElement => {
   const router = useRouter();
@@ -49,7 +48,7 @@ export const LoginForm: FC = (): ReactElement => {
         redirect: false,
         email: data.email,
         password: data.password,
-        callbackUrl,
+        // callbackUrl,
       });
 
       // console.log(res);
@@ -62,7 +61,7 @@ export const LoginForm: FC = (): ReactElement => {
           showConfirmButton: false,
           timer: 1500,
         }).then(() => {
-          router.push(callbackUrl);
+          router.push("/dashboard/home");
         });
       } else {
         Swal.fire({
