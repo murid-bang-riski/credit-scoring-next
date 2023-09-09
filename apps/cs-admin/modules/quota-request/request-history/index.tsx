@@ -14,7 +14,11 @@ const RequestHistoryTab: FC = (): ReactElement => {
 
   const { getQuotaRequestData } = useQuotaRequestData();
 
-  const [data, setData] = useState<TQuotaRequestItem[]>([...getQuotaRequestData]);
+  //disable karena error build
+  // const [data, setData] = useState<TQuotaRequestItem[]>([...getQuotaRequestData]);
+  const [data, setData] = useState<TQuotaRequestItem[]>(
+    getQuotaRequestData.data.financial_graph_data,
+  );
 
   const columnHelper = createColumnHelper<TQuotaRequestItem>();
 
