@@ -6,7 +6,9 @@ type Session = {
     id: string;
     fullname: string;
     email: string;
-    token: string;
+    token: {
+      access_token: string;
+    };
   };
 };
 
@@ -20,10 +22,11 @@ api.interceptors.request.use(
   async (config) => {
     const session: Session = (await getSession()) as Session;
 
-    const token = session?.user?.token as string;
+    const token = session?.user?.token.access_token as string;
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
+
     return config;
   },
   (error) => {

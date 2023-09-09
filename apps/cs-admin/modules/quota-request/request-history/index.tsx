@@ -1,7 +1,7 @@
 import { FC, ReactElement, Suspense, useState } from "react";
 import { Button, IconCheck, IconClock, IconError, Modal, TableComponent } from "@components";
 import { formatDate } from "@utils";
-import { useQuotaRequest } from "@/hooks";
+import { useQuotaRequestData } from "@/hooks";
 import { TQuotaRequestItem } from "@/types";
 import { createColumnHelper } from "@tanstack/react-table";
 
@@ -12,9 +12,9 @@ const RequestHistoryTab: FC = (): ReactElement => {
     setIsOpen(!isOpen);
   };
 
-  const {getQuotaRequestData} = useQuotaRequest();
-  
-  const [data, setData] = useState<TQuotaRequestItem[]>([...getQuotaRequestData])
+  const { getQuotaRequestData } = useQuotaRequestData();
+
+  const [data, setData] = useState<TQuotaRequestItem[]>([...getQuotaRequestData]);
 
   const columnHelper = createColumnHelper<TQuotaRequestItem>();
 

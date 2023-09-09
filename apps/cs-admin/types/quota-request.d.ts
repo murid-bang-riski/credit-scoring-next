@@ -1,5 +1,3 @@
-export type TQuotaRequestResponse = { getQuotaRequestData: TQuotaRequestItem[] };
-
 export type TQuotaRequestParams = {
   date_from?: string;
   date_to?: string;
@@ -20,4 +18,23 @@ export type TQuotaRequestItem = {
   __v: number;
   feature_id: string;
   payment_status: string;
+};
+
+export type TQuotaRequestResponse = {
+  code: number;
+  status: string;
+  message: string;
+  data: {
+    total: {
+      company: number;
+      quota: number;
+      cost: number;
+    };
+    financial_graph_data: TQuotaRequestItem[];
+  };
+};
+
+export type TUseQuotaRequest = {
+  getQuotaRequestData: TQuotaRequestResponse;
+  setQuotaRequestData: (val: TQuotaRequestResponse) => void;
 };
