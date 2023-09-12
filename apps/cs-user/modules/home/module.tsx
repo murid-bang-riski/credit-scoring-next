@@ -29,10 +29,9 @@ const ScoreChart = dynamic(() => import("./score-chart"), {
 
 export const HomeModule = () => {
   const { isLoading, data } = useGetHomeData();
-
   return (
     <>
-      <HistoryCardCarousel />
+      <HistoryCardCarousel data={data?.data.feature_history} isLoading={isLoading} />
       <div className="grid lg:grid-cols-2 gap-4">
         <ChartCard
           title="RIWAYAT PERMINTAAN"
