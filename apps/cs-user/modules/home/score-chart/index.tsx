@@ -4,12 +4,12 @@ import { Doughnut } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const ScoreChart: FC = (): ReactElement => {
-  const data = {
-    labels: [],
+export const ScoreChart: FC = (data: any): ReactElement => {
+  const ChartData = {
+    labels: ["A (Sangat Baik)", "B (Baik)", "C (Cukup Baik)", "D (Buruk)", "E (Sangat Buruk)"],
     datasets: [
       {
-        label: "My First Dataset",
+        label: "",
         data: [90, 60, 40, 30, 18],
         backgroundColor: [
           "rgb(19, 131, 123)",
@@ -33,12 +33,17 @@ export const ScoreChart: FC = (): ReactElement => {
     cutout: "70%",
     radius: "90%",
     responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
   };
 
   return (
     <div className="grid grid-cols-2 items-center">
       <div className="">
-        <Doughnut data={data} options={options} />
+        <Doughnut data={ChartData} options={options} />
       </div>
       <div className="w-full py-14">
         <div className="flex gap-3 my-2">

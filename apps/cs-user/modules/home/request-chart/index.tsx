@@ -26,6 +26,7 @@ ChartJS.register(
 import { TRequestHistoryGraphDataItem } from "@cs-user/types";
 import zoomPlugin from "chartjs-plugin-zoom";
 import { useRef, RefObject } from "react";
+import ChartZoom from "../chart-zoom";
 
 Chart.register(zoomPlugin);
 export const RequestChart = (data: any) => {
@@ -115,6 +116,8 @@ export const RequestChart = (data: any) => {
 
   return (
     <div className="h-full">
+      <ChartZoom ref={chartRef} />
+
       <div className="px-4 w-full flex justify-center">
         <div className="h-full w-full mt-4 overflow-hidden flex items-stretch">
           <Line
