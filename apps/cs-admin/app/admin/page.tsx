@@ -1,25 +1,14 @@
-"use client"
+"use client";
 
 import RequestQuota from "@/modules/quota-request";
-import { Suspense, useEffect } from "react";
-import { string } from "zod";
-
-interface IPropsParams {
-  tab?: string;
-}
-
-interface HomeProps {
-  SearchParams: IPropsParams;
-}
+import { Suspense } from "react";
 
 export const dynamic = "force-dynamic";
 
-
-export default async function Admin({SearchParams}: HomeProps) {
-
+export default async function Admin() {
   return (
-      <Suspense fallback="loading">
-        <RequestQuota />
-      </Suspense>
+    <Suspense fallback="loading">
+      <RequestQuota />
+    </Suspense>
   );
 }

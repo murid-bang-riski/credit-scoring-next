@@ -1,12 +1,14 @@
 import { FC, ReactElement, Suspense, useEffect, useState } from "react";
 import { Button, IconCheck, IconClock, IconError, Modal, TableComponent } from "@components";
 import { formatDate } from "@utils";
-import { useGetQuotaRequest, useQuotaRequestData } from "@/hooks";
+import { useGetQuotaRequest } from "@/hooks";
 import { TQuotaRequestItem } from "@/types";
 import { createColumnHelper } from "@tanstack/react-table";
+import { useSearchParams } from "next/navigation";
 
 const RequestHistoryTab: FC = (): ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
+  const params = useSearchParams();
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -60,9 +62,9 @@ const RequestHistoryTab: FC = (): ReactElement => {
       header: "Status",
       cell: (info) => (
         <div className="flex flex-row gap-x-1">
-          {info.getValue() === "PROSES" ? (
+          {info.getValue() === "SUCESSFUL" ? (
             <IconClock />
-          ) : info.getValue() === "BERHASIL" ? (
+          ) : info.getValue() === "PROCESS" ? (
             <IconCheck />
           ) : (
             <IconError />
@@ -88,9 +90,21 @@ const RequestHistoryTab: FC = (): ReactElement => {
 
   useEffect(() => {
     if (data) {
-      setTableData(data.data.financial_graph_data);
+      const res = data.data.financial_graph_data;
+      setTableData(res);
+
+      if (params.has("startDate") && params.has("endDate")) {
+        const startFrom = params.get("startDate") as string;
+        const endTo = params.get("endDate") as string;
+
+        const filterDate = res.filter((item) => {
+          return item.created_at >= startFrom && item.created_at <= endTo;
+        });
+
+        setTableData(filterDate);
+      }
     }
-  }, [data]);
+  }, [data, params]);
 
   return (
     <Suspense fallback="Loading...">

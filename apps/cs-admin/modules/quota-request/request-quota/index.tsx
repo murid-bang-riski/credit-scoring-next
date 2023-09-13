@@ -1,14 +1,14 @@
-import { useGetQuotaRequest, useQuotaRequestData } from "@/hooks";
-import { TQuotaRequestItem } from "@/types";
-import { Button, Modal, TableComponent } from "@components";
-import { createColumnHelper } from "@tanstack/react-table";
-import { formatDate } from "@utils";
-import { useSearchParams } from "next/navigation";
 import { FC, ReactElement, Suspense, useEffect, useState } from "react";
+import { Button, Modal, TableComponent } from "@components";
+import { formatDate } from "@utils";
+import { useGetQuotaRequest } from "@/hooks";
+import { TQuotaRequestItem } from "@/types";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useSearchParams } from "next/navigation";
 
 const RequestQuotaTab: FC = (): ReactElement => {
-  const params = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
+  const params = useSearchParams();
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -95,7 +95,7 @@ const RequestQuotaTab: FC = (): ReactElement => {
     <Suspense fallback="Loading...">
       <section className="py-10">
         <Modal isOpen={isOpen} toggleModal={toggleModal} />
-        <TableComponent data={tableData} columns={columns} />
+        <TableComponent data={tableData} columns={columns} thClassName="p-3" />
       </section>
     </Suspense>
   );
