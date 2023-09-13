@@ -11,7 +11,6 @@ import "react-date-range/dist/theme/default.css";
 import { formatISO } from "date-fns";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-
 interface DateRange {
   startDate: Date;
   endDate: Date;
@@ -61,7 +60,8 @@ export const DateRangePickerComponent: React.FC<DateRangePickerProps> = ({
     }
 
     const updatedQuery: any = {
-      ...currentQuery
+      ...currentQuery,
+      page: 1,
     };
 
     if (ranges?.startDate) {
@@ -77,18 +77,13 @@ export const DateRangePickerComponent: React.FC<DateRangePickerProps> = ({
         url: pathname,
         query: updatedQuery,
       },
-      { skipNull: true }
+      { skipNull: true },
     );
 
     setOpen(false);
 
     router.push(url);
-  }, [
-    ranges?.startDate,
-    ranges?.endDate,
-    params,
-    router,
-  ]);
+  }, [ranges?.startDate, ranges?.endDate, params, router]);
 
   return (
     <div>
@@ -100,11 +95,10 @@ export const DateRangePickerComponent: React.FC<DateRangePickerProps> = ({
       >
         <span className=" flex flex-row items-center">
           Dari{" "}
-          {
-            formatDate({
-              date: ranges?.startDate,
-              options,
-            })}
+          {formatDate({
+            date: ranges?.startDate,
+            options,
+          })}
           <span className="text-base pl-2">
             <IConCalendar />
           </span>
@@ -120,26 +114,26 @@ export const DateRangePickerComponent: React.FC<DateRangePickerProps> = ({
       <div ref={refOne}>
         {open && (
           <>
-          <div className="absolute z-40 border-gray-100 rounded-md overflow-hidden">
-            <DateRangePicker
-              onChange={handleRangeChange}
-              moveRangeOnFirstSelection={false}
-              months={1}
-              ranges={[ranges]}
-              direction="horizontal"
-              className="pt-2 rounded-md border-b-2"
-            />
-            <div className="bg-white py-3 text-sm">
-              <div className="flex flex-row justify-end px-4">
-                <Button
-                  onClick={onSubmit}
-                  className="bg-primary-400 text-white rounded-md px-8 py-[6px]"
-                  type="submit"
-                >
-                  Submit
-                </Button>
+            <div className="absolute z-40 border-gray-100 rounded-md overflow-hidden">
+              <DateRangePicker
+                onChange={handleRangeChange}
+                moveRangeOnFirstSelection={false}
+                months={1}
+                ranges={[ranges]}
+                direction="horizontal"
+                className="pt-2 rounded-md border-b-2"
+              />
+              <div className="bg-white py-3 text-sm">
+                <div className="flex flex-row justify-end px-4">
+                  <Button
+                    onClick={onSubmit}
+                    className="text-white bg-primary-400 rounded-md py-[7px] px-8 font-semibold text-sm"
+                    type="submit"
+                  >
+                    Submit
+                  </Button>
                 </div>
-            </div>
+              </div>
             </div>
             <div
               onClick={() => setOpen((open) => !open)}

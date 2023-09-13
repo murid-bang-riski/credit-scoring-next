@@ -2,16 +2,17 @@
 
 import { Button, CardCS, IconArrow, IconClose, IconFilter, Search } from "@components";
 import { Dialog, Disclosure, Tab, Transition } from "@headlessui/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { FC, Fragment, ReactElement, Suspense, useState, useEffect } from "react";
 import RequestHistoryTab from "./request-history";
 import RequestQuotaTab from "./request-quota";
 import { DateRangePickerComponent } from "@components";
-import { getProcessResponse } from "./api";
+import qs from "query-string";
 
 const RequestQuota: FC = (): ReactElement => {
-  const query = useSearchParams();
+  const params = useSearchParams();
   const router = useRouter();
+  const pathname = usePathname();
 
   const [isFilterOpen, setFilterOpen] = useState(false);
   const [active, setActive] = useState("permintaan");
@@ -25,17 +26,36 @@ const RequestQuota: FC = (): ReactElement => {
   }
 
   useEffect(() => {
-    if (!query.get("tab")) {
-      router.push("/admin?page=1&tab=permintaan");
-    }
-
-    if (query.get("tab") === "permintaan") {
+    if (params.get("tab") === "permintaan") {
       setActive("permintaan");
     }
-    if (query.get("tab") === "riwayat") {
+    if (params.get("tab") === "riwayat") {
       setActive("riwayat");
     }
-  }, [query, router, active]);
+
+    let currentQuery = {};
+
+    if (params) {
+      currentQuery = qs.parse(params.toString());
+    }
+
+    const updatedQuery: any = {
+      ...currentQuery,
+      page: 1,
+    };
+
+    const url = qs.stringifyUrl(
+      {
+        url: pathname,
+        query: updatedQuery,
+      },
+      { skipNull: true },
+    );
+
+    if (!params.get("page")) {
+      router.push(url);
+    }
+  }, [params]);
 
   const [search, setSearch] = useState("");
 
@@ -54,7 +74,7 @@ const RequestQuota: FC = (): ReactElement => {
                           active === "permintaan"
                             ? "text-neutral-800 bg-white rounded-lg active:border-none active:outline-none"
                             : ""
-                        }       text-neutral-400 text-xs md:text-base px-4 py-2`}
+                        }       text-neutral-400 text-xs 2xl:text-base px-4 py-2`}
                         aria-current="page"
                         onClick={() => {
                           router.push("/admin?tab=permintaan");
@@ -70,7 +90,7 @@ const RequestQuota: FC = (): ReactElement => {
                       <div
                         className={`inline-block p-2 ${
                           active === "riwayat" ? "text-neutral-800 bg-white rounded-lg" : ""
-                        }       text-neutral-400 text-xs md:text-base px-4 py-2`}
+                        }       text-neutral-400 text-xs 2xl:text-base px-4 py-2`}
                         aria-current="page"
                         onClick={() => {
                           router.push("/admin?tab=riwayat");
