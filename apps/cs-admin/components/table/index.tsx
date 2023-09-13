@@ -45,7 +45,7 @@ export const TableComponent: FC<ITableProps> = ({
   });
 
   return (
-    <div className="p-2 text-xs">
+    <div className="pr-1 text-xs">
       <table className={`overflow-x-scroll text-xs w-full ${center ? "text-center" : "text-left"}`}>
         <thead className={`${thColor}`}>
           {table.getHeaderGroups().map((headerGroup) => (
