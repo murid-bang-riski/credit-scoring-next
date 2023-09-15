@@ -1,122 +1,122 @@
-'use client';
-import { NextPage } from 'next';
-import { FC, ReactElement, Fragment, useState } from 'react';
-import { Card } from '@cs-user/components';
-import Image from 'next/image';
+"use client";
+import { NextPage } from "next";
+import { FC, ReactElement, Fragment, useState } from "react";
+import { Card } from "@cs-user/components";
+import Image from "next/image";
 
 export const RequestAI: FC = () => {
   const DataCard = [
     {
       id: 1,
-      icon: '/assets/dashboard/card1.svg',
-      title: 'AI Automation',
+      icon: "/assets/dashboard/feature-icon/ai-automation.svg",
       desc: 500,
-      bgButton: 'bg-purple-500',
+      title: "AI Automation",
+      bgButton: "bg-purple-500",
     },
     {
       id: 2,
-      icon: '/assets/dashboard/card2.svg',
-      title: 'AI Document Verification',
+      icon: "/assets/dashboard/feature-icon/ai-document-verification.svg",
       desc: 500,
-      bgButton: 'bg-primary-500',
+      title: "AI Document Verification",
+      bgButton: "bg-primary-500",
     },
     {
       id: 3,
-      icon: '/assets/dashboard/card3.svg',
-      title: 'AI Location Movement',
+      icon: "/assets/dashboard/feature-icon/ai-location-movement.svg",
       desc: 500,
-      bgButton: 'bg-secondary-500',
+      title: "AI Location and Movement",
+      bgButton: "bg-secondary-500",
     },
     {
       id: 4,
-      icon: '/assets/dashboard/card4.svg',
-      title: 'AI Capacity & Earning Power',
+      icon: "/assets/dashboard/feature-icon/ai-capacity-earning-power.svg",
       desc: 500,
-      bgButton: 'bg-warning-300',
+      title: "AI Capacity and Earning Power",
+      bgButton: "bg-warning-300",
     },
     {
       id: 5,
-      icon: '/assets/dashboard/card5.svg',
-      title: 'AI Capacital Strength Analisys',
+      icon: "/assets/dashboard/feature-icon/ai-capital-strength-analysis.svg",
       desc: 500,
-      bgButton: 'bg-primary-500',
+      title: "AI Capital Strength and Analysis",
+      bgButton: "bg-primary-500",
     },
     {
       id: 6,
-      icon: '/assets/dashboard/card6.svg',
-      title: 'AI Collateral & Guarantee',
+      icon: "/assets/dashboard/feature-icon/ai-collateral-guarantee.svg",
       desc: 500,
-      bgButton: 'bg-secondary-500',
+      title: "AI Collateral and Guarantee",
+      bgButton: "bg-secondary-500",
     },
     {
       id: 7,
-      icon: '/assets/dashboard/card7.svg',
-      title: 'AI Condition Analysis',
+      icon: "/assets/dashboard/feature-icon/ai-condition-analysis.svg",
       desc: 500,
-      bgButton: 'bg-warning-300',
+      title: "AI Condition Analysis",
+      bgButton: "bg-warning-300",
     },
     {
       id: 8,
-      icon: '/assets/dashboard/card8.svg',
-      title: 'AI Digital FootPrint',
+      icon: "/assets/dashboard/feature-icon/ai-digital-footprint.svg",
       desc: 500,
-      bgButton: 'bg-purple-500',
+      title: "AI Digital Footprint",
+      bgButton: "bg-purple-500",
     },
     {
-      id: 8,
-      icon: '/assets/dashboard/card8.svg',
-      title: 'AI Digital FootPrint',
+      id: 9,
+      icon: "/assets/dashboard/feature-icon/ai-character-analysis.svg",
       desc: 500,
-      bgButton: 'bg-purple-500',
+      title: "AI Character Analysis",
+      bgButton: "bg-primary-500",
     },
     {
-      id: 8,
-      icon: '/assets/dashboard/card8.svg',
-      title: 'AI Digital FootPrint',
+      id: 10,
+      icon: "/assets/dashboard/feature-icon/ai-identity-scoring.svg",
       desc: 500,
-      bgButton: 'bg-purple-500',
+      title: "AI Identity Scoring",
+      bgButton: "bg-warning-300",
     },
     {
-      id: 8,
-      icon: '/assets/dashboard/card8.svg',
-      title: 'AI Digital FootPrint',
+      id: 11,
+      icon: "/assets/dashboard/feature-icon/ai-character-scoring.svg",
       desc: 500,
-      bgButton: 'bg-purple-500',
+      title: "AI Character Scoring",
+      bgButton: "bg-purple-500",
     },
     {
-      id: 8,
-      icon: '/assets/dashboard/card8.svg',
-      title: 'AI Digital FootPrint',
+      id: 12,
+      icon: "/assets/dashboard/feature-icon/ai-capability-scoring.svg",
       desc: 500,
-      bgButton: 'bg-purple-500',
+      title: "AI Capability Scoring",
+      bgButton: "bg-primary-500",
     },
     {
-      id: 8,
-      icon: '/assets/dashboard/card8.svg',
-      title: 'AI Digital FootPrint',
+      id: 13,
+      icon: "/assets/dashboard/feature-icon/ai-credit-scoring.svg",
       desc: 500,
-      bgButton: 'bg-purple-500',
+      title: "AI Credit Scoring",
+      bgButton: "bg-secondary-500",
     },
     {
-      id: 8,
-      icon: '/assets/dashboard/card8.svg',
-      title: 'AI Digital FootPrint',
+      id: 14,
+      icon: "/assets/dashboard/feature-icon/ai-constraint-analysis.svg",
       desc: 500,
-      bgButton: 'bg-purple-500',
+      title: "AI Constraint Analysis",
+      bgButton: "bg-purple-500",
     },
     {
-      id: 8,
-      icon: '/assets/dashboard/card8.svg',
-      title: 'AI Digital FootPrint',
+      id: 15,
+      icon: "/assets/dashboard/feature-icon/ai-legal-permit-analysis.svg",
       desc: 500,
-      bgButton: 'bg-purple-500',
+      title: "AI Legal and Permit Analysis",
+      bgButton: "bg-secondary-500",
     },
     {
-      id: 8,
-      icon: '/assets/dashboard/card8.svg',
-      title: 'AI Digital FootPrint',
+      id: 16,
+      icon: "/assets/dashboard/feature-icon/ai-credit-need-purpose.svg",
       desc: 500,
-      bgButton: 'bg-purple-500',
+      title: "AI Credit Need and Purpose",
+      bgButton: "bg-warning-300",
     },
   ];
 
@@ -142,12 +142,8 @@ export const RequestAI: FC = () => {
                   />
                 </div>
                 <div className="flex-col w-full ">
-                  <p className="text-sm font-semibold break-words pr-12">
-                    {x.title}
-                  </p>
-                  <p className="text-neutral-400 font-normal text-xs">
-                    Data masuk ({x.desc})
-                  </p>
+                  <p className="text-sm font-semibold break-words pr-12">{x.title}</p>
+                  <p className="text-neutral-400 font-normal text-xs">Data masuk ({x.desc})</p>
                 </div>
               </div>
             </Card>

@@ -49,7 +49,7 @@ export const LoginForm: FC = (): ReactElement => {
         redirect: false,
         email: data.email,
         password: data.password,
-        callbackUrl,
+        // callbackUrl,
       });
 
       // console.log(res);

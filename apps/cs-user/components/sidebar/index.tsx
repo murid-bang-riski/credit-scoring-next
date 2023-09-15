@@ -1,7 +1,7 @@
 "use client";
 import { FC, ReactElement, Fragment, useState } from "react";
 import Avatar from "react-avatar";
-import { usePathname } from "next/navigation";
+import { usePathname, redirect } from "next/navigation";
 import { SidebarProps } from "./types";
 import { TbLogout } from "react-icons/tb";
 import Link from "next/link";
@@ -43,8 +43,8 @@ const Sidebar: FC<SidebarProps> = ({ name, avatar }): ReactElement => {
     "flex h-[50px] rounded-md cursor-pointer gap-2 p-2 items-center bg-primary-400 text-white";
   const normalLink =
     "flex h-[50px] rounded-md cursor-pointer gap-2 p-2 items-center bg-white text-[#9E9E9E] hover:bg-neutral-300 hover:text-white";
-  const activeSvg = "fill-white stroke-2 stroke-white";
-  const normalSvg = "fill-[#9E9E9E]";
+  const activeSvg = "fill-white stroke-2 stroke-white p-1";
+  const normalSvg = "fill-[#9E9E9E] p-1";
   const [open, setOpen] = useState(true);
 
   const toggleSidebar = (): void => {
@@ -91,18 +91,16 @@ const Sidebar: FC<SidebarProps> = ({ name, avatar }): ReactElement => {
                         onMouseEnter={() => setHoveredIndex(i)}
                         onMouseLeave={() => setHoveredIndex(-1)}
                       >
-                        <span className="p-1">
-                          <Image
-                            style={{
-                              filter: isActive || isHovered ? "invert(0%)" : "invert(60%)",
-                            }}
-                            className={isActive ? activeSvg : normalSvg}
-                            src={x.icon}
-                            width={30}
-                            height={30}
-                            alt={x.title}
-                          />
-                        </span>
+                        <Image
+                          style={{
+                            filter: isActive || isHovered ? "invert(0%)" : "invert(60%)",
+                          }}
+                          className={isActive ? activeSvg : normalSvg}
+                          src={x.icon}
+                          width={40}
+                          height={40}
+                          alt={x.title}
+                        />
                         <span>{x.title}</span>
                       </div>
                     </Link>
@@ -113,7 +111,10 @@ const Sidebar: FC<SidebarProps> = ({ name, avatar }): ReactElement => {
           </div>
 
           <button
-            onClick={() => signOut()}
+            onClick={() => {
+              signOut();
+              redirect("/");
+            }}
             onMouseEnter={() => setHoveredSvg(true)}
             onMouseLeave={() => setHoveredSvg(false)}
             className="flex gap-2  p-2 rounded-md text-neutral-400  hover:text-red cursor-pointer items-end"
