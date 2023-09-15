@@ -61,7 +61,7 @@ export const RequestChart = (data: any) => {
   };
 
   const monthCounts = countDataByMonth(data.data);
-  console.log(`Month Counts`, monthCounts);
+  // console.log(`Month Counts`, monthCounts);
 
   const dataLine = {
     labels: labels,
@@ -70,7 +70,7 @@ export const RequestChart = (data: any) => {
         label: "",
         data: monthCounts,
         borderColor: "#13837B",
-        tension: 0.1,
+        // tension: 0.1,
         fill: true,
         backgroundColor: (context: any) => {
           const ctx = context.chart.ctx;
@@ -111,19 +111,24 @@ export const RequestChart = (data: any) => {
         mode: "x",
         speed: 5,
       },
+      legend: {
+        display: false,
+      },
+      maintainAspectRatio: false,
+      responsive: true,
     },
   };
 
   return (
-    <div className="h-full">
+    <div className="h-fit flex flex-col pt-2">
       <ChartZoom ref={chartRef} />
 
-      <div className="px-4 w-full flex justify-center">
-        <div className="h-full w-full mt-4 overflow-hidden flex items-stretch">
+      <div className="px-4 w-full h-fit flex justify-center items-center">
+        <div className="h-fit w-full mt-4 overflow-hidden relative">
           <Line
             data={dataLine}
-            width={"100%"}
-            height={"100%"}
+            // width={"100%"}
+            // height={"100px"}
             options={options as ChartOptions<"line">}
             ref={chartRef}
           />

@@ -37,8 +37,11 @@ export const HomeModule = () => {
           title="RIWAYAT PERMINTAAN"
           chart={<RequestChart data={data?.data.request_history_graph_data} />}
         />
-        <ChartCard title="RIWAYAT NILAI SKOR" chart={<ScoreChart />} />
-        <ChartCard title="TRACK USIA" chart={<AgeChart />} />
+        <ChartCard
+          title="RIWAYAT NILAI SKOR"
+          chart={<ScoreChart data={data?.data.score_history} />}
+        />
+        <ChartCard title="TRACK USIA" chart={<AgeChart data={data?.data.user_age} />} />
         <ChartCard title="TRACK LOKASI" chart={<LocationMapChart />} />
         <ChartCard title="TRACK PENDAPATAN" chart={<SalaryChart />} />
       </div>

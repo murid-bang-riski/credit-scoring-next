@@ -77,17 +77,27 @@ export const HistoryCardCarousel = (data: any, isLoading: boolean): ReactElement
     animationDuration: 1000,
     Infinity: true,
     renderPrevButton: () => {
-      return <div className="absolute -left-3 top-[35%]">{<IconNext />}</div>;
+      return (
+        <div className="bg-white absolute -left-8 top-[35%] p-2 rounded-full shadow-md hover:bg-slate-100">
+          {<IconNext />}
+        </div>
+      );
     },
     renderNextButton: () => {
-      return <div className="absolute -right-3 top-[35%]">{<IconPrev />}</div>;
+      return (
+        <div className=" bg-white absolute -right-8 top-[35%] p-2 rounded-full shadow-md hover:bg-slate-100">
+          {<IconPrev />}
+        </div>
+      );
     },
   };
 
   return (
     <div className="p-4 ">
       <h1 className="text-2xl font-bold uppercase p-3">Riwayat Permintaan</h1>
-      <AliceCarousel {...cardProps} />
+      <div className="">
+        <AliceCarousel {...cardProps} />
+      </div>
     </div>
   );
 };
