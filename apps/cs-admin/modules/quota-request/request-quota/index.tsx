@@ -1,12 +1,14 @@
-import { useGetQuotaRequest, useQuotaRequestData } from "@/hooks";
-import { TQuotaRequestItem } from "@/types";
-import { Button, Modal, TableComponent } from "@components";
-import { createColumnHelper } from "@tanstack/react-table";
-import { formatDate } from "@utils";
 import { FC, ReactElement, Suspense, useEffect, useState } from "react";
+import { Button, Modal, TableComponent } from "@components";
+import { formatDate } from "@utils";
+import { useGetQuotaRequest } from "@/hooks";
+import { TQuotaRequestItem } from "@/types";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useSearchParams } from "next/navigation";
 
 const RequestQuotaTab: FC = (): ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
+  const params = useSearchParams();
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -14,7 +16,7 @@ const RequestQuotaTab: FC = (): ReactElement => {
 
   const [tableData, setTableData] = useState<TQuotaRequestItem[]>([]);
 
-  const { isLoading, data } = useGetQuotaRequest();
+  const { data } = useGetQuotaRequest();
 
   const columnHelper = createColumnHelper<TQuotaRequestItem>();
 
@@ -73,15 +75,27 @@ const RequestQuotaTab: FC = (): ReactElement => {
 
   useEffect(() => {
     if (data) {
-      setTableData(data.data.financial_graph_data);
+      const res = data.data.financial_graph_data;
+      setTableData(res);
+
+      if (params.has("startDate") && params.has("endDate")) {
+        const startFrom = params.get("startDate") as string;
+        const endTo = params.get("endDate") as string;
+
+        const filterDate = res.filter((item) => {
+          return item.created_at >= startFrom && item.created_at <= endTo;
+        });
+
+        setTableData(filterDate);
+      }
     }
-  }, [data]);
+  }, [data, params]);
 
   return (
     <Suspense fallback="Loading...">
       <section className="py-10">
         <Modal isOpen={isOpen} toggleModal={toggleModal} />
-        <TableComponent data={tableData} columns={columns} />
+        <TableComponent data={tableData} columns={columns} thClassName="p-3" />
       </section>
     </Suspense>
   );

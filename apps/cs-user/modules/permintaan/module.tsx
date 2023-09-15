@@ -8,7 +8,7 @@ import { DataProcess } from "hooks/dashboard/request/hooks";
 
 export const ModuleRequest = () => {
   const { data } = DataProcess();
-  console.log(data);
+
   return (
     <div className="bg-white px-10 my-5 py-5 ">
       <Tab.Group>
