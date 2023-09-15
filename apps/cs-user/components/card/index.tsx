@@ -1,9 +1,9 @@
-import { Button } from '@cs-user/components';
-import Link from 'next/link';
-import { FC, ReactElement, Fragment } from 'react';
-import { TCardProps } from './types';
+import { Button } from "@cs-user/components";
+import Link from "next/link";
+import { FC, ReactElement, Fragment } from "react";
+import { TCardProps } from "./types";
 
-import React from 'react';
+import React from "react";
 
 export const Card: FC<TCardProps> = ({
   className,
@@ -25,13 +25,10 @@ export const Card: FC<TCardProps> = ({
   onClick,
 }): ReactElement => {
   return (
-    <div className='flex justify-start items-start' >
+    <div className="flex justify-start items-start">
       {href ? (
         <Link href={`${href}`}>
-          <div
-            className={`${className} flex flex-col rounded bg-white`}
-            onClick={() => onClick}
-          >
+          <div className={`${className} flex flex-col rounded bg-white`} onClick={() => onClick}>
             <section className="flex">{children}</section>
             <h1 className={titleStyle}>{title}</h1>
           </div>
@@ -43,32 +40,23 @@ export const Card: FC<TCardProps> = ({
           onClick={onClick}
           onSelect={onSelect}
         >
-          {
-          hasNumber&& (
-              <div className="absolute right-4 w-8  top-4  h-8 bg-[#f9f9f9] rounded-full flex justify-center items-center p-2">
-                <span>
-                  {numberCard}
-                </span>
-              </div>
-          )
-        }
-          
+          {hasNumber && (
+            <div className="absolute right-4 w-8  top-4  h-8 bg-[#f9f9f9] rounded-full flex justify-center items-center p-2">
+              <span>{numberCard}</span>
+            </div>
+          )}
+
           <div className={titleStyle}>
             <h1>{title}</h1>
           </div>
-          <div className={`flex justify-start flex-col items-center w-full ${classnameCorousel} h-full`}>
+          <div
+            className={`flex justify-start flex-col items-center w-full ${classnameCorousel} h-full`}
+          >
             <div className="flex w-full justify-center items-center">{children}</div>
             <div className={bodyClassName}>
               {hasButton && (
-                <Link href={`${buttonHref}`}>
-                  <section className="flex justify-end items-end">
-                    <Button
-                      type="button"
-                      className={buttonClassName + ' ' + buttonColor}
-                    >
-                      {buttonText}
-                    </Button>
-                  </section>
+                <Link href={`${buttonHref}`} className={buttonClassName + " " + buttonColor}>
+                  {buttonText}
                 </Link>
               )}
             </div>

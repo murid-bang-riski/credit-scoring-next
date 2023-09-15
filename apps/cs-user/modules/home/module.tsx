@@ -29,17 +29,19 @@ const ScoreChart = dynamic(() => import("./score-chart"), {
 
 export const HomeModule = () => {
   const { isLoading, data } = useGetHomeData();
-
   return (
     <>
-      <HistoryCardCarousel />
+      <HistoryCardCarousel data={data?.data.feature_history} isLoading={isLoading} />
       <div className="grid lg:grid-cols-2 gap-4">
         <ChartCard
           title="RIWAYAT PERMINTAAN"
           chart={<RequestChart data={data?.data.request_history_graph_data} />}
         />
-        <ChartCard title="RIWAYAT NILAI SKOR" chart={<ScoreChart />} />
-        <ChartCard title="TRACK USIA" chart={<AgeChart />} />
+        <ChartCard
+          title="RIWAYAT NILAI SKOR"
+          chart={<ScoreChart data={data?.data.score_history} />}
+        />
+        <ChartCard title="TRACK USIA" chart={<AgeChart data={data?.data.user_age} />} />
         <ChartCard title="TRACK LOKASI" chart={<LocationMapChart />} />
         <ChartCard title="TRACK PENDAPATAN" chart={<SalaryChart />} />
       </div>

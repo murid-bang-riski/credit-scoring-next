@@ -1,16 +1,37 @@
 import { FC, ReactElement } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-
+import { TScoreHistoryItem } from "@cs-user/types";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const ScoreChart: FC = (): ReactElement => {
-  const data = {
-    labels: [],
+export const ScoreChart = (data: any): ReactElement => {
+  const countDataByScore = (data: Array<TScoreHistoryItem>) => {
+    const score = Array(5).fill(0);
+    data?.map((item: any) => {
+      const itemScore = item.score;
+
+      itemScore === "VERY GOOD"
+        ? score[0]++
+        : itemScore === "GOOD"
+        ? score[1]++
+        : itemScore === "AVERAGE"
+        ? score[2]++
+        : itemScore === "BAD"
+        ? score[3]++
+        : score[4]++;
+    });
+
+    return score;
+  };
+
+  const scoreData = countDataByScore(data.data);
+  // console.log(`Score Counts`, scoreData);
+  const ChartData = {
+    labels: ["A (Sangat Baik)", "B (Baik)", "C (Cukup Baik)", "D (Buruk)", "E (Sangat Buruk)"],
     datasets: [
       {
-        label: "My First Dataset",
-        data: [90, 60, 40, 30, 18],
+        label: "",
+        data: scoreData,
         backgroundColor: [
           "rgb(19, 131, 123)",
           "rgb(74, 193, 162)",
@@ -29,16 +50,22 @@ export const ScoreChart: FC = (): ReactElement => {
       },
     ],
   };
+
   const options = {
     cutout: "70%",
     radius: "90%",
     responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
   };
 
   return (
     <div className="grid grid-cols-2 items-center">
       <div className="">
-        <Doughnut data={data} options={options} />
+        <Doughnut data={ChartData} options={options} />
       </div>
       <div className="w-full py-14">
         <div className="flex gap-3 my-2">
