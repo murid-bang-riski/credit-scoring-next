@@ -1,4 +1,3 @@
-"use client";
 import "./global.css";
 import { Provider } from "../context/provider";
 export const metadata = {
