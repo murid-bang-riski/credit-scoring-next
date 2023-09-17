@@ -15,7 +15,11 @@ export const metadata = {
   ],
 };
 
-const openSans = Open_Sans({ subsets: ["latin"] });
+const openSans = Open_Sans({
+  weight: ["400", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-open-sans",
+});
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
