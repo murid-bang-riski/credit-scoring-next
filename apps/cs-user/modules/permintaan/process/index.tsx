@@ -19,11 +19,11 @@ export const Process: FC<Props> = ({ data }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [nextActive, setNextActive] = useState(true); // Initially set to true since initially Next is active
   const [prevActive, setPrevActive] = useState(false);
-  const router = useRouter();
-  const query = useSearchParams();
-  const [sortColumn, setSortColumn] = useState<string | null>(null);
-  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
+  const [sortBy, setSortBy] = useState<any | null>(null);
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+
+  const router = useRouter();
   const handleNext = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setNextActive(true);
@@ -115,14 +115,30 @@ export const Process: FC<Props> = ({ data }) => {
     return pagination;
   };
 
-  const handleSort = (header: string) => {
-    if (sortColumn === header) {
-      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+  const handleSort = (columnHeader: string) => {
+    // Toggle sorting order if the same column header is clicked again
+    if (sortBy === columnHeader) {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
     } else {
-      setSortColumn(header);
-      setSortDirection("asc");
+      setSortBy(columnHeader);
+      setSortOrder("asc");
     }
   };
+  // Sort the data based on the selected column and order
+  const sortedData = [...paginatedData];
+  if (sortBy) {
+    sortedData.sort((a, b) => {
+      const aValue = a[sortBy as keyof TSRequestProcess];
+      const bValue = b[sortBy as keyof TSRequestProcess];
+
+      if (aValue < bValue) {
+        return sortOrder === "asc" ? -1 : 1;
+      } else if (aValue > bValue) {
+        return sortOrder === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+  }
 
   return (
     <div className="flex flex-col gap-7 mb-20 mt-10">
