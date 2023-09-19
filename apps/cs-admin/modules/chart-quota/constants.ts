@@ -14,7 +14,7 @@ export const dummy: IChartQuota[] = [
     title: "Total Cabang Terdaftar",
     desc: "500",
     classButton: "bg-secondary-100 hover:bg-secondary-100 bg-opacity-20 text-secondary-500",
-    link: "/admin/chart-quota/total-registered-branches",
+    link: "/admin/chart-quota/total-registered-branches?page=1",
   },
   {
     id: 2,

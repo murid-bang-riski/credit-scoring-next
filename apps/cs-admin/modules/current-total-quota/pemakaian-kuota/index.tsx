@@ -2,11 +2,11 @@ import { useCuurenTotalQuota } from "@/hooks";
 import { TCurrentTotalQuotaItem } from "@/types";
 import { TableComponent } from "@components";
 import { createColumnHelper } from "@tanstack/react-table";
-import { FC, useState } from "react";
+import { FC, useState, Suspense } from "react";
 
 const PemakaianKuota: FC = () => {
   const { getCurrentTotalQuotaData } = useCuurenTotalQuota();
-  const [data, setData] = useState<TCurrentTotalQuotaItem[]>([...getCurrentTotalQuotaData])
+  const [data, setData] = useState<TCurrentTotalQuotaItem[]>([...getCurrentTotalQuotaData]);
 
   const columnHelper = createColumnHelper<TCurrentTotalQuotaItem>();
 
@@ -57,9 +57,9 @@ const PemakaianKuota: FC = () => {
     }),
   ];
   return (
-    <>
+    <Suspense fallback="Loading...">
       <TableComponent data={data} columns={columns} tbClassName="font-bold p-5" />
-    </>
+    </Suspense>
   );
 };
 
