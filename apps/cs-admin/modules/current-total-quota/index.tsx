@@ -77,7 +77,7 @@ const CurrentTotalQuotaModule: FC = (): ReactElement => {
                   aria-current="page"
                   onClick={() => {
                     setActive("pemakaian-kuota");
-                    router.push("admin/chart-quota/current-total-quota?tab=pemakaian-kuota");
+                    router.push("admin/chart-quota/current-total-quota?page=1&tab=pemakaian-kuota");
                   }}
                 >
                   Detail Pemakaian Kuota Cabang

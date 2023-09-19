@@ -77,7 +77,9 @@ const TotalExpenditureCostsModule: FC = (): ReactElement => {
                   aria-current="page"
                   onClick={() => {
                     setActive("total-pengeluaran");
-                    router.push("admin/chart-quota/total-expenditure-costs?tab=total-pengeluaran");
+                    router.push(
+                      "admin/chart-quota/total-expenditure-costs?page=1&tab=total-pengeluaran",
+                    );
                   }}
                 >
                   Detail Pengeluaran Cabang
