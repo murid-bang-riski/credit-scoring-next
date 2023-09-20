@@ -42,7 +42,7 @@ const Sidebar: FC<SidebarProps> = ({ name, avatar }): ReactElement => {
   const activeLink =
     "flex h-[50px] rounded-md cursor-pointer gap-2 p-2 items-center bg-primary-400 text-white";
   const normalLink =
-    "flex h-[50px] rounded-md cursor-pointer gap-2 p-2 items-center bg-white text-[#9E9E9E] hover:bg-neutral-300 hover:text-white";
+    "flex h-[50px] rounded-md cursor-pointer gap-2 p-2 items-center bg-white text-[#9E9E9E] hover:bg-primary-300 hover:text-white";
   const activeSvg = "fill-white stroke-2 stroke-white p-1";
   const normalSvg = "fill-[#9E9E9E] p-1";
   const [open, setOpen] = useState(true);
@@ -81,7 +81,8 @@ const Sidebar: FC<SidebarProps> = ({ name, avatar }): ReactElement => {
               </div>
 
               {DataSidebar.map((x, i) => {
-                const isActive = router === x.path;
+                const isActive = router.split("/")[2] === x.path.split("/")[2];
+
                 const isHovered = hoveredIndex === i;
                 return (
                   <div key={i} className="my-4">

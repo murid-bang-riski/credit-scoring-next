@@ -22,31 +22,33 @@ export const AlokasiKuota = () => {
   const DataCard = [
     {
       id: 1,
-      icon: "/assets/dashboard/card1.svg",
+      icon: "/assets/dashboard/feature-icon/ai-automation.svg",
       title: "AI Automation",
-      desc: 500,
       bgButton: "bg-purple-500",
+      desc: 500,
     },
     {
       id: 2,
-      icon: "/assets/dashboard/card2.svg",
+
+      icon: "/assets/dashboard/feature-icon/ai-document-verification.svg",
       title: "AI Document Verification",
-      desc: 500,
       bgButton: "bg-primary-500",
+      desc: 500,
     },
     {
       id: 3,
-      icon: "/assets/dashboard/card3.svg",
-      title: "AI Location Movement",
-      desc: 500,
+
+      icon: "/assets/dashboard/feature-icon/ai-location-movement.svg",
+      title: "AI Location and Movement",
       bgButton: "bg-secondary-500",
+      desc: 500,
     },
     {
       id: 4,
-      icon: "/assets/dashboard/card4.svg",
-      title: "AI Capacity & Earning Power",
-      desc: 500,
+      icon: "/assets/dashboard/feature-icon/ai-capacity-earning-power.svg",
+      title: "AI Capacity and Earning Power",
       bgButton: "bg-warning-300",
+      desc: 500,
     },
   ];
   return (

@@ -74,14 +74,14 @@ export const ReportCustomer: FC<Props> = ({ data }) => {
     event.preventDefault();
     setNextActive(true);
     setPrevActive(false);
-    handleChangePage(currentPage + 1);
+    // handleChangePage(currentPage + 1);
   };
 
   const handlePrev = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setNextActive(false);
     setPrevActive(true);
-    handleChangePage(currentPage - 1);
+    // handleChangePage(currentPage - 1);
   };
 
   const columns: TableColumn[] = [
@@ -107,10 +107,10 @@ export const ReportCustomer: FC<Props> = ({ data }) => {
   const totalIndex = data.length;
   const endIndex = Math.min(startIndex + itemsPerPage, data.length);
   const paginatedData = data.slice(startIndex, endIndex);
-  const handleChangePage = (newPage: number) => {
-    setCurrentPage(newPage);
-    router.push(`/dashboard/request/?perPage=${itemsPerPage}&page=${newPage}`);
-  };
+  // const handleChangePage = (newPage: number) => {
+  //   setCurrentPage(newPage);
+  //   router.push(`/dashboard/request/?perPage=${itemsPerPage}&page=${newPage}`);
+  // };
 
   const toggleSelectAll = () => {
     if (selectedRows.length === 0) {
@@ -158,7 +158,7 @@ export const ReportCustomer: FC<Props> = ({ data }) => {
               ? "w-[30px]  h-[30px] text-white bg-[#4AC1A2] flex justify-center items-center rounded-sm text-[12px]"
               : " text-[12px] text-[#C2C2C2] rounded-sm shadow-md w-[30px]  h-[30px]  border-2 border-[#BCBCBC]"
           }
-          onClick={() => handleChangePage(i)}
+          // onClick={() => handleChangePage(i)}
         >
           {i}
         </button>,
