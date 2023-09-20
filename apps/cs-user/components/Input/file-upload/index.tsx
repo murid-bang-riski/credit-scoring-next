@@ -1,38 +1,37 @@
-import { ReactElement, useState } from 'react';
-import { FieldValues, useController } from 'react-hook-form';
-import { TUploadFileProps } from './types';
+"use client";
+import { ReactElement, useState } from "react";
+import { FieldValues, useController } from "react-hook-form";
+import { TUploadFileProps } from "./types";
 
 export const FileUploadField = <T extends FieldValues>(
-  props: TUploadFileProps<T>
+  props: TUploadFileProps<T>,
 ): ReactElement => {
   const { field } = useController(props);
-  const [getName, setName] = useState('');
+  const [getName, setName] = useState("");
   return (
     <section className="flex flex-col w-auto my-1 gap-y-2 ">
       {props.label && (
         <label
           htmlFor={props.name}
           className={`text-[#000] ${
-            props.variant === 'lg'
-              ? 'text-[18px] font-bold'
-              : props.variant === 'md'
-              ? 'text-[16px] font-bold'
-              : props.variant === 'sm'
-              ? 'text-[14px] font-bold'
-              : ''
+            props.variant === "lg"
+              ? "text-[18px] font-bold"
+              : props.variant === "md"
+              ? "text-[16px] font-bold"
+              : props.variant === "sm"
+              ? "text-[14px] font-bold"
+              : ""
           } `}
         >
           {props.label}
-          {props.required && (
-            <span className="ml-1 font-bold  text-error-600">*</span>
-          )}
+          {props.required && <span className="ml-1 font-bold  text-error-600">*</span>}
         </label>
       )}
 
       <label className="mb-2" htmlFor={props.name}>
         <section
           className={`${
-            props.status === 'error' && ' border-error-400'
+            props.status === "error" && " border-error-400"
           } flex overflow-hidden border mb-1 rounded-lg ${props.className}`}
         >
           <div className="w-full flex items-center ">
@@ -40,17 +39,15 @@ export const FileUploadField = <T extends FieldValues>(
               Pilih File
             </h1>
             <p
-              className={`${
-                props.status === 'error' ? 'text-error-500 italic' : ''
-              } px-4 text-xs`}
+              className={`${props.status === "error" ? "text-error-500 italic" : ""} px-4 text-xs`}
             >
               {getName || props.files ? (
                 <span>
                   {getName || props.files}
-                  {props.status === 'error' && `(${props.message})`}
+                  {props.status === "error" && `(${props.message})`}
                 </span>
               ) : (
-                'Tidak ada file yang dipilih'
+                "Tidak ada file yang dipilih"
               )}
             </p>
           </div>
@@ -62,13 +59,13 @@ export const FileUploadField = <T extends FieldValues>(
         </section>
         <span
           className={`${
-            props.status === 'error'
-              ? 'text-error-base'
-              : props.status === 'success'
-              ? 'text-success-base'
-              : props.status === 'warning'
-              ? 'text-warning-base'
-              : ''
+            props.status === "error"
+              ? "text-error-base"
+              : props.status === "success"
+              ? "text-success-base"
+              : props.status === "warning"
+              ? "text-warning-base"
+              : ""
           } text-xs`}
         >
           {props.message}
@@ -86,23 +83,23 @@ export const FileUploadField = <T extends FieldValues>(
         type="file"
         className={`
             ${
-              props.status === 'error' &&
-              'focus:ring-1 focus:ring-error-base bg-error-100 placeholder:text-white ring-1 ring-error-base text-sm'
+              props.status === "error" &&
+              "focus:ring-1 focus:ring-error-base bg-error-100 placeholder:text-white ring-1 ring-error-base text-sm"
             }
 
             ${
-              props.status === 'success' &&
-              'focus:ring-1 focus:ring-success-base bg-success-100 text-sm'
+              props.status === "success" &&
+              "focus:ring-1 focus:ring-success-base bg-success-100 text-sm"
             }
 
             ${
-              props.status === 'warning' &&
-              'focus:ring-1 focus:ring-warning-base bg-warning-100 text-sm'
+              props.status === "warning" &&
+              "focus:ring-1 focus:ring-warning-base bg-warning-100 text-sm"
             }
 
             ${
               !props.status ||
-              (props.status === 'none' &&
+              (props.status === "none" &&
                 `border-[0.5px] border-neutral-400 shadow-sm ${props.className}`)
             }
 

@@ -1,3 +1,5 @@
+"use client";
+
 import { DatePickerRange, IconPlus, Search } from "@cs-user/components";
 import Link from "next/link";
 import { useState } from "react";

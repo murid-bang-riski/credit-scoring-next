@@ -7,7 +7,7 @@ import { Tab } from "@headlessui/react";
 import { DataProcess } from "hooks/dashboard/request/hooks";
 
 export const ModuleRequest = () => {
-  const { data } = DataProcess();
+  const { data } = DataProcess(3, "", "", "asc", 4);
 
   return (
     <div className="bg-white px-10 my-5 py-5 ">
@@ -51,7 +51,10 @@ export const ModuleRequest = () => {
           <Tab.Panel>
             <RequestAI />
           </Tab.Panel>
-          <Tab.Panel>{data && <Process data={data?.data} />}</Tab.Panel>
+          <Tab.Panel>
+            {" "}
+            <Process />
+          </Tab.Panel>
           <Tab.Panel>
             <Result />
           </Tab.Panel>

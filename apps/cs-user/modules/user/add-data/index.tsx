@@ -1,8 +1,10 @@
-import Link from 'next/link';
-import { CapabilityScoringSection } from './ai-capability-scoring';
-import { CharacterScoringSection } from './ai-character-scoring';
-import { IdentityScoringSection } from './ai-identity-scoring';
-import { IconBack, IconWarning } from 'components/icons';
+"use client";
+
+import Link from "next/link";
+import { CapabilityScoringSection } from "../ai-capability-scoring";
+import { CharacterScoringSection } from "../ai-character-scoring";
+import { IdentityScoringSection } from "../ai-identity-scoring";
+import { IconBack, IconWarning } from "components/icons";
 
 export const AddUserDataModul = () => {
   return (
@@ -10,13 +12,13 @@ export const AddUserDataModul = () => {
       <div className="flex flex-row w-full h-fit py-3 bg-warning-100 rounded-md px-6 text-warning-500 font-bold text-xs items-center gap gap-x-1">
         <IconWarning size={20} />
         <span className="ml-3">
-          Harap mengisi semua bagian untuk melanjutkan ke tahapan selanjutnya{' '}
+          Harap mengisi semua bagian untuk melanjutkan ke tahapan selanjutnya{" "}
         </span>
       </div>
 
       {/* content */}
       <div className="bg-white w-full h-full px-8 flex flex-col">
-        <Link href={'/dashboard/user'}>
+        <Link href={"/dashboard/user"}>
           <div className="flex flex-row gap gap-x-6 items-center border-b w-full h-fit p-6 text-primary-400 font-bold text-base">
             <div>
               <IconBack />

@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, ChangeEvent, DragEvent } from "react";
 import { IconUpload } from "components/icons";
 import Image from "next/image";

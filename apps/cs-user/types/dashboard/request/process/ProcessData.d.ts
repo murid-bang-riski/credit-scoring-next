@@ -13,10 +13,18 @@ export type TSRequestProcess = {
   nik: number;
 };
 
+export type MetaData = {
+  total: number;
+  page_size: number;
+  total_pages: number;
+  page: number;
+};
+
 export type TSProcessResponse = {
   code: number;
   status: string;
   message: string;
+  meta: MetaData;
   data: TSRequestProcess[];
 };
 

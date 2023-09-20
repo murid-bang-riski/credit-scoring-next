@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import Sidebar from "../../components/sidebar";
 import "../global.css";
+import Loading from "./loading";
 
 export const metadata = {
   title: "Credit Scoring",
@@ -9,15 +10,13 @@ export const metadata = {
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="w-screen h-screen overflow-hidden bg-[#F6FBFA] flex ">
-      <div className="w-[20%]">
-        <Suspense fallback="loading">
+    <Suspense fallback={<Loading />}>
+      <div className="w-screen h-screen overflow-hidden bg-[#F6FBFA] flex ">
+        <div className="w-[20%]">
           <Sidebar name="adoakdo" avatar="awodao" />
-        </Suspense>
+        </div>
+        <div className="overflow-y-scroll px-5 w-full">{children} </div>
       </div>
-      <div className="overflow-y-scroll px-5 w-full">
-        <Suspense fallback="loading">{children}</Suspense>
-      </div>
-    </div>
+    </Suspense>
   );
 }
