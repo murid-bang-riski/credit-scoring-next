@@ -7,6 +7,12 @@ export const RequestProcessState = atom<TSProcessResponse>({
     code: 0,
     status: "",
     message: "",
+    meta: {
+      total: 0,
+      page_size: 0,
+      total_pages: 0,
+      page: 0,
+    },
     data: [],
   },
 });

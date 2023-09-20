@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { DataProcess } from "hooks/dashboard/request/hooks";
 import { useSearchParams, useRouter } from "next/navigation";
 import { TSRequestProcess, MetaData } from "types/dashboard";
-import { ReusableTable, Paginations, Search } from "@cs-user/components";
+import { ReusableTable, Paginations, Search, DateTimeRenderer } from "@cs-user/components";
 import React from "react";
 
 export const Process: FC = () => {
@@ -29,11 +29,11 @@ export const Process: FC = () => {
 
   const columns = [
     { header: "No", className: "w-[20px]", sort_by: "_id" },
-    { header: "Tanggal Input", hasSorting: true, className: "w-[150px]" },
+    { header: "Tanggal Input", hasSorting: true, className: "w-[150px]", sort_by: "requested_at" },
     { header: "NIK", hasSorting: true, className: "w-[100px]", sort_by: "nik" },
     { header: "Nama", hasSorting: true, className: "w-[150px]", sort_by: "name" },
-    { header: "No. Permintaan", hasSorting: true },
-    { header: "Tanggal Permintaan", hasSorting: true },
+    { header: "No. Permintaan", hasSorting: true, sort_by: "request_number" },
+    { header: "Tanggal Permintaan", hasSorting: true, sort_by: "requested_at" },
     { header: "Kendala Proses" },
     { header: "Hasil", className: "w-[150px]" },
   ];
@@ -53,20 +53,20 @@ export const Process: FC = () => {
   const handlePreviousPage = () => {
     if (page > 1) {
       setPage(page - 1);
-      router.push(`/dashboard/request/process?page=${page - 1}`);
+      router.push(`/dashboard/request?page=${page - 1}`);
     }
   };
 
   const handleNextPage = () => {
     if (page < totalPages) {
       setPage(page + 1);
-      router.push(`/dashboard/request/process?page=${page + 1}`);
+      router.push(`/dashboard/request?page=${page + 1}`);
     }
   };
 
   const HandleUsePage = (page: number) => {
     setPage(page);
-    router.push(`/dashboard/request/process?page=${page}`);
+    router.push(`/dashboard/request?page=${page}`);
   };
 
   const start = (page - 1) * perPage;
@@ -75,13 +75,15 @@ export const Process: FC = () => {
     <div className="flex flex-col gap-7 mb-20 mt-10">
       <div className="flex justify-between items-center">
         <p className="text-[30px] font-bold">Permintaan hari ini</p>
-        <div className="w-[350px]"></div>
+        <div className="w-[350px] flex float-right">
+          <Search
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search Nama, NIK, No.Permintaan"
+          />
+        </div>
       </div>
-      <Search
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder="Search Nama, NIK, No. "
-      />
+
       <ReusableTable
         classBody=""
         MainTableSort={handleSort}
@@ -94,7 +96,9 @@ export const Process: FC = () => {
               <div className="flex justify-center items-center">{start + index + 1}</div>
             </td>
             <td>
-              <div className="flex justify-center items-center">{data.requested_at}</div>
+              <div className="flex justify-center items-center">
+                <DateTimeRenderer timestamp={data.requested_at} />
+              </div>
             </td>
             <td>
               <div className="flex justify-center items-center">{data.nik}</div>
@@ -106,7 +110,9 @@ export const Process: FC = () => {
               <div className="flex justify-center items-center">{data.request_number}</div>
             </td>
             <td>
-              <div className="flex justify-center items-center">{data.requested_at}</div>
+              <div className="flex justify-center items-center">
+                <DateTimeRenderer timestamp={data.requested_at} />
+              </div>
             </td>
             <td>
               <div className="flex justify-center items-center">
@@ -115,13 +121,13 @@ export const Process: FC = () => {
             </td>
             <td className="w-[120px] ">
               <div className="flex justify-center items-center">
-                {data.result === "GAGAL" ? (
+                {data.status === "FAILED" ? (
                   <button className="w-full py-2 text-white font-bold text-[12px] rounded-md bg-[#EE2D24]">
-                    {data.result}
+                    {data.status}
                   </button>
                 ) : (
                   <button className="w-full py-2 text-white font-bold text-[12px] rounded-md bg-[#F59E0B]">
-                    {data.result}
+                    {data.status}
                   </button>
                 )}
               </div>
