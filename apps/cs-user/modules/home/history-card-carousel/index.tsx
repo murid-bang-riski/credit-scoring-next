@@ -48,7 +48,7 @@ export const HistoryCardCarousel = (data: any, isLoading: boolean): ReactElement
           className="bg-white p-2 rounded-full h-fit shadow-md hover:bg-slate-100 cursor-pointer"
           ref={prevElRef}
         >
-          {<IconNext />}
+          {<IconPrev />}
         </div>
         <Swiper
           navigation={{
@@ -98,7 +98,7 @@ export const HistoryCardCarousel = (data: any, isLoading: boolean): ReactElement
           className=" bg-white h-fit p-2 rounded-full shadow-md hover:bg-slate-100 cursor-pointer"
           ref={nextElRef}
         >
-          {<IconPrev />}
+          {<IconNext />}
         </div>
         {/* <AliceCarousel {...cardProps} /> */}
       </div>

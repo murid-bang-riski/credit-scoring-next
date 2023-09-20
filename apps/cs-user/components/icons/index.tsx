@@ -13,3 +13,5 @@ export * from "./icon-Upload";
 export * from "./icon-Back";
 export * from "./icon-Warning";
 export * from "./icon-Minus";
+export * from "./icon-Edit";
+export * from "./icon-Trash";
