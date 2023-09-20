@@ -1,11 +1,9 @@
+"use client";
 import React, { useState, useRef, useCallback } from "react";
-
 import { DateRangePicker } from "react-date-range";
 import { Button, IconCalendar } from "@cs-user/components";
 import { DateTimeFormatOptions, formatDate } from "@cs-user/utils";
-
 import qs from "query-string";
-
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { formatISO } from "date-fns";

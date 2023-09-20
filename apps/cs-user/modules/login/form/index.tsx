@@ -13,6 +13,7 @@ export const LoginForm: FC = (): ReactElement => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [getError, setError] = useState<string | undefined | null>(undefined);
+  const [isLoading, setIsLoading] = useState(false);
   type ValidationSchema = z.infer<typeof validationSchema>;
 
   const validationSchema = z.object({
@@ -41,18 +42,14 @@ export const LoginForm: FC = (): ReactElement => {
   const callbackUrl = searchParams.get("callbackUrl") || "";
 
   const onSubmit = async (data: any) => {
+    setIsLoading(true);
     try {
-      // setLoading(true);
-      // setFormValues({ email: "", password: "" });
-
       const res = await signIn("login", {
         redirect: false,
         email: data.email,
         password: data.password,
-        // callbackUrl,
       });
 
-      // console.log(res);
       if (!res?.error) {
         Swal.fire({
           toast: true,
@@ -85,11 +82,12 @@ export const LoginForm: FC = (): ReactElement => {
       });
       setError(error);
     }
+    setIsLoading(false);
   };
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)} // Use handleSubmit here
+      onSubmit={handleSubmit(onSubmit)}
       className="bg-white items-center justify-center px-8 py-12 shadow-gray-300 shadow-lg lg:w-[512px] w-[400px] h-auto rounded-sm overflow-hidden"
     >
       <div className="space-y-5">
@@ -111,11 +109,6 @@ export const LoginForm: FC = (): ReactElement => {
           status={errors.email ? "error" : "none"}
           message={errors.email?.message}
           variant="md"
-          rules={
-            {
-              // No need to specify 'required: true' here
-            }
-          }
         />
         <TextField
           type="password"
@@ -126,11 +119,6 @@ export const LoginForm: FC = (): ReactElement => {
           placeholder="Masukkan Password Anda"
           control={control}
           variant="md"
-          rules={
-            {
-              // No need to specify 'required: true' here
-            }
-          }
         />
         <Checkbox name="remember" variant="md" control={control} label="Ingatkan Saya" />
       </div>
@@ -139,7 +127,7 @@ export const LoginForm: FC = (): ReactElement => {
         className="flex disabled:bg-neutral-200 justify-center w-full p-3 mt-8 rounded-md border bg-primary-400 text-white font-bold"
         disabled={!isValid}
       >
-        Masuk
+        {isLoading ? "...Logging In" : "Login"}
       </Button>
     </form>
   );

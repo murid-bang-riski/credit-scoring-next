@@ -1,4 +1,4 @@
-import * as React from "react";
+"use client";
 import {
   createColumnHelper,
   ExpandedState,
@@ -6,38 +6,38 @@ import {
   getCoreRowModel,
   getExpandedRowModel,
   ColumnDef,
-  useReactTable
+  useReactTable,
 } from "@tanstack/react-table";
-
+import { useState, Fragment } from "react";
 
 const data: Person[] = [
-    {
-      id: 1,
-      firstName: "Antony",
-      lastName: "Hilling",
-      email: "ahilling0@bbb.org",
-      gender: "Male",
-      ipAddress: "118.24.49.0",
-      virtualMachine: {
-        id: "247a6b75-c0c2-4f99-863b-6b520b9f8742",
-        name: "Pacocha Inc",
-        model: "Viper",
-      },
+  {
+    id: 1,
+    firstName: "Antony",
+    lastName: "Hilling",
+    email: "ahilling0@bbb.org",
+    gender: "Male",
+    ipAddress: "118.24.49.0",
+    virtualMachine: {
+      id: "247a6b75-c0c2-4f99-863b-6b520b9f8742",
+      name: "Pacocha Inc",
+      model: "Viper",
     },
-    {
-      id: 1,
-      firstName: "Antony",
-      lastName: "Hilling",
-      email: "ahilling0@bbb.org",
-      gender: "Male",
-      ipAddress: "118.24.49.0",
-      virtualMachine: {
-        id: "247a6b75-c0c2-4f99-863b-6b520b9f8742",
-        name: "Pacocha Inc",
-        model: "Viper",
-      },
+  },
+  {
+    id: 1,
+    firstName: "Antony",
+    lastName: "Hilling",
+    email: "ahilling0@bbb.org",
+    gender: "Male",
+    ipAddress: "118.24.49.0",
+    virtualMachine: {
+      id: "247a6b75-c0c2-4f99-863b-6b520b9f8742",
+      name: "Pacocha Inc",
+      model: "Viper",
     },
-  ];
+  },
+];
 
 export type VM = {
   id: string;
@@ -63,7 +63,7 @@ const columns = [
     header: ({ table }) => (
       <button
         {...{
-          onClick: table.getToggleAllRowsExpandedHandler()
+          onClick: table.getToggleAllRowsExpandedHandler(),
         }}
       >
         {table.getIsAllRowsExpanded() ? "👇" : "👉"}
@@ -73,42 +73,39 @@ const columns = [
       <button
         {...{
           onClick: () => row.toggleExpanded(),
-          style: { cursor: "pointer" }
+          style: { cursor: "pointer" },
         }}
       >
         {row.getIsExpanded() ? "👇" : "👉"}
       </button>
-    )
+    ),
   }),
   columnHelper.accessor("id", {
     header: () => <span>Id</span>,
-    cell: (info) => info.renderValue()
-  
+    cell: (info) => info.renderValue(),
   }),
   columnHelper.accessor("firstName", {
-    cell: (info) => info.getValue()
+    cell: (info) => info.getValue(),
   }),
-  
+
   columnHelper.accessor("gender", {
     header: () => "Gender",
-    cell: (info) => info.renderValue()
+    cell: (info) => info.renderValue(),
   }),
   columnHelper.accessor("ipAddress", {
-    header: "IP"
-  })
-
+    header: "IP",
+  }),
 ];
 
 export function People() {
-  const [expanded, setExpanded] = React.useState<ExpandedState>({});
+  const [expanded, setExpanded] = useState<ExpandedState>({});
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     state: { expanded },
     onExpandedChange: setExpanded,
-    getExpandedRowModel: getExpandedRowModel()
-   
+    getExpandedRowModel: getExpandedRowModel(),
   });
 
   return (
@@ -121,10 +118,7 @@ export function People() {
                 <th key={header.id}>
                   {header.isPlaceholder
                     ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
+                    : flexRender(header.column.columnDef.header, header.getContext())}
                 </th>
               ))}
             </tr>
@@ -133,14 +127,11 @@ export function People() {
         <tbody>
           {table.getRowModel().rows.map((row) => {
             return (
-              <React.Fragment key={row.id}>
+              <Fragment key={row.id}>
                 <tr key={row.id}>
                   {row.getVisibleCells().map((cell) => (
                     <td key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ))}
                 </tr>
@@ -150,7 +141,7 @@ export function People() {
                     <td colSpan={4}>{row.original.virtualMachine.name}</td>
                   </tr>
                 ) : null}
-              </React.Fragment>
+              </Fragment>
             );
           })}
         </tbody>

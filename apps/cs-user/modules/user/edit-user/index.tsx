@@ -6,16 +6,16 @@ import { CharacterScoringSection } from "../ai-character-scoring";
 import { IdentityScoringSection } from "../ai-identity-scoring";
 import { IconBack, IconWarning } from "components/icons";
 
-export const AddUserDataModul = () => {
+export const EditUserDataModule = ({ params }: { params: { id: string } }) => {
+  const id = params.id;
   return (
     <div className="my-8 space-y-4 w-full h-full">
-      <div className="flex flex-row w-full h-fit py-3 bg-warning-100 rounded-md px-6 text-warning-500 font-bold text-xs items-center gap gap-x-1">
+      {/* <div className="flex flex-row w-full h-fit py-3 bg-warning-100 rounded-md px-6 text-warning-500 font-bold text-xs items-center gap gap-x-1">
         <IconWarning size={20} />
         <span className="ml-3">
           Harap mengisi semua bagian untuk melanjutkan ke tahapan selanjutnya{" "}
         </span>
-      </div>
-
+      </div> */}
       {/* content */}
       <div className="bg-white w-full h-full px-8 flex flex-col">
         <Link href={"/dashboard/user"}>
