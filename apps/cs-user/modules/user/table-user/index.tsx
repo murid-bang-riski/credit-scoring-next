@@ -12,9 +12,9 @@ export const UserTable: FC = () => {
   const [prevActive, setPrevActive] = useState(false);
   const columns = [
     { header: "No", className: "w-[20px] h-10" },
-    { header: "NIK", hasSorting: true, className: "text-center" },
-    { header: "Nama", hasSorting: true },
-    { header: "Tanggal", hasSorting: true },
+    { header: "NIK", hasSorting: true, className: "text-center", sort_by: "nik" },
+    { header: "Nama", hasSorting: true, sort_by: "nik" },
+    { header: "Tanggal", hasSorting: true, sort_by: "tanggal" },
     { header: "Berkas" },
     { header: "Action" },
   ];
@@ -117,14 +117,16 @@ export const UserTable: FC = () => {
             </td>
             <td>
               <div className="flex justify-center items-center py-2 text-secondary-600 hover:underline">
-                <Link href={`/user-detail/${data.id}`}>Lihat Detail</Link>
+                <Link href={`dashboard/user/detail-user/${data.id}`}>Lihat Detail</Link>
               </div>
             </td>
             <td>
               <div className="flex justify-center items-center py-2 gap-3">
-                <div className="rounded-full bg-neutral-200 p-1 cursor-pointer hover:bg-neutral-300">
-                  <IconEdit size={18} color="#897CC0" />
-                </div>
+                <Link href={`dashboard/user/edit-user/${data.id}`}>
+                  <div className="rounded-full bg-neutral-200 p-1 cursor-pointer hover:bg-neutral-300">
+                    <IconEdit size={18} color="#897CC0" />
+                  </div>
+                </Link>
                 <div className="rounded-full bg-neutral-200 p-1 cursor-pointer hover:bg-neutral-300">
                   <IconTrash size={18} />
                 </div>
