@@ -1,8 +1,9 @@
-import { FC, ReactElement, useState } from 'react';
+"use client";
+import { FC, ReactElement, useState } from "react";
 
 export const DropDownDashboard: FC = (): ReactElement => {
   const [isActive, setIsActive] = useState(false);
-  const [selectedValue, setSelectedValue] = useState('Semua');
+  const [selectedValue, setSelectedValue] = useState("Semua");
   const toggleDropdown = () => {
     setIsActive(!isActive);
   };
@@ -20,11 +21,9 @@ export const DropDownDashboard: FC = (): ReactElement => {
         type="button"
         onClick={toggleDropdown}
       >
-        {selectedValue}{' '}
+        {selectedValue}{" "}
         <svg
-          className={`w-2.5 h-2.5 ml-2.5 ${
-            isActive ? 'transform rotate-180' : ''
-          }`}
+          className={`w-2.5 h-2.5 ml-2.5 ${isActive ? "transform rotate-180" : ""}`}
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -49,9 +48,9 @@ export const DropDownDashboard: FC = (): ReactElement => {
               <a
                 href="#"
                 className={`block px-4 py-2 hover:bg-gray-100 text-sm ${
-                  selectedValue === 'Semua' ? 'bg-gray-100' : ''
+                  selectedValue === "Semua" ? "bg-gray-100" : ""
                 }`}
-                onClick={() => handleItemClick('Semua')}
+                onClick={() => handleItemClick("Semua")}
               >
                 Semua
               </a>
@@ -60,9 +59,9 @@ export const DropDownDashboard: FC = (): ReactElement => {
               <a
                 href="#"
                 className={`block px-4 py-2 hover:bg-gray-100 text-sm ${
-                  selectedValue === 'AI Optimation' ? 'bg-gray-100' : ''
+                  selectedValue === "AI Optimation" ? "bg-gray-100" : ""
                 }`}
-                onClick={() => handleItemClick('AI Optimation')}
+                onClick={() => handleItemClick("AI Optimation")}
               >
                 AI Optimation
               </a>
@@ -71,11 +70,9 @@ export const DropDownDashboard: FC = (): ReactElement => {
               <a
                 href="#"
                 className={`block px-4 py-2 hover:bg-gray-100 text-sm ${
-                  selectedValue === 'AI Document Verification'
-                    ? 'bg-gray-100'
-                    : ''
+                  selectedValue === "AI Document Verification" ? "bg-gray-100" : ""
                 }`}
-                onClick={() => handleItemClick('AI Document Verification')}
+                onClick={() => handleItemClick("AI Document Verification")}
               >
                 AI Document Verification
               </a>
@@ -84,9 +81,9 @@ export const DropDownDashboard: FC = (): ReactElement => {
               <a
                 href="#"
                 className={`block px-4 py-2 hover:bg-gray-100 text-sm ${
-                  selectedValue === 'AI Condition Analysis' ? 'bg-gray-100' : ''
+                  selectedValue === "AI Condition Analysis" ? "bg-gray-100" : ""
                 }`}
-                onClick={() => handleItemClick('AI Condition Analysis')}
+                onClick={() => handleItemClick("AI Condition Analysis")}
               >
                 AI Condition Analysis
               </a>
@@ -95,11 +92,9 @@ export const DropDownDashboard: FC = (): ReactElement => {
               <a
                 href="#"
                 className={`block px-4 py-2 hover:bg-gray-100 text-sm ${
-                  selectedValue === 'AI Location & Movement'
-                    ? 'bg-gray-100'
-                    : ''
+                  selectedValue === "AI Location & Movement" ? "bg-gray-100" : ""
                 }`}
-                onClick={() => handleItemClick('AI Location & Movement')}
+                onClick={() => handleItemClick("AI Location & Movement")}
               >
                 AI Location & Movement
               </a>

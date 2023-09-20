@@ -1,7 +1,8 @@
-import { FC, ReactElement, useState } from 'react';
-import Image from 'next/image';
-import { TAccordionProps } from './types';
-import { IconDownArrow } from '@cs-user/components';
+"use client";
+import { FC, ReactElement, useState } from "react";
+import Image from "next/image";
+import { TAccordionProps } from "./types";
+import { IconDownArrow } from "@cs-user/components";
 
 export const Accordion: FC<TAccordionProps> = ({
   title,
@@ -16,14 +17,12 @@ export const Accordion: FC<TAccordionProps> = ({
   imgwidth,
   styleImg,
 }): ReactElement => {
-  const [isOpen, setIsOpen] = useState('');
+  const [isOpen, setIsOpen] = useState("");
   return (
     <div data-accordion="collapse" data-testid="accordion" className="mb-8">
       <h2>
         <button
-          onClick={() =>
-            isOpen === '' ? setIsOpen(`${idAccordion}`) : setIsOpen('')
-          }
+          onClick={() => (isOpen === "" ? setIsOpen(`${idAccordion}`) : setIsOpen(""))}
           type="button"
           className={`flex items-center justify-between w-full p-4 font-medium text-left rounded-xl  bg-[#F5F5F5] ${className} `}
           disabled={disabled}
@@ -38,10 +37,7 @@ export const Accordion: FC<TAccordionProps> = ({
             />
           )}
           <div className="text-[16px] font-[500] text-[#262626]">{title}</div>
-          <IconDownArrow
-            size={16}
-            className={isOpen && 'rotate-180 transition-transform'}
-          />
+          <IconDownArrow size={16} className={isOpen && "rotate-180 transition-transform"} />
         </button>
       </h2>
       {isOpen === `${idAccordion}` ? (
@@ -53,7 +49,7 @@ export const Accordion: FC<TAccordionProps> = ({
           </div>
         </div>
       ) : (
-        ''
+        ""
       )}
     </div>
   );
