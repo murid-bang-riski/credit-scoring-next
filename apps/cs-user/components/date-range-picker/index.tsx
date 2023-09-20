@@ -83,27 +83,30 @@ export const DatePickerRange: React.FC<DateRangePickerProps> = ({ onRangeChange,
   return (
     <div>
       <div
-        className={`flex bg-white justify-center text-xs items-center text-gray-400 border border-gray-200 p-2 rounded-lg gap-x-2 ${
+        className={`flex bg-white justify-center h-[40px] text-xs items-center text-gray-400 border border-gray-200 p-2 rounded-lg gap-x-2 ${
           props.width ? props.width : "w-auto"
         }`}
         onClick={() => setOpen((open) => !open)}
       >
-        <span className=" flex flex-row items-center">
+        <span className=" flex flex-row items-center gap-x-2">
           Dari{" "}
+          <span className="text-base pl-2">
+            {" "}
+            <IconCalendar />{" "}
+          </span>{" "}
           {formatDate({
             date: ranges?.startDate,
             options,
           })}
+        </span>{" "}
+        <span className="flex flex-row items-center gap-x-2">
+          Sampai{" "}
           <span className="text-base pl-2">
-            <IconCalendar />
-          </span>
-        </span>
-        <span className="flex flex-row items-center">
-          Sampai {formatDate({ date: ranges?.endDate, options })}
-          <span className="text-base pl-2">
-            <IconCalendar />
-          </span>
-        </span>
+            {" "}
+            <IconCalendar />{" "}
+          </span>{" "}
+          {formatDate({ date: ranges?.endDate, options })}
+        </span>{" "}
       </div>
 
       <div ref={refOne}>
