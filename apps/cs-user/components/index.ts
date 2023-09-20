@@ -9,3 +9,4 @@ export * from "./accordion";
 export * from "./table";
 export * from "./react-table";
 export * from "./loadingSpinner";
+export * from "./pagination";

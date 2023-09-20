@@ -2,6 +2,7 @@ import React, { ReactNode, useState, ReactElement } from "react";
 
 export interface TableColumn {
   header: string;
+  sort_by: string;
   colspan?: number;
   className?: string;
   hasSorting?: boolean;
@@ -95,7 +96,7 @@ export const ReusableTable: React.FC<TableProps> = ({
               <div className="flex justify-center items-center gap-4">
                 {column.header}
                 {column.hasSorting && (
-                  <button onClick={() => MainTableSort && MainTableSort(column.header)}>
+                  <button onClick={() => MainTableSort && MainTableSort(column.sort_by)}>
                     <svg
                       width="8"
                       height="12"
