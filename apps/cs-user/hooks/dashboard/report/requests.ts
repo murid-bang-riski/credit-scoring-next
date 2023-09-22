@@ -7,8 +7,8 @@ export const CustomerRequestData = async (): Promise<TCostumerReportData> => {
 };
 
 export const RequestsReportData = async (
-  page: number,
-  per_page: number,
+  page?: number,
+  per_page?: number,
   search?: string,
 ): Promise<TSRequestResponse> => {
   const { data } = await api.get(

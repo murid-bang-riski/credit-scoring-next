@@ -14,15 +14,15 @@ import { RequestCustomerState } from "recoil/atoms/costumer-report";
 import { RequestsReportState } from "recoil/atoms/request-report";
 
 export const RequestCustomerData = (
-  page: number,
-  limit: number,
-  search: string,
-  sort: string,
-  per_page: number,
-  order: string,
-  sort_by: string,
-  date_from: string,
-  date_to: string,
+  page?: number,
+  limit?: number,
+  search?: string,
+  sort?: string,
+  per_page?: number,
+  order?: string,
+  sort_by?: string,
+  date_from?: string,
+  date_to?: string,
 ): UseQueryResult<TCostumerReportData, TMetaErrorResponse> =>
   useQuery({
     queryKey: ["customer-get"],
@@ -38,8 +38,8 @@ export const useCustomerData = (): TUseCustomerReport => {
 };
 
 export const RequestsReport = (
-  page: number,
-  per_page: number,
+  page?: number,
+  per_page?: number,
   search?: string,
 ): UseQueryResult<TSRequestResponse, TMetaErrorResponse> =>
   useQuery({

@@ -36,12 +36,13 @@ export const Paginations: React.FC<PaginationProps> = ({
 
     if (firstPageInRange > 1) {
       pagination.push(
-        <span
+        <button
           key="ellipsis-start"
           className="text-[12px] text-[#C2C2C2] rounded-sm flex justify-center items-center shadow-md w-[30px]  h-[30px]  border-2 border-[#BCBCBC]"
+          onClick={() => setPage(1)}
         >
-          ...
-        </span>,
+          1
+        </button>,
       );
     }
 
@@ -63,12 +64,13 @@ export const Paginations: React.FC<PaginationProps> = ({
 
     if (lastPageInRange < totalPages) {
       pagination.push(
-        <span
+        <button
           key="ellipsis-end"
           className="text-[12px] text-[#C2C2C2] rounded-sm flex justify-center items-center shadow-md w-[30px]  h-[30px]  border-2 border-[#BCBCBC]"
+          onClick={() => setPage(totalPages)}
         >
-          ...
-        </span>,
+          {totalPages}
+        </button>,
       );
     }
 

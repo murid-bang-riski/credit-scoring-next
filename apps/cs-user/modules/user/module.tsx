@@ -4,7 +4,7 @@ import { DatePickerRange, IconPlus, Search } from "@cs-user/components";
 import Link from "next/link";
 import { useState } from "react";
 import { UserTable } from "./table-user";
-
+import { useGetUserData } from "hooks/dashboard/user/hooks";
 export const UserModule = () => {
   const [option, setOption] = useState({
     date_from: "",
@@ -21,6 +21,10 @@ export const UserModule = () => {
     const endDate = new Date(data.endDate).toISOString();
     setOption((prev) => ({ ...prev, date_from: startDate, date_to: endDate }));
   };
+
+  // const { isLoading, data } = useGetUserData();
+  // console.log("user", data?.data);
+
   return (
     <div className="bg-white p-9">
       <div className="flex justify-between mb-8">
