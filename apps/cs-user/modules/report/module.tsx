@@ -5,7 +5,7 @@ import { RequestReport } from "./request";
 import { FeatureReport } from "./feature";
 import React from "react";
 import { Tab } from "@headlessui/react";
-import { RequestCustomerData, RequestsReport } from "hooks/dashboard/report/hooks";
+import { RequestCustomerData, RequestsReport } from "../../hooks/dashboard/report/hooks";
 
 export const ModuleReport = () => {
   const { data } = RequestCustomerData();
