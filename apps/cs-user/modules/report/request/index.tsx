@@ -5,7 +5,7 @@
 import {
   ReusableTable,
   SubTable as SubTableComponent,
-  DateTimeRenderer,
+  // DateTimeRenderer,
   renderedHasil,
 } from "components/table";
 import React, { FC, useState } from "react";
@@ -18,7 +18,7 @@ import { Search, DatePickerRange } from "@cs-user/components";
 import OptionData from "../../permintaan/hasil/OptionData.json";
 import { TSRequestReport } from "@cs-user/types";
 import { Columns, SubTable } from "./headertable";
-
+import { formatTime } from "@cs-user/utils";
 type Props = {
   data: TSRequestReport[];
 };
@@ -215,8 +215,8 @@ export const RequestReport: FC<Props> = ({ data }) => {
               </td>
               <td>
                 <div className="flex justify-center items-center">
-                  {" "}
-                  {DateTimeRenderer({ timestamp: data.requested_at })}
+                  {formatTime(data.requested_at).formatedDate}
+                  {/* {DateTimeRenderer({ timestamp: data.requested_at })} */}
                 </div>
               </td>
               <td>
@@ -230,12 +230,14 @@ export const RequestReport: FC<Props> = ({ data }) => {
               </td>
               <td>
                 <div className="flex justify-center items-center">
-                  {DateTimeRenderer({ timestamp: data.requested_at })}
+                  {formatTime(data.requested_at).formatedDate}
+                  {/* {DateTimeRenderer({ timestamp: data.requested_at })} */}
                 </div>
               </td>
               <td>
                 <div className="flex justify-center items-center">
-                  {DateTimeRenderer({ timestamp: data.finished_at })}
+                  {formatTime(data.requested_at).formatedDate}
+                  {/* {DateTimeRenderer({ timestamp: data.finished_at })} */}
                 </div>
               </td>
             </tr>
@@ -275,7 +277,8 @@ export const RequestReport: FC<Props> = ({ data }) => {
                           </td>
                           <td className="p-2">
                             <div className="flex justify-center items-center">
-                              {DateTimeRenderer({ timestamp: data.date_requested })}
+                              {formatTime(data.date_requested).formatedDate}
+                              {/* {DateTimeRenderer({ timestamp: data.date_requested })} */}
                             </div>
                           </td>
                           <td className="p-2">

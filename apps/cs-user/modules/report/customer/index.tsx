@@ -5,7 +5,7 @@ import {
   ReusableTable,
   SubTable as SubTableComponent,
   TableColumn,
-  DateTimeRenderer,
+  // DateTimeRenderer,
   renderedHasil,
 } from "components/table";
 import React, { FC, useState } from "react";
@@ -15,9 +15,8 @@ import { BiSolidCaretDownCircle, BiSolidCaretRightCircle } from "react-icons/bi"
 import { MdArrowBackIosNew } from "react-icons/md";
 import { Search } from "components/search";
 import { TSCustomerReport } from "types/dashboard";
-
 import OptionData from "../../permintaan/hasil/OptionData.json";
-
+import { formatTime } from "@cs-user/utils";
 type Props = {
   data: TSCustomerReport[];
 };
@@ -270,7 +269,9 @@ export const ReportCustomer: FC<Props> = ({ data }) => {
                           </td>
                           <td className="p-2">
                             <div className="flex justify-center items-center">
-                              {DateTimeRenderer({ timestamp: data.requested_at })}
+                              {/* {data.requested_at} */}
+                              {formatTime(data.requested_at).formatedDate}
+                              {/* {DateTimeRenderer({ timestamp: data.requested_at })} */}
                             </div>
                           </td>
                           <td className="p-2">
